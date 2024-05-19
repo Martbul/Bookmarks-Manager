@@ -1,4 +1,4 @@
-import Home from "./pages/Home"
+import Connections from "./pages/Connections"
 
 
 function App() {
@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-     <Home></Home>
+     <Connections></Connections>
     </>
   )
 }

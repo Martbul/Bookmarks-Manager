@@ -1,8 +1,8 @@
-import "./home.css";
+import "./Connections.css";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useState } from "react";
-const Home = () => {
+const Connections = () => {
   const [googleProfile, setGoogleProfile] = useState(null);
 
   return (
@@ -43,4 +43,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Connections;
