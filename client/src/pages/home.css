@@ -1,0 +1,8 @@
+
+
+.social-media-auth{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 50;
+}
