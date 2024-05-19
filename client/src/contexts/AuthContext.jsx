@@ -1,5 +1,5 @@
-import { createContext, useCallback, useEffect, useState,baseUrl } from "react";
-import { postRequest} from "../utils/services";
+import { createContext, useCallback, useEffect, useState } from "react";
+import { postRequest,baseUrl} from "../utils/services";
 
 export const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
@@ -25,7 +25,7 @@ export const AuthContextProvider = ({ children }) => {
       password: "",
     });
   
-  //console.log("loginInfo", loginInfo);
+ 
   
   
     useEffect(()=>{
