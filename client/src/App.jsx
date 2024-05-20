@@ -13,23 +13,26 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {  ConnectionsContextProvider } from "./contexts/ConnectionsContext";
 //import { BookmarksContextProvider } from "./contexts/BookmarksContext";
 function App() {
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   
   return (
     <ConnectionsContextProvider user={user}>
-     
-          <NavBar></NavBar>
+      <NavBar></NavBar>
       <Container>
         <Routes>
           <Route path="/" element={user ? <Home /> : <Login />} />
-          <Route path="/connections" element={user ? <Connections /> : <Login />} />
-          <Route path="/register" element={user ? <Home /> : <Register />} />
+          <Route
+            path="/connections"
+            element={user ? <Connections /> : <Login />}
+          />
+          <Route
+            path="/register"
+            element={user ? <Home /> : <Register setUser={setUser} />}
+          />
           <Route path="/login" element={user ? <Home /> : <Login />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Container>
-     
-    
     </ConnectionsContextProvider>
   );
 }

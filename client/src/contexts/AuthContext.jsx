@@ -4,7 +4,7 @@ import { postRequest,baseUrl} from "../utils/services";
 export const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
 
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('User')));	
   
   
     const [registerError, setRegisterError] = useState(null);
@@ -28,10 +28,11 @@ export const AuthContextProvider = ({ children }) => {
  
   
   
-    useEffect(()=>{
-      const user = localStorage.getItem('User');
+    useEffect(() => {
+      const user = localStorage.getItem("User");
+      console.log(user);
       setUser(JSON.parse(user));
-    },[]);
+    }, [localStorage.getItem("User")]);
     
   
     const updateRegisterInfo = useCallback((info) => {
@@ -100,7 +101,23 @@ export const AuthContextProvider = ({ children }) => {
   
   
     return (
-      <AuthContext.Provider value={{ user,  registerInfo,loginInfo,  registerError,loginError,   isRegisterLoading,isLoginLoading,   updateRegisterInfo,updateLoginInfo,   registerUser,loginUser,  logoutUser }}>
+      <AuthContext.Provider
+        value={{
+          setUser,
+          user,
+          registerInfo,
+          loginInfo,
+          registerError,
+          loginError,
+          isRegisterLoading,
+          isLoginLoading,
+          updateRegisterInfo,
+          updateLoginInfo,
+          registerUser,
+          loginUser,
+          logoutUser,
+        }}
+      >
         {children}
       </AuthContext.Provider>
       //* when you use the authContext you can

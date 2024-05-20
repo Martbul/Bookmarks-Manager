@@ -3,10 +3,35 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { ConnectionsContext } from "../../contexts/ConnectionsContext";
 
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 
-const Register = () => {
-  const { registerInfo, updateRegisterInfo,registerError,isRegisterLoading,registerUser } = useContext(AuthContext);
-  const { authToYouTube, userYoutubeDetails} = useContext(ConnectionsContext);
+const Register = ({ setUser }) => {
+  const {
+    registerInfo,
+    updateRegisterInfo,
+    registerError,
+    isRegisterLoading,
+    registerUser,
+  } = useContext(AuthContext);
+  const { authToYouTube, userYoutubeDetails } = useContext(ConnectionsContext);
+
+  const handleGoogleLogin = (credentialResponse) => {
+    const token = JSON.stringify(credentialResponse);
+    const decoded = jwtDecode(token);
+    console.log(token);
+    console.log(decoded);
+    let userAuthObj = {
+      email: decoded.email,
+      name: decoded.given_name,
+      token: credentialResponse.credential,
+    };
+    console.log(userAuthObj);
+    localStorage.setItem("User", JSON.stringify(userAuthObj));
+
+    setUser(userAuthObj);
+  };
+
   return (
     <>
       <Form onSubmit={registerUser}>
@@ -46,24 +71,24 @@ const Register = () => {
                 }
               />
               <Button variant="primary" type="submit">
-                {isRegisterLoading ? "Creating Your Account": "Register"}
+                {isRegisterLoading ? "Creating Your Account" : "Register"}
               </Button>
-                    {
-                        registerError?.error &&  <Alert variant="danger">
-                        <p>{registerError?.message}</p>
-                      </Alert>
-                    }
-             
+              {registerError?.error && (
+                <Alert variant="danger">
+                  <p>{registerError?.message}</p>
+                </Alert>
+              )}
             </Stack>
           </Col>
         </Row>
       </Form>
-      <button
-          className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
-          onClick={()=> authToYouTube()}
-        >
-          Google SignUp
-        </button>
+
+      <GoogleLogin
+        onSuccess={handleGoogleLogin}
+        onError={() => {
+          console.log("Google Login Failed");
+        }}
+      />
     </>
   );
 };
