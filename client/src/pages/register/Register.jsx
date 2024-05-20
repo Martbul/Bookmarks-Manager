@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { ConnectionsContext } from "../../contexts/ConnectionsContext";
 
+
 const Register = () => {
   const { registerInfo, updateRegisterInfo,registerError,isRegisterLoading,registerUser } = useContext(AuthContext);
   const { authToYouTube, userYoutubeDetails} = useContext(ConnectionsContext);

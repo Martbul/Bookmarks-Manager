@@ -8,17 +8,24 @@ import { AuthContextProvider } from './contexts/AuthContext.jsx';
 import './index.css'
 import { BrowserRouter } from 'react-router-dom';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+ReactDOM.createRoot(document.getElementById("root")).render(
+  // <React.StrictMode>
+  //   <BrowserRouter>
+  //   <AuthContextProvider>
+  //     <GoogleOAuthProvider clientId="514607532464-8e0usq72mockirp1307hgmfv3tjt690k.apps.googleusercontent.com">
+  //     <App />
+  //     </GoogleOAuthProvider>
+  //    </AuthContextProvider>
+  //   </BrowserRouter>
+
+  // </React.StrictMode>,
+  
     <BrowserRouter>
-    <AuthContextProvider>
-      <GoogleOAuthProvider clientId="514607532464-8e0usq72mockirp1307hgmfv3tjt690k.apps.googleusercontent.com">
-      <App />
-      </GoogleOAuthProvider>
-     </AuthContextProvider>
+      <AuthContextProvider>
+        <GoogleOAuthProvider clientId="514607532464-8e0usq72mockirp1307hgmfv3tjt690k.apps.googleusercontent.com">
+          <App />
+        </GoogleOAuthProvider>
+      </AuthContextProvider>
     </BrowserRouter>
-     
-    
-    
-  </React.StrictMode>,
-)
+ 
+);
