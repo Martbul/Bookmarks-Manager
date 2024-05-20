@@ -10,13 +10,15 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { ConnectionsContextProvider } from "./contexts/ConnectionsContext";
+import {  ConnectionsContextProvider } from "./contexts/ConnectionsContext";
+//import { BookmarksContextProvider } from "./contexts/BookmarksContext";
 function App() {
   const { user } = useContext(AuthContext);
-
+  
   return (
     <ConnectionsContextProvider user={user}>
-      <NavBar></NavBar>
+     
+          <NavBar></NavBar>
       <Container>
         <Routes>
           <Route path="/" element={user ? <Home /> : <Login />} />
@@ -26,6 +28,8 @@ function App() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Container>
+     
+    
     </ConnectionsContextProvider>
   );
 }

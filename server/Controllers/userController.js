@@ -97,11 +97,11 @@ const getUsers =async(req,res)=>{
 };
 
 const getSingleUser = async(req,res)=>{
-    console.log(req.body); 
-   const {user} = req.body
-   console.log(user); 
+   console.log(req.body);
+   const id = req.body.id
+   console.log(id); 
    try{
-        const user = await userModel.findById(user._id);
+        const user = await userModel.findById(id);
         console.log(user); 
         res.status(200).json(user);
     }catch(error){
