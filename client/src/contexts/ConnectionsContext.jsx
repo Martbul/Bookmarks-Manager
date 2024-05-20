@@ -1,29 +1,47 @@
-import { createContext, useCallback, useEffect, useState } from "react";
-import { postRequest,baseUrl} from "../utils/services";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { postRequest, baseUrl, getRequest } from "../utils/services";
+import { AuthContext } from "./AuthContext";
 
 export const ConnectionsContext = createContext();
 export const ConnectionsContextProvider = ({ children }) => {
+  const { user } = useContext(AuthContext);
+  const [userGoogleAccessToken, setGoogleAccessToken] = useState(null);
 
-  // const YOUTUE_PLAYLIST_ITEMS_API = "https://www.googleapis.com/youtube/v3/playlistItems";
-  // const YoutbeApiKey ="AIzaSyBguhrowaaW8ghAm7ytL3jb4KwHqjF6a0s"
-
-const [userYoutubeDetails,setUserYoutubeDetails] = useState(null)
-  
-   
-  // const authToYouTube = useCallback(async()=>{
-  //     const res = await fetch(`${YOUTUE_PLAYLIST_ITEMS_API}?part=snippet&playlistId=PLnIeRKWXg2gt8WH5c6n08KYrTC_I8gPoskey=${YoutbeApiKey}`)
-  //     const data = res.json();
-  //     setUserYoutubeDetails(data)
-  //     return data
-  // })
-  
-  
-    return (
-      <ConnectionsContext.Provider value={{ authToYouTube}}>
-        {children}
-      </ConnectionsContext.Provider>
+  useEffect(() => {
+    const id = user?._id
+    console.log(user);
+    const getUser = async () => {
+      const response = await postRequest(`${baseUrl}/users/singleUser`,JSON.stringify({
+        id,
+      }));
      
-    );
-  };
-  
 
+      if (response.error) {
+        return console.log("Error fetching user", response);
+      }
+      console.log("response", response);
+
+      setGoogleAccessToken(response);
+    };
+
+    getUser();
+  }, []);
+
+  const authToYouTube = useCallback(async () => {
+    window.location.href = "http://localhost:5000/api/users/google";
+  });
+
+  return (
+    <ConnectionsContext.Provider
+      value={{ authToYouTube, userGoogleAccessToken }}
+    >
+      {children}
+    </ConnectionsContext.Provider>
+  );
+};

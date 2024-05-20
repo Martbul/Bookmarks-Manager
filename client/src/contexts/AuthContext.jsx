@@ -16,7 +16,7 @@ export const AuthContextProvider = ({ children }) => {
     });
   
   
-  
+  console.log(user);
   
     const [loginError, setLoginError] = useState(null);
     const [isLoginLoading, setIsLoginLoading] = useState(false);

@@ -95,4 +95,22 @@ const getUsers =async(req,res)=>{
 
     }
 };
-module.exports = { registerUser,loginUser,findUser,getUsers };
+
+const getSingleUser = async(req,res)=>{
+    console.log(req.body); 
+   const {user} = req.body
+   console.log(user); 
+   try{
+        const user = await userModel.findById(user._id);
+        console.log(user); 
+        res.status(200).json(user);
+    }catch(error){
+        console.log(error);
+        res.status(500).json(error);
+
+    }
+};
+
+
+
+module.exports = { registerUser,loginUser,findUser,getUsers,getSingleUser };

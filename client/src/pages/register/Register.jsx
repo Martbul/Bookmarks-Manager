@@ -1,10 +1,11 @@
 import { Alert, Button, Form, Row, Col, Stack } from "react-bootstrap";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
+import { ConnectionsContext } from "../../contexts/ConnectionsContext";
 
 const Register = () => {
   const { registerInfo, updateRegisterInfo,registerError,isRegisterLoading,registerUser } = useContext(AuthContext);
-
+  const { authToYouTube, userYoutubeDetails} = useContext(ConnectionsContext);
   return (
     <>
       <Form onSubmit={registerUser}>
@@ -56,6 +57,12 @@ const Register = () => {
           </Col>
         </Row>
       </Form>
+      <button
+          className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
+          onClick={()=> authToYouTube()}
+        >
+          Google SignUp
+        </button>
     </>
   );
 };
