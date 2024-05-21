@@ -20,16 +20,22 @@ function App() {
       <NavBar></NavBar>
       <Container>
         <Routes>
-          <Route path="/" element={user ? <Home /> : <Login />} />
+          <Route
+            path="/"
+            element={user ? <Home /> : <Login setUser={setUser} />}
+          />
           <Route
             path="/connections"
-            element={user ? <Connections /> : <Login />}
+            element={user ? <Connections /> : <Login setUser={setUser} />}
           />
           <Route
             path="/register"
             element={user ? <Home /> : <Register setUser={setUser} />}
           />
-          <Route path="/login" element={user ? <Home /> : <Login />} />
+          <Route
+            path="/login"
+            element={user ? <Home /> : <Login setUser={setUser} />}
+          />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Container>

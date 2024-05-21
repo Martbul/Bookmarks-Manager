@@ -26,7 +26,7 @@ const Register = ({ setUser }) => {
       email: decoded.email,
       name: decoded.given_name,
       token: credentialResponse.credential,
-      jti: decoded.jti,
+      
     };
     let registerInfo = {
       email: decoded.email,
@@ -95,16 +95,15 @@ const Register = ({ setUser }) => {
                 </Alert>
               )}
             </Stack>
+            <GoogleLogin
+              onSuccess={handleGoogleLogin}
+              onError={() => {
+                console.log("Google Login Failed");
+              }}
+            />
           </Col>
         </Row>
       </Form>
-
-      <GoogleLogin
-        onSuccess={handleGoogleLogin}
-        onError={() => {
-          console.log("Google Login Failed");
-        }}
-      />
     </>
   );
 };
