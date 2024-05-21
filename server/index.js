@@ -1,12 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const Realm = require("realm");
+
 const { google } = require("googleapis");
 const mongoose = require("mongoose");
 const passport = require("passport");
 require("dotenv").config()
 require('./strategies/google')
-const session = require('express-session');
+const session = require("express-session");
 
 const userRoute = require('./Routes/userRoute');
 // const chatRoute = require('./Routes/chatRoute');
@@ -20,11 +20,13 @@ const port = process.env.PORT || 5000; //this env port is set automatically by y
 app.use(express.json());
 app.use(cors());
 
-app.use(session({
+app.use(
+  session({
     secret: process.env.SESSION_SECRET_KEY,
-    resave: true,
-    saveUninitialized: true
-  }));
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 
   app.use(passport.initialize());
@@ -36,7 +38,6 @@ app.use(passport.session());
 app.use("/api/users", userRoute);
 // app.use("/api/chats", chatRoute);
 // app.use("/api/messages", messageRoute);
-
 
 
 
