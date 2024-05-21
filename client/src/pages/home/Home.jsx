@@ -1,7 +1,9 @@
+
+
 const Home = () => {
   return (
     <>
-    <AppAppBar></AppAppBar>
+    
 
       <div className="all-social-medias">
         <div className="youtube">
