@@ -5,6 +5,7 @@ import { ConnectionsContext } from "../../contexts/ConnectionsContext";
 
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import { postRequest ,baseUrl} from "../../utils/services";
 
 const Register = ({ setUser }) => {
   const {
@@ -16,7 +17,7 @@ const Register = ({ setUser }) => {
   } = useContext(AuthContext);
   const { authToYouTube, userYoutubeDetails } = useContext(ConnectionsContext);
 
-  const handleGoogleLogin = (credentialResponse) => {
+  const handleGoogleLogin = async (credentialResponse) => {
     const token = JSON.stringify(credentialResponse);
     const decoded = jwtDecode(token);
     console.log(token);
@@ -25,7 +26,22 @@ const Register = ({ setUser }) => {
       email: decoded.email,
       name: decoded.given_name,
       token: credentialResponse.credential,
+      jti: decoded.jti,
     };
+    let registerInfo = {
+      email: decoded.email,
+      name: decoded.given_name,
+      jti: decoded.jti,
+    };
+
+    try {
+      const response = await postRequest(
+        `${baseUrl}/users/googleRegisterLogin`,
+        JSON.stringify(registerInfo)
+      );
+    } catch (error) {
+      console.log("google se schupi", error);
+    }
     console.log(userAuthObj);
     localStorage.setItem("User", JSON.stringify(userAuthObj));
 

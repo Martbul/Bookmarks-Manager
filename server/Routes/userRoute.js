@@ -1,9 +1,17 @@
 const express = require("express");
 const passport = require('passport')
-const { registerUser, loginUser, findUser, getUsers, getSingleUser } = require("../Controllers/userController")
+const {
+  registerUser,
+  loginUser,
+  findUser,
+  getUsers,
+  getSingleUser,
+  googleRegisterLoggin,
+} = require("../Controllers/userController");
 
 const router = express.Router();
 
+router.post("/googleRegisterLogin", googleRegisterLoggin);
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.get('/find/:userId', findUser);
