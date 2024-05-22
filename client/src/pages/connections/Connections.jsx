@@ -43,9 +43,7 @@ import {
 
 
 const getReturnedParamsFromSpotifyAuth = async (search) => {
-  console.log("SPOTIFY search:", search);
   const code = search.substring(6);
-  console.log("code", code);
   
   const client_id = SPOTIFY_CLIENT_ID;
   const client_secret = SPOTIFY_SECRET_ID;
@@ -78,12 +76,8 @@ const getReturnedParamsFromSpotifyAuth = async (search) => {
       const access_token = data.access_token;
       const refresh_token = data.refresh_token;
       const expires_in = data.expires_in;
-      // const access_token = data.access_token;
-      //  const access_token = data.access_token;
-      // Handle token response
-      console.log("access_token", access_token);
-            console.log("refresh_token", refresh_token);
-      console.log("expires_in", expires_in);
+      
+      
       
       const userSpotifyTokensData = JSON.stringify({
         access_token,
@@ -100,6 +94,7 @@ const getReturnedParamsFromSpotifyAuth = async (search) => {
 };
 
 
+//! trqbva da naprawih funcionalnost  za refreshvane na token i vzimane na user plejlisti
 
 
 
@@ -115,9 +110,9 @@ const Connections = () => {
   
   useEffect(() => {
    
-   console.log(window.location);
+   
    if (window.location.search) {
-     console.log("Window Location search:", window.location.search);
+    
      getReturnedParamsFromSpotifyAuth(window.location.search);
    }
  });
@@ -138,7 +133,6 @@ const Connections = () => {
     const encodedString = searchParams.toString();
 
     const auth_url = `${SPOTIFY_AUTH_URL}?${encodedString}`;
-    console.log(auth_url);
 
     window.location = auth_url;
     
