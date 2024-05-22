@@ -68,7 +68,7 @@ const getReturnedParamsFromSpotifyAuth = async (search) => {
 
 
 
-
+//! token refresh doesn't work!!! (the problem is in the api call(i assume))
 const refreshAccessToken = async () => {
   const client_id = SPOTIFY_CLIENT_ID;
   const client_secret = SPOTIFY_SECRET_ID;
@@ -92,6 +92,8 @@ const refreshAccessToken = async () => {
       body: requestBody,
     });
 
+
+
     if (!response.ok) {
       throw new Error("Failed to refresh token");
     }
@@ -101,7 +103,8 @@ const refreshAccessToken = async () => {
 
     const userSpotifyTokens = JSON.stringify({
       access_token: data.access_token,
-      refresh_token: data.refresh_token,
+      //! setting the old refresh token as new(hpe it will fix the error)
+      refresh_token,
       expirationTime: new Date().getTime() + data.expires_in * 1000
     });
     // Update tokens and expiration time in local storage
@@ -111,10 +114,9 @@ const refreshAccessToken = async () => {
     console.error("Error refreshing token:", error);
   }
 };
-//! old tokens in 21:38
-// access_token: "BQBZnpsmJ3SSgJ00fKdA1HoSDV2tyYSihSi12E8QnqW4f70oXgQ-XyHJggQYfu6O1qTNK6d9zbu3kQWQQ00Ux_dGPZ_tLX0FKd7m3KDoJD9BUPHmV37WV6qVegGvwZtgxVWFTRk98_VYmDnDT0u2Zso5lWiek39N201JvWHgF8e4-Gg6bksY7v5WDrVheY5SutxDIZ1moUvXO3A3KA";
-// expirationTime: 1716406680345;
-// refresh_token: "AQCz7KMRcRiZsvwiRW_BHoxmw3F6p8EDfk-RS28VGZ5RREgcZVXt2YuMi4FAk5tSeUHvgOhcnfgjeHiHjj-3FB3gqmjGR7-1y6uds_16b4KQTMT5AZyhb20Rmvf-wnNAQ9E";
+
+
+
 const checkAndRefreshToken = async () => {
   const userSpotifyTokensData = localStorage.getItem("UserSpotifyTokensData");
   console.log(userSpotifyTokensData);
@@ -123,16 +125,16 @@ const checkAndRefreshToken = async () => {
   const currentTime = new Date().getTime();
   console.log(currentTime);
 
-  // If the token has expired or is about to expire in the next minute
+  
   if (currentTime > expirationTime - 60000) {
     await refreshAccessToken();
   }
 };
 
-// Call this function periodically, e.g., every minute
-setInterval(checkAndRefreshToken, 2000000);
 
-//! this is for refreshing the access token ^
+setInterval(checkAndRefreshToken, 2230000);
+
+
 
 
 const Connections = () => {

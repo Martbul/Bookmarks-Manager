@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import "./Bookmarks.css"
 
 const Bookmarks = () => {
@@ -66,21 +68,21 @@ const Bookmarks = () => {
               {/* duplicate these li tag if you want to add or remove navlink only */}
               {/* Start */}
               <li className="item">
-                <a href="#" className="nav_link">
+                <Link className="nav_link" to="/tiktok">
                   <span className="navlink_icon">
                     <i className="bx bxs-magic-wand" />
                   </span>
                   <span className="navlink">Tik Tok</span>
-                </a>
+                </Link>
               </li>
               {/* End */}
               <li className="item">
-                <a href="#" className="nav_link">
+                <Link to="/youtube" className="nav_link">
                   <span className="navlink_icon">
                     <i className="bx bx-loader-circle" />
                   </span>
                   <span className="navlink">You Tube</span>
-                </a>
+                </Link>
               </li>
               <li className="item">
                 <a href="#" className="nav_link">
