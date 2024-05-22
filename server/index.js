@@ -9,6 +9,7 @@ require('./strategies/google')
 const session = require("express-session");
 
 const userRoute = require('./Routes/userRoute');
+const spotifyPlaylistsRoute = require('./Routes/spotifyPlaylistRoute')
 // const chatRoute = require('./Routes/chatRoute');
 // const messageRoute = require('./Routes/messageRoute');
 
@@ -25,6 +26,7 @@ app.use(
     secret: process.env.SESSION_SECRET_KEY,
     resave: false,
     saveUninitialized: true,
+    cookie: { secure: false },
   })
 );
 
@@ -36,6 +38,7 @@ app.use(passport.session());
 
 
 app.use("/api/users", userRoute);
+//app.use("/api/playlists", spotifyPlaylistsRoute);
 // app.use("/api/chats", chatRoute);
 // app.use("/api/messages", messageRoute);
 

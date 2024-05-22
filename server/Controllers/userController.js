@@ -6,11 +6,28 @@ const jwt = require("jsonwebtoken");
 const axios = require("axios");
 require("dotenv").config();
 const session = require("express-session");
+
+
+
+
+
+
+
+
+
 const createToken = (_id) => {
   const jwtkey = process.env.JWT_SECRET_KEY;
 
   return jwt.sign({ _id }, jwtkey, { expiresIn: "3d" });
 };
+
+
+
+
+
+
+
+
 
 const registerUser = async (req, res) => {
   try {
@@ -47,6 +64,12 @@ const registerUser = async (req, res) => {
     res.status(500).json(error);
   }
 };
+
+
+
+
+
+
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -140,105 +163,105 @@ const googleRegisterLoggin = async (req, res) => {
   }
 };
 
-const spotifyRedirect = async (req, res) => {
-  const redirect_uri = "http://localhost:5000/api/users/spotify/redirect";
+// const spotifyRedirect = async (req, res) => {
+//   const redirect_uri = "http://localhost:5000/api/users/spotify/redirect";
 
-  let code = req.query.code;
-  let state = req.query.state;
-  console.log("code   ", code);
+//   let code = req.query.code;
+//   let state = req.query.state;
+//   console.log("code   ", code);
 
-  // req_body = {
-  //   code,
-  //   grant_type: "authorization_code",
-  //   redirect_uri: redirect_uri,
-  //   client_id: process.env.SPOTIFY_CLIENT_ID,
-  //   client_secret: process.env.SPOTIFY_SECRET_ID,
-  // };
+//   // req_body = {
+//   //   code,
+//   //   grant_type: "authorization_code",
+//   //   redirect_uri: redirect_uri,
+//   //   client_id: process.env.SPOTIFY_CLIENT_ID,
+//   //   client_secret: process.env.SPOTIFY_SECRET_ID,
+//   // };
 
-  req_body = {
-    code,
-    grant_type: "authorization_code",
-    redirect_uri: "http://localhost:5000/api/users/spotify/redirect",
-    client_id: "1fa47df779a24d849896c3c9f51669e6",
-    client_secret: "4dc1c1db4ee44787aa89fc59deb19c64",
-    };
+//   req_body = {
+//     code,
+//     grant_type: "authorization_code",
+//     redirect_uri: "http://localhost:5000/api/users/spotify/redirect",
+//     client_id: "1fa47df779a24d849896c3c9f51669e6",
+//     client_secret: "4dc1c1db4ee44787aa89fc59deb19c64",
+//     };
     
-    try {
-      const authResponse = await axios.post(
-        "https://accounts.spotify.com/api/token",
-        req_body,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization:
-              "Basic " +
-              Buffer.from(
-                "1fa47df779a24d849896c3c9f51669e6" +
-                  ":" +
-                  "4dc1c1db4ee44787aa89fc59deb19c64"
-              ).toString("base64"),
-          },
-        }
-      );
+//     try {
+//       const authResponse = await axios.post(
+//         "https://accounts.spotify.com/api/token",
+//         req_body,
+//         {
+//           headers: {
+//             "Content-Type": "application/x-www-form-urlencoded",
+//             Authorization:
+//               "Basic " +
+//               Buffer.from(
+//                 "1fa47df779a24d849896c3c9f51669e6" +
+//                   ":" +
+//                   "4dc1c1db4ee44787aa89fc59deb19c64"
+//               ).toString("base64"),
+//           },
+//         }
+//       );
 
-      console.log(authResponse);
+      
 
-      let accessToken = authResponse.data.access_token;
-      let refreshToken = authResponse.data.refresh_token;
-      let expiresIn = authResponse.data.expires_in;
-      console.log(accessToken);
-      console.log(refreshToken);
-        console.log(expiresIn);
+//       let accessToken = authResponse.data.access_token;
+//       let refreshToken = authResponse.data.refresh_token;
+//       let expiresIn = authResponse.data.expires_in;
+//       console.log(accessToken);
+//       console.log(refreshToken);
+//         console.log(expiresIn);
 
-        let currentTimestamp = Date.now();
-        let expiresAt = currentTimestamp + (3600 * 1000); //! greshno e 
-        console.log("expiresAt:",expiresAt);
+//         let currentTimestamp = Date.now();
+//         let expiresAt = currentTimestamp + (3600 * 1000); //! greshno e
+//         console.log("expiresAt:",expiresAt);
 
-        // sessionStorage.setItem('Spotify_Access_Token', accessToken)
-        // sessionStorage.setItem("Spotify_Refresh_Token", refreshToken);
-        // sessionStorage.setItem("Spotify_Token_Expires_At", expiresAt);
-        
-
-        // Use the access token to make another request to Spotify API
-        
-
-
-
-
-    //   let userProfileResponse = await axios.get(
-    //     "https://api.spotify.com/v1/me",
-    //     {
-    //       headers: {
-    //         Authorization: "Bearer " + accessToken,
-    //       },
-    //     }
-    //     );
-    //     console.log(userProfileResponse);
-        
-
-
-        //! pochti bachka trqbva samo da sejvna v sesioq
+//         //! pochti bachka trqbva samo da sejvna v sesioq
           
-    req.session.accessToken = {accessToken};
+//       req.session.accessToken = { accessToken };
+//        req.session.refreshToken = { refreshToken };
+//       req.session.expiresIn = { expiresIn };
 
-    res.redirect("http://localhost:5173/connections");
+
+//    // res.redirect("http://localhost:5173/connections");
+//    // res.redirect("http://localhost:5000/api/playlists/getAllUserPlaylists");
         
         
         
-        
-    } catch (error) {
-        console.error('Error making POST request:', error);
-        res.status(500).send({
-            message: 'Failed to fetch data',
-            error: error.message
-        });
-    }
+//     } catch (error) {
+//         console.error('Error making POST request:', error);
+//         res.status(500).send({
+//             message: 'Failed to fetch data',
+//             error: error.message
+//         });
+//   }
 
 
-
-
+//   try {
+//       const response = await axios.get(
+//         "http://localhost:5000/api/playlists/getAllUserPlaylists"
+//       );
+//     console.log(response);
+//   } catch (error) {
+//      console.error("Error making GET request:", error);
+//      res.status(500).send({
+//        message: "Failed to fetch data",
+//        error: error.message,
+//      });
+//   }
+  
  
-};
+// };
+
+
+// като редирект дадох на спотифай ендпоинт към моя сървър и
+//  успешно взиамм аксес, рефреш и експирес ин токен,
+//   но след това понеже рекуеста е от екстерна апи не успявам да
+//    върна днни ким моя фронтенд нито да сетна локал или сешън страге,
+//   сега ще опитам да сложа като ердирек урл моя цлиент и там да обработя
+//   заявката и така няма да имам проблеми със сешън стораге икли редиерктвания постояно на усъра от бакенда
+
 
 module.exports = {
   registerUser,
@@ -247,5 +270,5 @@ module.exports = {
   getUsers,
   getSingleUser,
   googleRegisterLoggin,
-  spotifyRedirect,
+  
 };
