@@ -12,35 +12,6 @@ import {
 
 
 
-// const getReturnedParamsFromSpotifyAuth = async(search) => {
-//   console.log("SPOTIFY search:", search);
-//   const code = search.substring(1);
-//   console.log("String After Hashing:", code);
-//   const body = {
-//    code:code,
-//           redirect_uri: SPOTIFY_REDIRECT_URL,
-//         grant_type: 'authorization_code'
-//   }
-//   console.log(body);
-
-//     const response = await fetch("https://accounts.spotify.com/api/token", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/x-www-form-urlencoded",
-//         Authorization:
-//           "Basic " + btoa(SPOTIFY_CLIENT_ID + ":" + SPOTIFY_SECRET_ID),
-//       },
-//       body: body.toString(),
-//     });
-  
-//   console.log(response);
-
-// };
-
-
-
-
-
 
 const getReturnedParamsFromSpotifyAuth = async (search) => {
   const code = search.substring(6);
@@ -164,14 +135,10 @@ setInterval(checkAndRefreshToken, 2000000);
 //! this is for refreshing the access token ^
 
 
-
-
-
-
 const Connections = () => {
 
 
-  const { authToYouTube, userGoogleAccessTokenYouTube } =
+  const { authToYouTube, userGoogleAccessTokenYouTube, spotifyAccessToken } =
     useContext(ConnectionsContext);
     const location = useLocation();
   
@@ -209,7 +176,6 @@ const Connections = () => {
   return (
     <>
       <div className="social-media-auth">
-  
         <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200">
           TikTok
         </button>
@@ -240,14 +206,27 @@ const Connections = () => {
         <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200">
           GitHub
         </button>
-        
+        {!spotifyAccessToken && (
+          <>
+            <button
+              className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
+              onClick={handleSpotifyLogin}
+            >
+              Spotify
+            </button>
+          </>
+        )}
 
-        <button
-          className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
-          onClick={handleSpotifyLogin}
-        >
-          Spotify
-        </button>
+        {spotifyAccessToken && (
+          <>
+            <button
+              className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-primary hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
+             
+            >
+              Spotify
+            </button>
+          </>
+        )}
       </div>
     </>
   );

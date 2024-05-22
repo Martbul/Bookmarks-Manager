@@ -3,33 +3,40 @@ import { Container, Nav, Navbar, Stack } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 
-
 const NavBar = () => {
   const { user, logoutUser } = useContext(AuthContext);
 
   return (
     <>
       <Navbar bg="dark" className="mb-4" style={{ height: "3.75rem" }}>
-        <Container>
+           <Container>
+              
           <h2>
             <Link to="/" className="link-light text-decoration-none">
+            Home
+            </Link>
+          </h2>
+          <h2>
+            <Link to="/bookmarks" className="link-light text-decoration-none">
               Bookmarks Manager
             </Link>
-           
           </h2>
-          <h4> <Link to="/connections" className="link-light text-decoration-none">
-            Connections
-            </Link></h4>
-          {user &&(<>
-            <span className="text-warning">Logged in as {user?.name}</span>
-          </>) }
-         
+          <h4>
+            {" "}
+            <Link to="/connections" className="link-light text-decoration-none">
+              Connections
+            </Link>
+          </h4>
+          {user && (
+            <>
+              <span className="text-warning">Logged in as {user?.name}</span>
+            </>
+          )}
 
           <Nav>
             <Stack direction="horizontal" gap={3}>
               {user && (
                 <>
-              
                   <Link
                     onClick={() => logoutUser()}
                     to="/login"

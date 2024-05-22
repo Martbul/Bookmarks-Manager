@@ -5,12 +5,24 @@ import {
   useState,
 } from "react";
 import { postRequest, baseUrl, getRequest } from "../utils/services";
+import {
+  
+  SPOTIFY_CLIENT_ID,
+  SPOTIFY_REDIRECT_URL,
+  SPOTIFY_SECRET_ID,
+} from "../constants/spotifyConstants";
+
+
+
 
 export const ConnectionsContext = createContext();
 export const ConnectionsContextProvider = ({ children, user }) => {
   const [userGoogleAccessTokenYouTube, setGoogleAccessTokenYouTube] = useState(null);
-  const [allUserYoutubePlaylists, setAllUserYoutubePlaylists] = useState(null)
-  const [spotifyAccessToken, setSpotifyAccessToken] = useState(null)
+  const [allUserYoutubePlaylists, setAllUserYoutubePlaylists] = useState(null);
+  
+  const [spotifyAccessToken, setSpotifyAccessToken] = useState(null);
+  const [userSpotifyPlaylists, setUserSpotifyPlaylists] = useState(null)
+ 
 
   useEffect(() => {
     const id = user?._id;
@@ -70,6 +82,9 @@ export const ConnectionsContextProvider = ({ children, user }) => {
   
   
   
+  
+  
+  
   // getting user accessToken from localStorage and setting it in a useState varable
    useEffect(() => {
      const SpotifyTokens = localStorage.getItem("UserSpotifyTokensData");
@@ -80,66 +95,57 @@ export const ConnectionsContextProvider = ({ children, user }) => {
   
   
   
+  
+  
+  
+  
+  
+  
   //getting user spotify playlists with his accessToken
-  useEffect(async() => {
-     const client_id = 'your_client_id'; // Replace with your actual client ID
-  const client_secret = 'your_client_secret'; // Replace with your actual client secret
-  const refresh_token = localStorage.getItem('refresh_token'); // Retrieve the refresh token from storage
+  useEffect(() => {
+    const fetchUserPlaylists = async () => {
+  //! hoping i dont need to refresh manuali with this function but if access_token sometimes isnt workin here is a place to search for an error
+  //await checkAndRefreshToken(); 
 
-  const requestBody = new URLSearchParams({
-    grant_type: 'refresh_token',
-    refresh_token: refresh_token,
-    client_id: client_id,
-    client_secret: client_secret,
+
+
+  const response = await fetch("https://api.spotify.com/v1/me/playlists", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${spotifyAccessToken}`,
+    },
   });
 
-  try {
-    const response = await fetch('https://accounts.spotify.com/api/token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: requestBody.toString(),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to refresh token');
-    }
-
-    const data = await response.json();
-    console.log('New Token Response:', data);
-
-    // Update tokens and expiration time in local storage
-    localStorage.setItem('access_token', data.access_token);
-    if (data.refresh_token) {
-      localStorage.setItem('refresh_token', data.refresh_token);
-    }
-
-    const expirationTime = new Date().getTime() + data.expires_in * 1000;
-    localStorage.setItem('expiration_time', expirationTime);
-  } catch (error) {
-    console.error('Error refreshing token:', error);
+  if (!response.ok) {
+    throw new Error("Failed to fetch playlists");
   }
 
-   //logic for API CALL 
+  const data = await response.json();
+  return data;
+};
+
+fetchUserPlaylists()
+  .then((data) => {
+    console.log("User Playlists:", data.items);
+    setUserSpotifyPlaylists(data.items)
+  })
+  .catch((error) => {
+    console.error("Error fetching playlists:", error);
+  });
+    
+    fetchUserPlaylists()
+
   }, [spotifyAccessToken]);
   
   
-  
-  
-  
-  
-
-
-
-
-
-
-
-
   return (
     <ConnectionsContext.Provider
-      value={{ authToYouTube, userGoogleAccessTokenYouTube,allUserYoutubePlaylists }}
+      value={{
+        authToYouTube,
+        userGoogleAccessTokenYouTube,
+        allUserYoutubePlaylists,
+        spotifyAccessToken,
+      }}
     >
       {children}
     </ConnectionsContext.Provider>

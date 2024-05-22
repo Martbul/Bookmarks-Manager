@@ -5,13 +5,15 @@ import { AuthContext } from "./contexts/AuthContext";
 
 import Connections from "./pages/connections/Connections";
 import Home from "./pages/home/Home";
-import NavBar from "./componens/NavBar";
+import NavBar from "./components/NavBar";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import {  ConnectionsContextProvider } from "./contexts/ConnectionsContext";
-//import { BookmarksContextProvider } from "./contexts/BookmarksContext";
+import Bookmarks from "./pages/bookmarks/Bookmarks";
+import Footer from "./components/footer/Footer";
+
 function App() {
   const { user, setUser } = useContext(AuthContext);
   
@@ -36,8 +38,10 @@ function App() {
             path="/login"
             element={user ? <Home /> : <Login setUser={setUser} />}
           />
+          <Route path="/bookmarks" element={<Bookmarks />}></Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
+        <Footer />
       </Container>
     </ConnectionsContextProvider>
   );
