@@ -88,9 +88,13 @@ export const ConnectionsContextProvider = ({ children, user }) => {
   // getting user accessToken from localStorage and setting it in a useState varable
    useEffect(() => {
      const SpotifyTokens = localStorage.getItem("UserSpotifyTokensData");
-    const accessToken = JSON.parse(SpotifyTokens).access_token;
+     if (SpotifyTokens) {
+       const accessToken = JSON.parse(SpotifyTokens).access_token;
+        setSpotifyAccessToken(accessToken);
+     }
     
-     setSpotifyAccessToken(accessToken);
+    
+    
    }, [localStorage.getItem("UserSpotifyTokensData")]);
   
   
