@@ -89,6 +89,8 @@ const refreshAccessToken = async () => {
     
   });
   try {
+    //! set the url to 'https://accounts.spotify.com/api/refresh'
+    
     const response = await fetch("https://accounts.spotify.com/api/token", {
       method: "POST",
       headers: {
