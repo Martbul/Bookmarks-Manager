@@ -13,7 +13,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {  ConnectionsContextProvider } from "./contexts/ConnectionsContext";
 import Bookmarks from "./pages/bookmarks/Bookmarks";
 import Footer from "./components/footer/Footer";
-import Admin from "./pages/bookmarks/layouts/Admin";
+
 
 function App() {
   const { user, setUser } = useContext(AuthContext);
@@ -39,7 +39,7 @@ function App() {
             path="/login"
             element={user ? <Home /> : <Login setUser={setUser} />}
           />
-          <Route path="/bookmarks" element={<Admin />}></Route>
+          <Route path="/bookmarks/*" element={<Bookmarks/>}></Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         <Footer />

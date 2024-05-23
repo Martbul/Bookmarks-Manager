@@ -86,7 +86,8 @@ const refreshAccessToken = async () => {
   const requestBody = new URLSearchParams({
     grant_type: "refresh_token",
     refresh_token: refreshToken,
-    
+    client_id:SPOTIFY_CLIENT_ID,
+    client_secret:SPOTIFY_SECRET_ID
   });
   try {
     //! set the url to 'https://accounts.spotify.com/api/refresh'
@@ -114,7 +115,7 @@ const refreshAccessToken = async () => {
       access_token: data.access_token,
       //! setting the old refresh token as new(hpe it will fix the error)
       //! it did not
-      refresh_token: data.refreshToken,
+      refresh_token: refreshToken,
       expirationTime: new Date().getTime() + data.expires_in * 1000,
     });
     // Update tokens and expiration time in local storage
@@ -124,11 +125,10 @@ const refreshAccessToken = async () => {
     console.error("Error refreshing token:", error);
   }
 };
-//! tokens in 08:41
-// access_token: "BQD-BSOZkCOM1d2yddAYj5XJESx1nmvFFswaAF_WrHyR_2PY8OLvEo6NoaKV9EQ2cJjuzMl8WU3UBcpeSZrhyjXCDtxCKht2SP52AcG-9YSm-QiKIKyVkYyAnxQ8C9mKGRH2Ti-5MEs8_h41sYx8LGpPKyU20oLCeOyX2BtRiWZ2qaCXnVkU7W9vbE1qA97hFgW1SGSu_9-0xbv9cA";
-// expirationTime: 1716446461487;
-// refresh_token: "AQBixZ_4qh1bbga8CmIkZrfqMdYvCNVNafVFjetB5XKjY6rZVUjUk812Q9iUhMZIJRG5s1Av9dsch6F9BmZ8Tn0WSFIdY0GBYFi_PS2QYVIZLjqleAKCqR1xdD5XVua1L5I";
-
+//! tokens in 20:44
+// access_token: "BQA9oMSbpuh2HsvkJjv6Vaqgf1mBOYwmf9_HgWSq_Zkr_xaVGZff5et1Aa_G8G7R5pqPf59DHj_OmNY12akL9N9AS9i18dPqDIvI0IOWZX5E_Sh-WPLj8qits_MOYPyY6wETaFVCrDHB37BSonrn5hhR8BGKvYR4V1YjHEDYdEforYmHGrkuNi-S0w7IrC90Etp1ySEjl6duffH13w"
+// expirationTime:1716489787012
+// refresh_token: "AQCMuXWrVN0lfDVt14zQhX7XBPVyBvBJYd7-CfH65JzStAi9wB8Ka-kKshGDPYs9mpbjx4esHYwzcEDZR2lQiS_8dXFw-pKw3ZH4t22P9OHrvI_ejGnMZJoQsJl5YUIey_I"
 const checkAndRefreshToken = async () => {
   const userSpotifyTokensData = localStorage.getItem("UserSpotifyTokensData");
   console.log(userSpotifyTokensData);
@@ -142,7 +142,7 @@ const checkAndRefreshToken = async () => {
     await refreshAccessToken();
   }
 };
-setInterval(checkAndRefreshToken, 2244442);
+setInterval(checkAndRefreshToken, 333300);
 //! смятам че проблема с токена идва от там че Spotify не разбира че правя Authorization Code Flow 
 //! и заради това не ми връща refresh_token като се пробвам да рефрешна(но от друга страна ми 
 //! връща refresh_token при първия еркуест така че би трябвало да разбира какво искам)
