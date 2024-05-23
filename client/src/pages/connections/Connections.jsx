@@ -139,7 +139,7 @@ const checkAndRefreshToken = async () => {
     await refreshAccessToken();
   }
 };
-setInterval(checkAndRefreshToken, 2229992);
+setInterval(checkAndRefreshToken, 2244442);
 //! смятам че проблема с токена идва от там че Spotify не разбира че правя Authorization Code Flow 
 //! и заради това не ми връща refresh_token като се пробвам да рефрешна(но от друга страна ми 
 //! връща refresh_token при първия еркуест така че би трябвало да разбира какво искам)
