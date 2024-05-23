@@ -1,58 +1,59 @@
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-import AddToPhotosOutlinedIcon from '@mui/icons-material/AddToPhotosOutlined';
-import AspectRatioOutlinedIcon from '@mui/icons-material/AspectRatioOutlined';
-import AssignmentTurnedInOutlinedIcon from '@mui/icons-material/AssignmentTurnedInOutlined';
-import AlbumOutlinedIcon from '@mui/icons-material/AlbumOutlined';
-import SwitchCameraOutlinedIcon from '@mui/icons-material/SwitchCameraOutlined';
-import SwitchLeftOutlinedIcon from '@mui/icons-material/SwitchLeftOutlined';
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-import AutoAwesomeMosaicOutlinedIcon from '@mui/icons-material/AutoAwesomeMosaicOutlined';
+import FacebookSharpIcon from '@mui/icons-material/FacebookSharp';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import RedditIcon from '@mui/icons-material/Reddit';
+import XIcon from '@mui/icons-material/X';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import GoogleIcon from '@mui/icons-material/Google';
+import { SiTiktok } from "react-icons/si";
+import { GrSpotify } from "react-icons/gr";
+
 
 const Menuitems = [
   {
-    title: "Dashboard",
-    icon: DashboardOutlinedIcon,
-    href: "/bookmarks/dashboards/dashboard1",
+    title: "TikTok",
+    icon: SiTiktok,
+    href: "/bookmarks/tiktok",
   },
   {
-    title: "Autocomplete",
-    icon: AddToPhotosOutlinedIcon,
-    href: "/bookmarks/auto",
+    title: "YouTube",
+    icon: YouTubeIcon,
+    href: "/bookmarks/youtube",
   },
   {
-    title: "Buttons",
-    icon: AspectRatioOutlinedIcon,
-    href: "/bookmarks/form-elements/button",
+    title: "X",
+    icon: XIcon,
+    href: "/bookmarks/X",
   },
   {
-    title: "Checkbox",
-    icon: AssignmentTurnedInOutlinedIcon,
-    href: "/bookmarks/form-elements/checkbox",
+    title: "Instagram",
+    icon: InstagramIcon,
+    href: "/bookmarks/instagram",
   },
   {
-    title: "Radio",
-    icon: AlbumOutlinedIcon,
-    href: "/bookmarks/form-elements/radio",
+    title: "Reddit",
+    icon: RedditIcon,
+    href: "/bookmarks/reddit",
   },
   {
-    title: "Slider",
-    icon: SwitchCameraOutlinedIcon,
-    href: "/bookmarks/form-elements/slider",
+    title: "Spotify",
+    icon: GrSpotify,
+    href: "/bookmarks/spotify",
   },
   {
-    title: "Switch",
-    icon: SwitchLeftOutlinedIcon,
-    href: "/bookmarks/form-elements/switch",
+    title: "Facebook",
+    icon: FacebookSharpIcon,
+    href: "/bookmarks/facebook",
   },
   {
-    title: "Form",
-    icon: DescriptionOutlinedIcon,
-    href: "/bookmarks/form-layouts/form-layouts",
+    title: "Google",
+    icon: GoogleIcon,
+    href: "/bookmarks/google",
   },
   {
-    title: "Table",
-    icon: AutoAwesomeMosaicOutlinedIcon,
-    href: "/bookmarks/tables/basic-table",
+    title: "GitHub",
+    icon: GitHubIcon,
+    href: "/bookmarks/gitHub",
   },
 ];
 
