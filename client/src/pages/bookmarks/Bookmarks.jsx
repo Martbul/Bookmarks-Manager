@@ -1,182 +1,260 @@
 import { Link } from "react-router-dom";
 
-import "./Bookmarks.css"
+import "./css/Bookmarks.css"
+
 
 const Bookmarks = () => {
-    return (
+  return (
+    <>
       <>
-        {/* sidebar */}
-        <nav className="sidebar">
-          <div className="menu_content">
-            <ul className="menu_items">
-              <div className="menu_title menu_dahsboard" />
-              {/* duplicate or remove this li tag if you want to add or remove navlink with submenu */}
-              {/* start */}
-              <li className="item">
-                <div href="#" className="nav_link submenu_item">
-                  <span className="navlink_icon">
-                    <i className="bx bx-home-alt" />
-                  </span>
-                  <span className="navlink">Home</span>
-                  <i className="bx bx-chevron-right arrow-left" />
-                </div>
-                <ul className="menu_items submenu">
-                  <a href="#" className="nav_link sublink">
-                    Nav Sub Link
-                  </a>
-                  <a href="#" className="nav_link sublink">
-                    Nav Sub Link
-                  </a>
-                  <a href="#" className="nav_link sublink">
-                    Nav Sub Link
-                  </a>
-                  <a href="#" className="nav_link sublink">
-                    Nav Sub Link
-                  </a>
-                </ul>
-              </li>
-              {/* end */}
-              {/* duplicate this li tag if you want to add or remove  navlink with submenu */}
-              {/* start */}
-              <li className="item">
-                <div href="#" className="nav_link submenu_item">
-                  <span className="navlink_icon">
-                    <i className="bx bx-grid-alt" />
-                  </span>
-                  <span className="navlink">Overview</span>
-                  <i className="bx bx-chevron-right arrow-left" />
-                </div>
-                <ul className="menu_items submenu">
-                  <a href="#" className="nav_link sublink">
-                    Nav Sub Link
-                  </a>
-                  <a href="#" className="nav_link sublink">
-                    Nav Sub Link
-                  </a>
-                  <a href="#" className="nav_link sublink">
-                    Nav Sub Link
-                  </a>
-                  <a href="#" className="nav_link sublink">
-                    Nav Sub Link
-                  </a>
-                </ul>
-              </li>
-              {/* end */}
-            </ul>
-            <ul className="menu_items">
-              <div className="menu_title menu_editor" />
-              {/* duplicate these li tag if you want to add or remove navlink only */}
-              {/* Start */}
-              <li className="item">
-                <Link className="nav_link" to="/tiktok">
-                  <span className="navlink_icon">
-                    <i className="bx bxs-magic-wand" />
-                  </span>
-                  <span className="navlink">Tik Tok</span>
+        <div className="menu">
+          <ion-icon name="menu-outline" />
+          <ion-icon name="close-outline" />
+        </div>
+        <div className="barra-lateral">
+          <div>
+            <div className="nombre-pagina">
+              <ion-icon id="cloud" name="cloud-outline" />
+              <span>Apex</span>
+            </div>
+            <button className="boton">
+              <ion-icon name="add-outline" />
+              <span>Create new</span>
+            </button>
+          </div>
+          <nav className="navegacion">
+            <ul>
+              <li>
+                <Link to='sdsd'>
+                  <a id="inbox" href="#">
+                  <ion-icon name="mail-unread-outline" />
+                  <span>Inbox</span>
+                </a>
                 </Link>
+                
               </li>
-              {/* End */}
-              <li className="item">
-                <Link to="/youtube" className="nav_link">
-                  <span className="navlink_icon">
-                    <i className="bx bx-loader-circle" />
-                  </span>
-                  <span className="navlink">You Tube</span>
-                </Link>
-              </li>
-              <li className="item">
-                <a href="#" className="nav_link">
-                  <span className="navlink_icon">
-                    <i className="bx bx-social-media" />
-                  </span>
-                  <span className="navlink">Facebook</span>
+              <li>
+                <a href="#">
+                  <ion-icon name="star-outline" />
+                  <span>Starred</span>
                 </a>
               </li>
-              <li className="item">
-                <a href="#" className="nav_link">
-                  <span className="navlink_icon">
-                    <i className="bx bx-filter" />
-                  </span>
-                  <span className="navlink">Google</span>
+              <li>
+                <a href="#">
+                  <ion-icon name="paper-plane-outline" />
+                  <span>Sent</span>
                 </a>
               </li>
-              <li className="item">
-                <a href="#" className="nav_link">
-                  <span className="navlink_icon">
-                    <i className="bx bx-cloud-upload" />
-                  </span>
-                  <span className="navlink">Instagram</span>
+              <li>
+                <a href="#">
+                  <ion-icon name="document-text-outline" />
+                  <span>Drafts</span>
                 </a>
               </li>
-
-              <li className="item">
-                <a href="#" className="nav_link">
-                  <span className="navlink_icon">
-                    <i className="bx bx-cloud-upload" />
-                  </span>
-                  <span className="navlink">Spotify</span>
+              <li>
+                <a href="#">
+                  <ion-icon name="bookmark-outline" />
+                  <span>Important</span>
                 </a>
               </li>
-
-              <li className="item">
-                <a href="#" className="nav_link">
-                  <span className="navlink_icon">
-                    <i className="bx bx-cloud-upload" />
-                  </span>
-                  <span className="navlink">GitHub</span>
+              <li>
+                <a href="#">
+                  <ion-icon name="alert-circle-outline" />
+                  <span>Spam</span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <ion-icon name="trash-outline" />
+                  <span>Trash</span>
                 </a>
               </li>
             </ul>
-            <ul className="menu_items">
-              <div className="menu_title menu_setting" />
-              <li className="item">
-                <a href="#" className="nav_link">
-                  <span className="navlink_icon">
-                    <i className="bx bx-flag" />
-                  </span>
-                  <span className="navlink">Spotify</span>
-                </a>
-              </li>
-              <li className="item">
-                <a href="#" className="nav_link">
-                  <span className="navlink_icon">
-                    <i className="bx bx-medal" />
-                  </span>
-                  <span className="navlink">Award</span>
-                </a>
-              </li>
-              <li className="item">
-                <a href="#" className="nav_link">
-                  <span className="navlink_icon">
-                    <i className="bx bx-cog" />
-                  </span>
-                  <span className="navlink">Setting</span>
-                </a>
-              </li>
-              <li className="item">
-                <a href="#" className="nav_link">
-                  <span className="navlink_icon">
-                    <i className="bx bx-layer" />
-                  </span>
-                  <span className="navlink">Features</span>
-                </a>
-              </li>
-            </ul>
-            {/* Sidebar Open / Close */}
-            <div className="bottom_content">
-              <div className="bottom expand_sidebar">
-                <span> Expand</span>
-                <i className="bx bx-log-in" />
+          </nav>
+          <div>
+            <div className="linea" />
+            <div className="modo-oscuro">
+              <div className="info">
+                <ion-icon name="moon-outline" />
+                <span>Drak Mode</span>
               </div>
-              <div className="bottom collapse_sidebar">
-                <span> Collapse</span>
-                <i className="bx bx-log-out" />
+              <div className="switch">
+                <div className="base">
+                  <div className="circulo"></div>
+                </div>
+              </div>
+            </div>
+            <div className="usuario">
+              <img src="/Jhampier.jpg" alt="" />
+              <div className="info-usuario">
+                <div className="nombre-email">
+                  <span className="nombre">Jhampier</span>
+                  <span className="email">jhampier@gmail.com</span>
+                </div>
+                <ion-icon name="ellipsis-vertical-outline" />
               </div>
             </div>
           </div>
-        </nav>
+        </div>
+        <main>
+          <h1>Contenido</h1>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            iure nam aliquid debitis voluptatum reiciendis reprehenderit minus,
+            et sed hic suscipit facilis enim totam. Nesciunt eveniet velit modi
+            voluptates temporibus?
+          </p>
+        </main>
+       
       </>
-    );
+    </>
+  );
 }
  
-export default Bookmarks;
+export default Bookmarks
+
+

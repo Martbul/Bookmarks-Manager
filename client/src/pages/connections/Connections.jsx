@@ -73,20 +73,26 @@ const refreshAccessToken = async () => {
   const client_id = SPOTIFY_CLIENT_ID;
   const client_secret = SPOTIFY_SECRET_ID;
   const userSpotifyTokensData = localStorage.getItem("UserSpotifyTokensData"); 
-  const refresh_token = JSON.parse(userSpotifyTokensData).refresh_token;
-  console.log(refresh_token);
+  const refreshToken = JSON.parse(userSpotifyTokensData).refresh_token;
+  console.log(refreshToken);
+
+  // const requestBody = new URLSearchParams({
+  //   grant_type: "refresh_token",
+  //   refresh_token: refreshToken,
+  //   client_id: client_id,
+  // })
+
 
   const requestBody = new URLSearchParams({
     grant_type: "refresh_token",
-    refresh_token: refresh_token,
-    client_id: client_id,
-    client_secret: client_secret,
-  }).toString();
-
+    refresh_token: refreshToken,
+    
+  });
   try {
     const response = await fetch("https://accounts.spotify.com/api/token", {
       method: "POST",
       headers: {
+        "Authorization": "Basic " + btoa(`${client_id}:${client_secret}`),
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: requestBody,
@@ -95,7 +101,7 @@ const refreshAccessToken = async () => {
 
 
     if (!response.ok) {
-      throw new Error("Failed to refresh token");
+      throw new Error("Failed to refresh token", response);
     }
 
     const data = await response.json();
@@ -104,8 +110,9 @@ const refreshAccessToken = async () => {
     const userSpotifyTokens = JSON.stringify({
       access_token: data.access_token,
       //! setting the old refresh token as new(hpe it will fix the error)
-      refresh_token,
-      expirationTime: new Date().getTime() + data.expires_in * 1000
+      //! it did not
+      refresh_token: data.refreshToken,
+      expirationTime: new Date().getTime() + data.expires_in * 1000,
     });
     // Update tokens and expiration time in local storage
     localStorage.setItem("UserSpotifyTokensData", userSpotifyTokens);
@@ -114,10 +121,10 @@ const refreshAccessToken = async () => {
     console.error("Error refreshing token:", error);
   }
 };
-//! tokens in 00:01
-// access_token: "BQCeRfVTdq4tAxoX4iL6D3Dgjz-0L_qwyf9WTNVZDnT3wZtRs4HIqLqnBNDgPExMzPheQ-zLSUgz-twyI0vsKHvBhmtTZn1cDQJOeeAuEEinytTfuCerFl1fAp7JxXxIQx1wgXgx2PzihTvyGZyFi2BIjNmUlKFlH1x1AMJVgjXO3EcrFOYDAG-RP3QhqlXKxdBn53CTJrDmrB6hMw";
-// expirationTime: 1716415256299;
-// refresh_token: "AQDoLsxyf6C1YgH9vb9MIhciqNundi7ZSW36CMCtq5kBUVjM2q39peeOKrXKJntl9w5KpTqOa3JlUghyBcyktGT0pioIMb03XXFGz-NTscPxgpztBGpAxTScAa4OkESNijg";
+//! tokens in 08:41
+// access_token: "BQD-BSOZkCOM1d2yddAYj5XJESx1nmvFFswaAF_WrHyR_2PY8OLvEo6NoaKV9EQ2cJjuzMl8WU3UBcpeSZrhyjXCDtxCKht2SP52AcG-9YSm-QiKIKyVkYyAnxQ8C9mKGRH2Ti-5MEs8_h41sYx8LGpPKyU20oLCeOyX2BtRiWZ2qaCXnVkU7W9vbE1qA97hFgW1SGSu_9-0xbv9cA";
+// expirationTime: 1716446461487;
+// refresh_token: "AQBixZ_4qh1bbga8CmIkZrfqMdYvCNVNafVFjetB5XKjY6rZVUjUk812Q9iUhMZIJRG5s1Av9dsch6F9BmZ8Tn0WSFIdY0GBYFi_PS2QYVIZLjqleAKCqR1xdD5XVua1L5I";
 
 const checkAndRefreshToken = async () => {
   const userSpotifyTokensData = localStorage.getItem("UserSpotifyTokensData");
@@ -132,30 +139,29 @@ const checkAndRefreshToken = async () => {
     await refreshAccessToken();
   }
 };
-
-
-setInterval(checkAndRefreshToken, 2230000);
+setInterval(checkAndRefreshToken, 2229992);
+//! смятам че проблема с токена идва от там че Spotify не разбира че правя Authorization Code Flow 
+//! и заради това не ми връща refresh_token като се пробвам да рефрешна(но от друга страна ми 
+//! връща refresh_token при първия еркуест така че би трябвало да разбира какво искам)
 
 
 
 
 const Connections = () => {
-
-
   const { authToYouTube, userGoogleAccessTokenYouTube, spotifyAccessToken } =
     useContext(ConnectionsContext);
     const location = useLocation();
   
   
+  
+  
   useEffect(() => {
-   
-   
-   if (window.location.search) {
-    
+   if (window.location.search) {  
      getReturnedParamsFromSpotifyAuth(window.location.search);
    }
  });
 
+  
   
  
   const handleSpotifyLogin =  () => {
@@ -171,7 +177,10 @@ const Connections = () => {
     const searchParams = new URLSearchParams(params);
     const encodedString = searchParams.toString();
 
-    const auth_url = `${SPOTIFY_AUTH_URL}?${encodedString}`;
+    //const auth_url = `${SPOTIFY_AUTH_URL}?${encodedString}`;
+     const auth_url = `${SPOTIFY_AUTH_URL}?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(
+       SPOTIFY_REDIRECT_URL
+     )}&scope=${encodeURIComponent(scope)}`;
 
     window.location = auth_url;
     
