@@ -11,7 +11,7 @@ import {handleYoutubeLogin,getReturnedParamsFromYouTubeAuth} from '../../externa
 setInterval(checkAndRefreshToken, 333333);
 const Connections = () => {
   const {  userGoogleAccessTokenYouTube, spotifyAccessToken,userFacebookAccessToken,
-    userRedditAccessToken} =
+    userRedditAccessToken,youtubeAccessToken} =
     useContext(ConnectionsContext);
       
   
@@ -26,7 +26,7 @@ const Connections = () => {
       getReturnedParamsFromRedditAuth(window.location.search)
     }else if(window.location.search.includes("scope=https://www.googleapis.com/auth/youtube.readonly") && localStorage.getItem('UserYouTubeTokensData') === null){
       //console.log('test');
-       getReturnedParamsFromRedditAuth(window.location.search)
+      getReturnedParamsFromYouTubeAuth(window.location.search)
      }else if (window.location.search) {  
       //console.log('test');
      getReturnedParamsFromSpotifyAuth(window.location.search);
@@ -45,15 +45,24 @@ const Connections = () => {
         </button>
 
      
-       
-          <>
+       {youtubeAccessToken && (<>
+        <button
+              className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-[#1DB954] hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
+              
+            >
+              YouTube
+            </button>
+       </>)}
+
+       {!youtubeAccessToken && (<>
             <button
               className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
               onClick={handleYoutubeLogin}
             >
               YouTube
             </button>
-          </>
+          </>)}
+          
         
         <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200">
           Instagram

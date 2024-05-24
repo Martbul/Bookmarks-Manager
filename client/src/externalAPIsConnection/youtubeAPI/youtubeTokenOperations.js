@@ -21,33 +21,29 @@ const handleYoutubeLogin = () => {
 
 const getReturnedParamsFromYouTubeAuth = async (search) => {
     const code = search.substring(6);
+  
+const params = new URLSearchParams({
+    code: code,
+    client_id: YOUTUBE_CLIENT_ID,
+    client_secret: YOUTUBE_CLIENT_SECRET,  
+    redirect_uri: YOUTUBE_REDIRECT_URL,
+    grant_type: 'authorization_code'
+});
 
-    const client_id = SPOTIFY_CLIENT_ID;
-    const client_secret = SPOTIFY_SECRET_ID;
-    const redirect_uri = SPOTIFY_REDIRECT_URL;
-
-    const requestBody = new URLSearchParams({
-        code: code,
-        grant_type: "authorization_code",
-        redirect_uri: redirect_uri,
-        client_id: client_id,
-        client_secret: client_secret,
-    }).toString();
-
-    fetch("https://accounts.spotify.com/api/token", {
+    fetch("https://oauth2.googleapis.com/token", {
         method: "POST",
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: "Basic " + btoa(`${client_id}:${client_secret}`),
+            'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: requestBody,
-    })
+        body: params.toString()
+        })
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
             return response.json();
         })
+
         .then((data) => {
             console.log("Token Response:", data);
             const access_token = data.access_token;
@@ -57,12 +53,12 @@ const getReturnedParamsFromYouTubeAuth = async (search) => {
 
 
 
-            const userSpotifyTokensData = JSON.stringify({
+            const userYouTubeTokensData = JSON.stringify({
                 access_token,
                 refresh_token,
                 expirationTime,
             });
-            localStorage.setItem("UserSpotifyTokensData", userSpotifyTokensData);
+           localStorage.setItem("UserYouTubeTokensData", userYouTubeTokensData);
 
         })
         .catch((error) => {
@@ -71,4 +67,5 @@ const getReturnedParamsFromYouTubeAuth = async (search) => {
         });
 };
 
+//! add refrh_token logic
 export {handleYoutubeLogin,getReturnedParamsFromYouTubeAuth}
