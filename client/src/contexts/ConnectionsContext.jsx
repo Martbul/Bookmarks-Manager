@@ -5,9 +5,10 @@ import {
   useState,
 } from "react";
 import { postRequest, baseUrl } from "../utils/services";
+
 import {fetchUserPlaylists} from '../externalAPIsConnection/spotifyAPI/spotifyAPIrequests'
 import {getUserFacebookSavedCollections} from '../externalAPIsConnection/facebookAPI/facebookAPIrequests'
-
+import {getReturnedParamsFromRedditAuth} from '../externalAPIsConnection/redditAPI/redditTokensOperations'
 
 export const ConnectionsContext = createContext();
 export const ConnectionsContextProvider = ({ children, user }) => {
@@ -19,6 +20,9 @@ export const ConnectionsContextProvider = ({ children, user }) => {
 
   const [userFacebookAccessToken, setUserFacebookAccessToken] = useState(null)
   const [userFacebookSaved,setUserFacebookSaved] = useState(null)
+
+  const [userRedditAccessToken, setUserRedditAccessToken] = useState(null)
+  const [userRedditSaved, setUserRedditSaved] = useState(null)
  
 
   useEffect(() => {
@@ -53,8 +57,6 @@ export const ConnectionsContextProvider = ({ children, user }) => {
 
    //! get all playlist a user has, the get all playlist items foe every playlist the user has
    useEffect(()=>{
-    
-    
     const auth = `Bearer ${userGoogleAccessTokenYouTube}`;
     console.log(auth);
     const getAllUserYouTubePlayLists =async () =>{
@@ -112,8 +114,23 @@ export const ConnectionsContextProvider = ({ children, user }) => {
       }
      
      
-     
     }, [checkForFacebookAccessToken]);
+
+
+
+  //! you also should check if the token is valid
+   let checkForRedditAccessToken = localStorage.getItem("UserRedditTokensData")
+   useEffect(() => {
+    const RedditTokens = localStorage.getItem("UserRedditTokensData");
+    if (RedditTokens) {
+      const redditAccessToken = JSON.parse(RedditTokens).access_token;
+      setUserRedditAccessToken(redditAccessToken);
+    }else{
+      setUserRedditAccessToken(null)
+    }
+   
+   
+  }, [checkForRedditAccessToken]);
   
   
   
@@ -139,7 +156,7 @@ export const ConnectionsContextProvider = ({ children, user }) => {
 
 
 
-  //getting user Facebook playlists with his accessToken
+  //getting user Facebook saved posts with his accessToken
   useEffect(() => {
     
     getUserFacebookSavedCollections(userFacebookAccessToken)
@@ -154,6 +171,25 @@ export const ConnectionsContextProvider = ({ children, user }) => {
       });
         
       }, [userFacebookAccessToken]);
+
+
+
+
+
+  //getting user Reddit saved posts with his accessToken
+      useEffect(() => {
+        getReturnedParamsFromRedditAuth(userRedditAccessToken)
+       
+          .then((data) => {
+          
+            console.log("Reddit User Saved Collections:", data.items);
+            setUserRedditSaved(data.items)
+          })
+          .catch((error) => {
+            console.error("Error fetching Reddit Saved Collections:", error);
+          });
+            
+          }, [userRedditAccessToken]);
   
   
 
@@ -169,7 +205,10 @@ export const ConnectionsContextProvider = ({ children, user }) => {
         userSpotifyPlaylists,
 
         userFacebookAccessToken,
-        userFacebookSaved
+        userFacebookSaved,
+
+        userRedditAccessToken,
+        userRedditSaved
       }}
     >
       {children}
