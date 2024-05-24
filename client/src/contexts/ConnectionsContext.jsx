@@ -4,13 +4,8 @@ import {
   useEffect,
   useState,
 } from "react";
-import { postRequest, baseUrl, getRequest } from "../utils/services";
-import {
-  
-  SPOTIFY_CLIENT_ID,
-  SPOTIFY_REDIRECT_URL,
-  SPOTIFY_SECRET_ID,
-} from "../constants/spotifyConstants";
+import { postRequest, baseUrl } from "../utils/services";
+import {fetchUserPlaylists} from '../externalAPIsConnection/spotifyAPI/spotifyAPIrequests'
 
 
 
@@ -22,6 +17,9 @@ export const ConnectionsContextProvider = ({ children, user }) => {
   
   const [spotifyAccessToken, setSpotifyAccessToken] = useState(null);
   const [userSpotifyPlaylists, setUserSpotifyPlaylists] = useState(null)
+
+  const [userFacebookAccessToken, setUserFacebookAccessToken] = useState(null)
+  const [userFacebookSaved,setUserFacebookSaved] = useState(null)
  
 
   useEffect(() => {
@@ -83,20 +81,40 @@ export const ConnectionsContextProvider = ({ children, user }) => {
   
   
   
-  
-  
-  // getting user accessToken from localStorage and setting it in a useState varable
+  //! you also should check if the token is valid
+   let checkForSpotifyAccessToken = localStorage.getItem("UserSpotifyTokensData")
+  // getting user Spotify accessToken from localStorage and setting it in a useState varable
    useEffect(() => {
      const SpotifyTokens = localStorage.getItem("UserSpotifyTokensData");
      if (SpotifyTokens) {
        const accessToken = JSON.parse(SpotifyTokens).access_token;
         setSpotifyAccessToken(accessToken);
+     }else{
+      setSpotifyAccessToken(null)
      }
     
     
     
-   }, [localStorage.getItem("UserSpotifyTokensData")]);
-  
+   }, [checkForSpotifyAccessToken]);
+
+
+
+
+    //! you also should check if the token is valid
+   let checkForFacebookAccessToken = localStorage.getItem("UserFacebookTokenData")
+     // getting user Facebook accessToken from localStorage and setting it in a useState varable
+     useEffect(() => {
+      const FacebookTokens = localStorage.getItem("UserFacebookTokenData");
+      if (FacebookTokens) {
+        const facebookAccessToken = JSON.parse(FacebookTokens).access_token;
+        setUserFacebookAccessToken(facebookAccessToken);
+      }else{
+        setUserFacebookAccessToken(null)
+      }
+     
+     
+     
+    }, [checkForFacebookAccessToken]);
   
   
   
@@ -107,28 +125,7 @@ export const ConnectionsContextProvider = ({ children, user }) => {
   
   //getting user spotify playlists with his accessToken
   useEffect(() => {
-    const fetchUserPlaylists = async () => {
-  //! hoping i dont need to refresh manuali with this function but if access_token sometimes isnt workin here is a place to search for an error
-  //await checkAndRefreshToken(); 
-
-
-
-  const response = await fetch("https://api.spotify.com/v1/me/playlists", {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${spotifyAccessToken}`,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch playlists");
-  }
-
-  const data = await response.json();
-  return data;
-};
-
-fetchUserPlaylists()
+fetchUserPlaylists(spotifyAccessToken)
   .then((data) => {
     console.log("User Playlists:", data.items);
     setUserSpotifyPlaylists(data.items)
@@ -137,18 +134,25 @@ fetchUserPlaylists()
     console.error("Error fetching playlists:", error);
   });
     
-    fetchUserPlaylists()
+    // fetchUserPlaylists()
 
   }, [spotifyAccessToken]);
+  
   
   
   return (
     <ConnectionsContext.Provider
       value={{
         authToYouTube,
+
         userGoogleAccessTokenYouTube,
         allUserYoutubePlaylists,
+
         spotifyAccessToken,
+        userSpotifyPlaylists,
+
+        userFacebookAccessToken,
+        userFacebookSaved
       }}
     >
       {children}

@@ -77,6 +77,7 @@ const Sidebar = (props) => {
           })}
         </List>
       </Box>
+      //! ne mahai buynow a go preizpolzvaj s tvoi danni
       <Buynow />
     </Box>
   );
