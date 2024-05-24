@@ -3,16 +3,24 @@ import { Container } from "react-bootstrap";
 import { useContext } from "react";
 import { AuthContext } from "./contexts/AuthContext";
 
+
+
+//dont remove these 2 imports(i dont know how or way but when i remove them the app breaks)
+import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
+
+
+
 import Connections from "./pages/connections/Connections";
 import Home from "./pages/home/Home";
-import NavBar from "./components/NavBar";
+
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import {  ConnectionsContextProvider } from "./contexts/ConnectionsContext";
 import Bookmarks from "./pages/bookmarks/Bookmarks";
-import Footer from "./components/footer/Footer";
+
 
 
 function App() {
@@ -20,7 +28,7 @@ function App() {
   
   return (
     <ConnectionsContextProvider user={user}>
-      <NavBar></NavBar>
+     
       <Container>
         <Routes>
           <Route
@@ -42,7 +50,7 @@ function App() {
           <Route path="/bookmarks/*" element={<Bookmarks/>}></Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-        <Footer />
+      
       </Container>
     </ConnectionsContextProvider>
   );

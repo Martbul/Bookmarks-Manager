@@ -39,7 +39,7 @@ const FullLayout = () => {
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
   return (
     <>
-     <NavBar></NavBar>
+    
      <MainWrapper>
      
       <Header

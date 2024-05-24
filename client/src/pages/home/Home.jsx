@@ -1,3 +1,4 @@
+import Footer from '../../components/footer/Footer';
 import FAQ from './FAQ/FAQ';
 import './Home.css'
 import Features from './features/Features';
@@ -9,11 +10,13 @@ const Home = () => {
   return (
     <>
       <Hero></Hero>
+    
       <Features></Features>
       <Highlights></Highlights>
 
       <Testimonials></Testimonials>
       <FAQ></FAQ>
+      <Footer />
     </>
   );
 };

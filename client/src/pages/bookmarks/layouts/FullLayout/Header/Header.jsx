@@ -1,5 +1,5 @@
 import React from "react";
-//import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
@@ -263,7 +263,8 @@ const Header = (props) => {
             <ListItemIcon>
               <LogoutOutlinedIcon fontSize="small" />
             </ListItemIcon>
-            Logout
+            {/* <Link to="/users/logout">  Logout</Link> */}
+          Logout
           </MenuItem>
         </Menu>
       </Toolbar>

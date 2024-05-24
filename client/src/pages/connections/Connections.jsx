@@ -4,6 +4,9 @@ import { ConnectionsContext } from "../../contexts/ConnectionsContext";
 import {getReturnedParamsFromSpotifyAuth,checkAndRefreshToken,handleSpotifyLogin} from '../../externalAPIsConnection/spotifyAPI/spotifyTokensOperations'
 import {handleTwitterLogin,getRequestToken} from '../../externalAPIsConnection/twitterAPI/twitterTokenOperations'
 import {handleFcebookLogin,getParamsFromUrlFromFacebook} from '../../externalAPIsConnection/facebookAPI/facebookTokensOperations'
+import {handleRedditLogin} from '../../externalAPIsConnection/redditAPI/redditTokensOperations'
+
+
 
 setInterval(checkAndRefreshToken, 333333);
 const Connections = () => {
@@ -97,6 +100,10 @@ const Connections = () => {
             </button>
           </>
         )}
+         <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
+         onClick={handleRedditLogin}>
+          Reddit
+        </button>
       </div>
     </>
   );

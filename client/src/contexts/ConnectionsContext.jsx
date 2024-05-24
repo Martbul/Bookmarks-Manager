@@ -6,8 +6,7 @@ import {
 } from "react";
 import { postRequest, baseUrl } from "../utils/services";
 import {fetchUserPlaylists} from '../externalAPIsConnection/spotifyAPI/spotifyAPIrequests'
-
-
+import {getUserFacebookSavedCollections} from '../externalAPIsConnection/facebookAPI/facebookAPIrequests'
 
 
 export const ConnectionsContext = createContext();
@@ -123,9 +122,9 @@ export const ConnectionsContextProvider = ({ children, user }) => {
   
   
   
-  //getting user spotify playlists with his accessToken
+  //getting user Spotify playlists with his accessToken
   useEffect(() => {
-fetchUserPlaylists(spotifyAccessToken)
+    fetchUserPlaylists(spotifyAccessToken)
   .then((data) => {
     console.log("User Playlists:", data.items);
     setUserSpotifyPlaylists(data.items)
@@ -137,9 +136,27 @@ fetchUserPlaylists(spotifyAccessToken)
     // fetchUserPlaylists()
 
   }, [spotifyAccessToken]);
+
+
+
+  //getting user Facebook playlists with his accessToken
+  useEffect(() => {
+    
+    getUserFacebookSavedCollections(userFacebookAccessToken)
+   
+      .then((data) => {
+      
+        console.log("Facebook User Saved Collections:", data.items);
+        setUserFacebookSaved(data.items)
+      })
+      .catch((error) => {
+        console.error("Error fetching Saved Collections:", error);
+      });
+        
+      }, [userFacebookAccessToken]);
   
   
-  
+
   return (
     <ConnectionsContext.Provider
       value={{

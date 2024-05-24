@@ -21,6 +21,7 @@ import ExSwitch from "../views/FormElements/ExSwitch.jsx";
 
 // form layouts
 import FormLayouts from "../views/FormLayouts/FormLayouts.jsx";
+import Connections from "../../connections/Connections.jsx";
 
 
 /*****Routes******/
@@ -31,6 +32,7 @@ const ThemeRoutes = [
     element:<FullLayout/>,
     children: [
       { path: "/", element: <Navigate to="tiktok" /> },
+      { path: "connections", exact: true, element: <Connections/> },
       { path: "tiktok", exact: true, element: <Dashboard1 /> },
       { path: "youtube", element: <BasicTable /> },
       { path: "X", element: <FormLayouts /> },

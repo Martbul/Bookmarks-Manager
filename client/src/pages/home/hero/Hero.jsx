@@ -1,11 +1,13 @@
 import { alpha, useTheme } from "@mui/material";
+
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import Link from "@mui/material/Link";
+import { Link } from 'react-router-dom';
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+
 
 export default function Hero() {
   const theme = useTheme();
@@ -77,7 +79,51 @@ export default function Hero() {
           justifyContent="center"
           sx={{ marginBottom: theme.spacing(3) }}
         >
-          <TextField
+          <Link to='/users/register'>
+
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              borderRadius: 8,
+              paddingLeft: theme.spacing(4),
+              paddingRight: theme.spacing(4),
+              textTransform: "none",
+              "&:hover": {
+                backgroundColor: (theme) =>
+                  theme.palette.mode === "light"
+                    ? alpha(theme.palette.primary.main, 0.8)
+                    : alpha(theme.palette.primary.light, 0.8),
+              },
+            }}
+          >
+           Sing Up
+          </Button>
+            
+          </Link>
+          
+          <Link to='/bookmarks'>
+        <Button 
+            variant="contained"
+            color="primary"
+            sx={{
+              borderRadius: 8,
+              paddingLeft: theme.spacing(4),
+              paddingRight: theme.spacing(4),
+              textTransform: "none",
+              "&:hover": {
+                backgroundColor: (theme) =>
+                  theme.palette.mode === "light"
+                    ? alpha(theme.palette.primary.main, 0.8)
+                    : alpha(theme.palette.primary.light, 0.8),
+              },
+            }}
+          >Dashboard
+          </Button>
+        </Link>
+        </Stack>
+
+        <TextField
             id="outlined-basic"
             hiddenLabel
             size="small"
@@ -110,35 +156,17 @@ export default function Hero() {
               },
             }}
           />
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{
-              borderRadius: 8,
-              paddingLeft: theme.spacing(4),
-              paddingRight: theme.spacing(4),
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: (theme) =>
-                  theme.palette.mode === "light"
-                    ? alpha(theme.palette.primary.main, 0.8)
-                    : alpha(theme.palette.primary.light, 0.8),
-              },
-            }}
-          >
-            Start now
-          </Button>
-        </Stack>
+       
         <Typography
           variant="caption"
           textAlign="center"
           sx={{ opacity: 0.8, marginBottom: theme.spacing(1) }}
         >
-          By clicking "Start now" you agree to our&nbsp;
+          By clicking `Start now` you agree to our&nbsp;
           <Link href="#" color="primary">
             Terms & Conditions
           </Link>
-          .
+          
         </Typography>
         <Box
           id="image"
