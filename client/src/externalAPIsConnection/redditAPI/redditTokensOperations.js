@@ -12,18 +12,13 @@ const handleRedditLogin = () =>{
 
 const getReturnedParamsFromRedditAuth = async (search) => {
     const code = search.substring(19);
+    console.log(code);
     const encodedHeader = Buffer.from(`${REDDIT_CLIENT_ID}:${REDDIT_CLIENT_SECRET}`).toString("base64")
+console.log(encodedHeader);
 
 
-    // const requestBody = new URLSearchParams({
-    //     code: code,
-    //     grant_type: "authorization_code",
-    //     redirect_uri: redirect_uri,
-    //     client_id: client_id,
-    //     client_secret: client_secret,
-    // }).toString();
     const body = `grant_type=authorization_code&code=${code}&redirect_uri=${REDDIT_REDIRECT_URL}`
-
+    console.log(body);
     fetch("https://www.reddit.com/api/v1/access_token", {
         method: "POST",
         headers: {authorization: `Basic ${encodedHeader}`, 'Content-Type': 'application/x-www-form-urlencoded'},
@@ -31,7 +26,8 @@ const getReturnedParamsFromRedditAuth = async (search) => {
     })
         .then((response) => {
             if (!response.ok) {
-                throw new Error("Network response was not ok");
+                console.log(response);
+                throw new Error("Reddit access_token response was not ok",response);
             }
             return response.json();
         })
@@ -57,6 +53,6 @@ const getReturnedParamsFromRedditAuth = async (search) => {
             // Handle fetch error
         });
 };
-//!it works. Now you shoud change the button color to primary, add functionality about refresh_token and get user saved items
+//!add functionality about refresh_token
 
 export {handleRedditLogin,getReturnedParamsFromRedditAuth}

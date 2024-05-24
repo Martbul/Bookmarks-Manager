@@ -5,7 +5,7 @@ import {
     SPOTIFY_SECRET_ID,
 } from "../../constants/spotifyConstants";
 
-
+//! chack scopes for the SPOTY API,maybe they cause the token not to refresh after the first successful reftesrh 
 
 const getReturnedParamsFromSpotifyAuth = async (search) => {
     const code = search.substring(6);

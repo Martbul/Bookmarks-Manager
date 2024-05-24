@@ -28,7 +28,7 @@ const getRequestToken = () => {
         const responseParams = new URLSearchParams(responseText);
         const oauthToken = responseParams.get('oauth_token');
         console.log(responseParams);
-        console.log(oauth);
+       
         if (!oauthToken) {
           throw new Error('No oauth_token found in the response');
         }

@@ -8,7 +8,7 @@ import { postRequest, baseUrl } from "../utils/services";
 
 import {fetchUserPlaylists} from '../externalAPIsConnection/spotifyAPI/spotifyAPIrequests'
 import {getUserFacebookSavedCollections} from '../externalAPIsConnection/facebookAPI/facebookAPIrequests'
-import {getReturnedParamsFromRedditAuth} from '../externalAPIsConnection/redditAPI/redditTokensOperations'
+import {fetchUserSavedItems} from '../externalAPIsConnection/redditAPI/redditAPIrequests'
 
 export const ConnectionsContext = createContext();
 export const ConnectionsContextProvider = ({ children, user }) => {
@@ -25,58 +25,58 @@ export const ConnectionsContextProvider = ({ children, user }) => {
   const [userRedditSaved, setUserRedditSaved] = useState(null)
  
 
-  useEffect(() => {
-    const id = user?._id;
-    const getUser = async () => {
-      const response = await postRequest(
-        `${baseUrl}/users/singleUser`,
-        JSON.stringify({
-          id,
-        })
-      );
+  // useEffect(() => {
+  //   const id = user?._id;
+  //   const getUser = async () => {
+  //     const response = await postRequest(
+  //       `${baseUrl}/users/singleUser`,
+  //       JSON.stringify({
+  //         id,
+  //       })
+  //     );
 
-      if (response?.error) {
-        return console.log("Error when geting user GoogleAccessToken", response);
-      }
-      console.log("googleAccessToken", response?.googleAuthAccessToken);
+  //     if (response?.error) {
+  //       return console.log("Error when geting user GoogleAccessToken", response);
+  //     }
+  //     console.log("googleAccessToken", response?.googleAuthAccessToken);
 
-      setGoogleAccessTokenYouTube(response?.googleAuthAccessToken);
-    };
+  //     setGoogleAccessTokenYouTube(response?.googleAuthAccessToken);
+  //   };
 
-    getUser();
+  //   getUser();
 
 
     
-  }, [user]);
+  // }, [user]);
 
-  const authToYouTube = useCallback(async () => {
-    window.location.href = "http://localhost:5000/api/users/google";
-  });
+  // const authToYouTube = useCallback(async () => {
+  //   window.location.href = "http://localhost:5000/api/users/google";
+  // });
 
 
 
    //! get all playlist a user has, the get all playlist items foe every playlist the user has
-   useEffect(()=>{
-    const auth = `Bearer ${userGoogleAccessTokenYouTube}`;
-    console.log(auth);
-    const getAllUserYouTubePlayLists =async () =>{
-        const youtuePlaylistURL ='https://youtube.googleapis.com/youtube/v3/playlists?part=contentDetails&part=id&part=player&part=snippet&part=status&mine=true&key=AIzaSyCuXrzIfebbKOadEk9L5SEowrBBOrqx4U4'
-        const response = await fetch(youtuePlaylistURL, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization" : auth
-            }
-        })
-        if (!response) {
-            return console.log("Error getting user's playlists", response);
-          }
-        setAllUserYoutubePlaylists(response)
-        console.log(response);
-    };
-    getAllUserYouTubePlayLists()
+  //  useEffect(()=>{
+  //   const auth = `Bearer ${userGoogleAccessTokenYouTube}`;
+  //   console.log(auth);
+  //   const getAllUserYouTubePlayLists =async () =>{
+  //       const youtuePlaylistURL ='https://youtube.googleapis.com/youtube/v3/playlists?part=contentDetails&part=id&part=player&part=snippet&part=status&mine=true&key=AIzaSyCuXrzIfebbKOadEk9L5SEowrBBOrqx4U4'
+  //       const response = await fetch(youtuePlaylistURL, {
+  //           method: "GET",
+  //           headers: {
+  //               "Content-Type": "application/json",
+  //               "Authorization" : auth
+  //           }
+  //       })
+  //       if (!response) {
+  //           return console.log("Error getting user's playlists", response);
+  //         }
+  //       setAllUserYoutubePlaylists(response)
+  //       console.log(response);
+  //   };
+  //   getAllUserYouTubePlayLists()
 
-   },[userGoogleAccessTokenYouTube])
+  //  },[userGoogleAccessTokenYouTube])
 
   
   
@@ -178,7 +178,7 @@ export const ConnectionsContextProvider = ({ children, user }) => {
 
   //getting user Reddit saved posts with his accessToken
       useEffect(() => {
-        getReturnedParamsFromRedditAuth(userRedditAccessToken)
+        fetchUserSavedItems(userRedditAccessToken)
        
           .then((data) => {
           
@@ -196,7 +196,7 @@ export const ConnectionsContextProvider = ({ children, user }) => {
   return (
     <ConnectionsContext.Provider
       value={{
-        authToYouTube,
+       
 
         userGoogleAccessTokenYouTube,
         allUserYoutubePlaylists,
