@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { Card, CardContent, Box, Typography } from "@mui/material";
 
 import ExTable from "../dashboards/dashboard1-components/ExTable";
+import { ConnectionsContext } from "../../../../contexts/ConnectionsContext";
 
-const BasicTable = () => {
+const YouTube = () => {
+
+ const {userYouTubePlaylists } = useContext(ConnectionsContext);
+ const playlists = userYouTubePlaylists
+ console.log(playlists);
   return (
+    <>
     <Box>
       <Card variant="outlined">
         <CardContent>
@@ -23,7 +29,13 @@ const BasicTable = () => {
         </CardContent>
       </Card>
     </Box>
+
+    {userYouTubePlaylists.items.map((item, index) => (
+        <p key={index}>{item.title}</p>
+      ))}
+    </>
+    
   );
 };
 
-export default BasicTable;
+export default YouTube;

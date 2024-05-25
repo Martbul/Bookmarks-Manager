@@ -9,7 +9,7 @@ import FullLayout from "../layouts/FullLayout/FullLayout.jsx";
 import Dashboard1 from "../views/dashboards/Dashboard1.jsx";
 
 /*****Tables******/
-import BasicTable from "../views/tables/BasicTable.jsx";
+import BasicTable from "../views/youtube/YouTube.jsx";
 
 // form elements
 import ExAutoComplete from "../views/FormElements/ExAutoComplete.jsx";

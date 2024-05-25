@@ -158,7 +158,7 @@ useEffect(() => {
 
  //getting user YouTube playlists with his accessToken
  useEffect(() => {
-  getPlaylists(userRedditAccessToken)
+  getPlaylists(youtubeAccessToken,setUserYouTubePlaylists)
  
     .then((data) => {
     
@@ -169,7 +169,7 @@ useEffect(() => {
       console.error("Error fetching Reddit Saved Collections:", error);
     });
       
-    }, [userRedditAccessToken]);
+    }, [youtubeAccessToken]);
   
   
 
