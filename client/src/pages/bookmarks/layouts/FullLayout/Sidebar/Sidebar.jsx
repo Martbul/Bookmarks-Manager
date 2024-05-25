@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router";
 import { Link, NavLink } from "react-router-dom";
 import {
@@ -14,9 +14,28 @@ import { SidebarWidth } from "../../../assets/global/Theme-variable";
 import LogoIcon from "../Logo/LogoIcon";
 import Menuitems from "./data";
 import Buynow from "./Buynow";
+import { Button } from "@mui/material";
+import { styled } from "@mui/system";
+const ModernButton = styled(Button)({
+  backgroundColor: "#4CAF50", // Background color
+  color: "white", // Text color
+  padding: "7px 10px", // Padding
+  borderRadius: "10px", // Rounded edges
+  boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Shadow
+  transition: "transform 0.2s", // Hover animation
+  "&:hover": {
+    backgroundColor: "#45a049", // Hover background color
+    transform: "scale(1.09)", // Hover scale animation
+  },
+});
 
 const Sidebar = (props) => {
   const [open, setOpen] = React.useState(true);
+
+
+  const [isSocialsOpen, setIsSocialsOpen] = useState(true);
+  const [isSocialsOpen2, setIsSocialsOpen2] = useState(false);
+
   const { pathname } = useLocation();
   const pathDirect = pathname;
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
@@ -37,7 +56,14 @@ const Sidebar = (props) => {
         </Box>
       </Link>
 
-      <Box>
+      
+      <Box sx={{ p: 3, height: "calc(100vh - 900px)" }}> 
+      <ModernButton onClick={() => setIsSocialsOpen(!isSocialsOpen)}>Social Media Apps</ModernButton>
+      </Box>
+
+
+{isSocialsOpen && (<>
+  <Box>
         <List
           sx={{
             mt: 4,
@@ -77,7 +103,9 @@ const Sidebar = (props) => {
           })}
         </List>
       </Box>
-      //! ne mahai buynow a go preizpolzvaj s tvoi danni
+</>)}
+      
+      
       <Buynow />
     </Box>
   );
