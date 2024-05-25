@@ -6,6 +6,7 @@ import {handleTwitterLogin,getRequestToken} from '../../externalAPIsConnection/t
 import {handleFcebookLogin,getParamsFromUrlFromFacebook} from '../../externalAPIsConnection/facebookAPI/facebookTokensOperations'
 import {handleRedditLogin,getReturnedParamsFromRedditAuth} from '../../externalAPIsConnection/redditAPI/redditTokensOperations'
 import {handleYoutubeLogin,getReturnedParamsFromYouTubeAuth} from '../../externalAPIsConnection/youtubeAPI/youtubeTokenOperations'
+import { Link } from "react-router-dom";
 
 
 setInterval(checkAndRefreshToken, 333333);
@@ -46,12 +47,14 @@ const Connections = () => {
 
      
        {youtubeAccessToken && (<>
-        <button
+      <button
               className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-[#1DB954] hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
-              
+              onClick={() => window.location ='http://localhost:5173/bookmarks/youtube'}
             >
               YouTube
             </button>
+      
+       
        </>)}
 
        {!youtubeAccessToken && (<>

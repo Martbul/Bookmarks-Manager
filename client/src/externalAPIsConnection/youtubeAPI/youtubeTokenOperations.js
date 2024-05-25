@@ -76,16 +76,17 @@ const params = new URLSearchParams({
 
 const checkAndRefreshYouTubeAccessToken = async () => {
     const userYouTubeTokensData = localStorage.getItem("UserYouTubeTokensData");
-    console.log(userYouTubeTokensData);
+    if(userYouTubeTokensData ===null) return 
+    //console.log(userYouTubeTokensData);
     const expirationTime = JSON.parse(userYouTubeTokensData).expirationTime;
     const refresh_token = JSON.parse(userYouTubeTokensData).refresh_token;
-    console.log(expirationTime);
+   // console.log(expirationTime);
 
     const targetDate = new Date(expirationTime);
     const currentTime = new Date();
-    console.log(currentTime.getTime);
+    
     const timeDifference = targetDate.getTime() - currentTime.getTime();
-    console.log(timeDifference);
+    //console.log(timeDifference);
 
     
 

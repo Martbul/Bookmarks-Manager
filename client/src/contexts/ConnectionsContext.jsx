@@ -158,19 +158,20 @@ useEffect(() => {
 
  //getting user YouTube playlists with his accessToken
  useEffect(() => {
-  getPlaylists(youtubeAccessToken,setUserYouTubePlaylists)
- 
+  getPlaylists(youtubeAccessToken)
     .then((data) => {
-    
-      console.log("Reddit User Saved Collections:", data.items);
-      setUserRedditSaved(data.items)
+      if (data && data.items && data.items.length > 0) {
+        console.log("YouTube Playlists:", data.items);
+        setUserYouTubePlaylists(data.items);
+      } else {
+        console.log("No playlists found.");
+        setUserYouTubePlaylists(null); 
+      }
     })
     .catch((error) => {
-      console.error("Error fetching Reddit Saved Collections:", error);
+      console.error("Error fetching YouTube Playlists:", error);
     });
-      
-    }, [youtubeAccessToken]);
-  
+}, [youtubeAccessToken]);
   
 
   return (

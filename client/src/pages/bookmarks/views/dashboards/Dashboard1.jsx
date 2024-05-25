@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Box } from "@mui/material";
+import { Grid, Box, Card, CardContent, Typography } from "@mui/material";
 
 import {
   BlogCard,
@@ -7,12 +7,13 @@ import {
   ProductPerformance,
   DailyActivities,
 } from "./dashboard1-components";
+import ExTable from "./dashboard1-components/ExTable";
 
-const Dashboard1 = () => {
-  // 2
-
+const StorageForComponent = () => {
+//! this is all components(i have seen) from materialUI
   return (
-    <Box>
+    <>
+     <Box>
       <Grid container spacing={0}>
         {/* ------------------------- row 1 ------------------------- */}
         <Grid item xs={12} lg={12}>
@@ -29,7 +30,28 @@ const Dashboard1 = () => {
         <BlogCard />
       </Grid>
     </Box>
+
+
+    <Box>
+      <Card variant="outlined">
+        <CardContent>
+          <Typography variant="h3">Basic Table</Typography>
+          <Box
+            sx={{
+              overflow: {
+                xs: "auto",
+                sm: "unset",
+              },
+            }}
+          >
+            <ExTable />
+          </Box>
+        </CardContent>
+      </Card>
+    </Box>
+    </>
+   
   );
 };
 
-export default Dashboard1;
+export default StorageForComponent;
