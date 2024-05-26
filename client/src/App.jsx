@@ -28,6 +28,10 @@ function App() {
   const { user, setUser } = useContext(AuthContext);
   
   return (
+
+  
+    
+    
     <ConnectionsContextProvider user={user}>
      
       <Container>
@@ -42,7 +46,7 @@ function App() {
           />
           <Route
             path="/register"
-            element={user ? <Home /> : <Register setUser={setUser} />}
+            element={<Register setUser={setUser} />}
           />
           <Route
             path="/login"
@@ -53,8 +57,12 @@ function App() {
         </Routes>
       
       </Container>
+
+     
     </ConnectionsContextProvider>
   );
 }
 
 export default App;
+
+

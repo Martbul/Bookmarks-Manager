@@ -29,6 +29,7 @@ export const AuthContextProvider = ({ children }) => {
   
   
     useEffect(() => {
+      console.log(registerInfo)
       const user = localStorage.getItem("User");
       console.log(user);
       setUser(JSON.parse(user));
