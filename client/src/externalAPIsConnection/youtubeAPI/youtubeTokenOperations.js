@@ -39,7 +39,7 @@ const params = new URLSearchParams({
         })
         .then((response) => {
             if (!response.ok) {
-                throw new Error("Network response was not ok");
+                throw new Error("Failed to get YouTube access token", response);
             }
             return response.json();
         })
@@ -68,7 +68,7 @@ const params = new URLSearchParams({
 
         })
         .catch((error) => {
-            console.error("Error fetching token:", error);
+            console.error("Error fetching youtube token:", error);
             // Handle fetch error
         });
 };

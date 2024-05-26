@@ -6,6 +6,26 @@ import {
 } from "../../constants/spotifyConstants";
 
 //! chack scopes for the SPOTY API,maybe they cause the token not to refresh after the first successful reftesrh 
+const handleSpotifyLogin = () => {
+    const scope = "user-read-private user-read-email playlist-read-private playlist-read-collaborative";
+    const params = {
+        client_id: SPOTIFY_CLIENT_ID,
+        response_type: "code",
+        scope,
+        redirect_uri: SPOTIFY_REDIRECT_URL,
+        show_dialog: false,
+    };
+
+    const searchParams = new URLSearchParams(params);
+    const encodedString = searchParams.toString();
+
+    const auth_url = `${SPOTIFY_AUTH_URL}?${encodedString}`;
+
+
+    window.location = auth_url;
+
+};
+
 
 const getReturnedParamsFromSpotifyAuth = async (search) => {
     const code = search.substring(6);
@@ -41,14 +61,21 @@ const getReturnedParamsFromSpotifyAuth = async (search) => {
             const access_token = data.access_token;
             const refresh_token = data.refresh_token;
             const expires_in = data.expires_in;
-            const expirationTime = new Date().getTime() + expires_in * 1000;
+
+
+            const currentTime = Date.now(); // Current time in milliseconds since the UNIX epoch
+            const tokenLifetimeMilliseconds = expires_in * 1000; // Convert lifetime to milliseconds
+            const expirationTimestamp = currentTime + tokenLifetimeMilliseconds;
+            const expirationDate = new Date(expirationTimestamp);
+            console.log(expirationDate);
+            
 
 
 
             const userSpotifyTokensData = JSON.stringify({
                 access_token,
                 refresh_token,
-                expirationTime,
+                expirationTime:expirationDate.toLocaleString(),
             });
             localStorage.setItem("UserSpotifyTokensData", userSpotifyTokensData);
 
@@ -61,20 +88,45 @@ const getReturnedParamsFromSpotifyAuth = async (search) => {
 
 
 
-const refreshAccessToken = async () => {
+
+
+const checkAndRefreshToken = async () => {
+    const userSpotifyTokensData = localStorage.getItem("UserSpotifyTokensData");
+    if(userSpotifyTokensData === null) return 
+    //console.log(userYouTubeTokensData);
+    const expirationTime = JSON.parse(userSpotifyTokensData).expirationTime;
+    const refresh_token = JSON.parse(userSpotifyTokensData).refresh_token;
+   // console.log(expirationTime);
+
+    const targetDate = new Date(expirationTime);
+    const currentTime = new Date();
+    
+    const timeDifference = targetDate.getTime() - currentTime.getTime();
+    //console.log(timeDifference);
+
+    
+
+    if (timeDifference < 0) {
+        console.log('here');
+        await refreshAccessToken(refresh_token);
+    }
+};
+
+
+
+
+const refreshAccessToken = async (refresh_token) => {
     console.log('here');
     const client_id = SPOTIFY_CLIENT_ID;
     const client_secret = SPOTIFY_SECRET_ID;
-    const userSpotifyTokensData = localStorage.getItem("UserSpotifyTokensData");
-    const refreshToken = JSON.parse(userSpotifyTokensData).refresh_token;
-    console.log(refreshToken);
+    console.log(refresh_token);
 
 
 
 
     const requestBody = new URLSearchParams({
         grant_type: "refresh_token",
-        refresh_token: refreshToken,
+        refresh_token: refresh_token,
         client_id: SPOTIFY_CLIENT_ID,
         client_secret: SPOTIFY_SECRET_ID
     });
@@ -94,16 +146,23 @@ const refreshAccessToken = async () => {
 
 
         if (!response.ok) {
-            throw new Error("Failed to refresh token", response);
+            throw new Error("Failed to refresh Spotify access token", response);
         }
 
         const data = await response.json();
         console.log("New Token Response:", data);
 
+        
+      const currentTime = Date.now(); // Current time in milliseconds since the UNIX epoch
+      const tokenLifetimeMilliseconds = data.expires_in * 1000; // Convert lifetime to milliseconds
+      const expirationTimestamp = currentTime + tokenLifetimeMilliseconds;
+      const expirationDate = new Date(expirationTimestamp);
+      console.log(expirationDate);
+
         const userSpotifyTokens = JSON.stringify({
             access_token: data.access_token,
-            refresh_token: refreshToken,
-            expirationTime: new Date().getTime() + data.expires_in * 1000,
+            refresh_token: refresh_token,
+            expirationTime: expirationDate.toLocaleString(),
         });
 
 
@@ -116,40 +175,6 @@ const refreshAccessToken = async () => {
 
 
 
-const checkAndRefreshToken = async () => {
-    const userSpotifyTokensData = localStorage.getItem("UserSpotifyTokensData");
-    console.log(userSpotifyTokensData);
-    const expirationTime = JSON.parse(userSpotifyTokensData).expirationTime;
-    console.log(expirationTime);
-    const currentTime = new Date().getTime();
-    console.log(currentTime);
-
-
-    if (currentTime > expirationTime - 60000) {
-        await refreshAccessToken();
-    }
-};
-
-
-const handleSpotifyLogin = () => {
-    const scope = "user-read-private user-read-email";
-    const params = {
-        client_id: SPOTIFY_CLIENT_ID,
-        response_type: "code",
-        scope,
-        redirect_uri: SPOTIFY_REDIRECT_URL,
-        show_dialog: false,
-    };
-
-    const searchParams = new URLSearchParams(params);
-    const encodedString = searchParams.toString();
-
-    const auth_url = `${SPOTIFY_AUTH_URL}?${encodedString}`;
-
-
-    window.location = auth_url;
-
-};
 
 
 export { getReturnedParamsFromSpotifyAuth, checkAndRefreshToken, handleSpotifyLogin };

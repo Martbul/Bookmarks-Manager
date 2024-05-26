@@ -6,10 +6,12 @@ import {
 } from "react";
 
 
-import {fetchUserPlaylists} from '../externalAPIsConnection/spotifyAPI/spotifyAPIrequests'
+import {fetchSpotifyUserPlaylists} from '../externalAPIsConnection/spotifyAPI/spotifyAPIrequests'
 import {getUserFacebookSavedCollections} from '../externalAPIsConnection/facebookAPI/facebookAPIrequests'
 import {getUserRedditSavedPosts} from '../externalAPIsConnection/redditAPI/redditAPIrequests'
 import {getPlaylists} from '../externalAPIsConnection/youtubeAPI/youtubeAPIrequests'
+
+
 export const ConnectionsContext = createContext();
 export const ConnectionsContextProvider = ({ children, user }) => {
   
@@ -103,10 +105,16 @@ export const ConnectionsContextProvider = ({ children, user }) => {
   
   //getting user Spotify playlists with his accessToken
   useEffect(() => {
-    fetchUserPlaylists(spotifyAccessToken)
+    fetchSpotifyUserPlaylists(spotifyAccessToken)
   .then((data) => {
-    console.log("User Playlists:", data.items);
-    setUserSpotifyPlaylists(data.items)
+    if (data && data.items && data.items.length > 0) {
+      console.log("Spotify Playlists:", data.items);
+      setUserSpotifyPlaylists(data.items);
+    } else {
+      console.log("No Spotify playlists found.");
+      setUserSpotifyPlaylists(null); 
+    }
+    
   })
   .catch((error) => {
     console.error("Error fetching playlists:", error);
