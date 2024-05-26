@@ -19,7 +19,6 @@ function getPlaylists(youTubeAccessToken) {
         })
         .then(data => {
             console.log(data);
-;
             return data; 
         })
         .catch(error => {

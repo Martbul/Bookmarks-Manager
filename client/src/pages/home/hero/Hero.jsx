@@ -51,7 +51,7 @@ export default function Hero() {
             marginBottom: theme.spacing(2),
           }}
         >
-          Our latest&nbsp;
+          Your all bookmarks&nbsp;
           <Typography
             component="span"
             variant="h1"
@@ -63,7 +63,7 @@ export default function Hero() {
                 : theme.palette.secondary.light,
             }}
           >
-            products
+            at the same place
           </Typography>
         </Typography>
         <Typography
@@ -83,7 +83,7 @@ export default function Hero() {
           justifyContent="center"
           sx={{ marginBottom: theme.spacing(3) }}
         >
-          <Link to='/users/register' style={{ textDecoration: 'none' }}>
+          <Link to='/register' style={{ textDecoration: 'none' }}>
             <Button
               variant="contained"
               color="primary"

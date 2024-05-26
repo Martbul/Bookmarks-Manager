@@ -1,13 +1,13 @@
-
-
-const app_key ='77kTYseCgfXqlrjzrbg0lYvts'
-const app_secret = 'y0LloRvOlECEjsiuo1AwWbgRu83AMqNMuoAtfUJGfZoVPNAWc9'
-const CALLBACK_URL = 'http://localhost:5173/connections'
-const redirectUri = encodeURIComponent(CALLBACK_URL);
+import {TWITTER_CLIENT_ID,TWITTER_CLIENT_SECRET,TWITTER_REDIRECT_URL} from '../../constants/twitterConstants'
 
 const handleTwitterLogin = async() => {
-   
+  const responseType = 'code';
+  const scope = 'tweet.read tweet.write'; 
+  const state = 'twitter-api-state';
     
+  const authUrl = `https://twitter.com/i/oauth2/authorize?response_type=${responseType}&client_id=${TWITTER_CLIENT_ID}&redirect_uri=${encodeURIComponent(TWITTER_REDIRECT_URL)}&scope=${encodeURIComponent(scope)}&state=${state}`;
+
+window.location.href = authUrl;
 };
 const getRequestToken = () => {
     const requestOptions = {

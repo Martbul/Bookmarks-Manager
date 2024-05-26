@@ -2,7 +2,7 @@ import {REDDIT_REDIRECT_URL,REDDIT_CLIENT_SECRET,REDDIT_CLIENT_ID} from '../../c
 import { Buffer } from 'buffer';
 
 const handleRedditLogin = () =>{
-    const scope = 'identity,submit,save,account,read';
+    const scope = 'identity,submit,save,account,read,history';
     const response_type= "code";
     const auth_url = `https://www.reddit.com/api/v1/authorize?client_id=${REDDIT_CLIENT_ID}&response_type=${response_type}&state=martok&redirect_uri=${REDDIT_REDIRECT_URL}&duration=permanent&scope=${scope}`;
 
@@ -36,14 +36,17 @@ console.log(encodedHeader);
             const access_token = data.access_token;
             const refresh_token = data.refresh_token;
             const expires_in = data.expires_in;
-            const expirationTime = new Date().getTime() + expires_in * 1000;
-
+            const currentTime = Date.now(); // Current time in milliseconds since the UNIX epoch
+            const tokenLifetimeMilliseconds = expires_in * 1000; // Convert lifetime to milliseconds
+            const expirationTimestamp = currentTime + tokenLifetimeMilliseconds;
+            const expirationDate = new Date(expirationTimestamp);
+            console.log(expirationDate);
 
 
             const userRedditTokensData = JSON.stringify({
                 access_token,
                 refresh_token,
-                expirationTime,
+                expirationTime:expirationDate.toLocaleString(),
             });
             localStorage.setItem("UserRedditTokensData", userRedditTokensData);
 
@@ -53,6 +56,6 @@ console.log(encodedHeader);
             // Handle fetch error
         });
 };
-//!add functionality about refresh_token
+
 
 export {handleRedditLogin,getReturnedParamsFromRedditAuth}

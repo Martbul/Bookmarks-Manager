@@ -8,7 +8,7 @@ import {
 
 import {fetchUserPlaylists} from '../externalAPIsConnection/spotifyAPI/spotifyAPIrequests'
 import {getUserFacebookSavedCollections} from '../externalAPIsConnection/facebookAPI/facebookAPIrequests'
-import {fetchUserSavedItems} from '../externalAPIsConnection/redditAPI/redditAPIrequests'
+import {getUserRedditSavedPosts} from '../externalAPIsConnection/redditAPI/redditAPIrequests'
 import {getPlaylists} from '../externalAPIsConnection/youtubeAPI/youtubeAPIrequests'
 export const ConnectionsContext = createContext();
 export const ConnectionsContextProvider = ({ children, user }) => {
@@ -140,7 +140,7 @@ export const ConnectionsContextProvider = ({ children, user }) => {
 
 //getting user Reddit saved posts with his accessToken
 useEffect(() => {
-  fetchUserSavedItems(userRedditAccessToken)
+  getUserRedditSavedPosts(userRedditAccessToken)
  
     .then((data) => {
     
