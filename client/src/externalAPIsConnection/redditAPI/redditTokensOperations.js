@@ -57,5 +57,71 @@ console.log(encodedHeader);
         });
 };
 
+const checkAndRefreshRedditAccessToken = async () => {
+    const userRedditTokensData = localStorage.getItem("UserRedditTokensData");
+    if(userRedditTokensData ===null) return 
+    console.log(userRedditTokensData);
+    const expirationTime = JSON.parse(userRedditTokensData).expirationTime;
+    const refresh_token = JSON.parse(userRedditTokensData).refresh_token;
+   console.log(expirationTime);
 
-export {handleRedditLogin,getReturnedParamsFromRedditAuth}
+    const targetDate = new Date(expirationTime);
+    const currentTime = new Date();
+    
+    const timeDifference = targetDate.getTime() - currentTime.getTime();
+    //console.log(timeDifference);
+
+    
+
+    if (timeDifference < 0) {
+        console.log('here');
+        await refreshAccessToken(refresh_token);
+    }
+};
+
+const refreshAccessToken = async(refresh_token)=> {
+    const url = 'https://www.reddit.com/api/v1/access_token';
+  
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + btoa(`${REDDIT_CLIENT_ID}:${REDDIT_CLIENT_SECRET}`)
+          },
+          body: new URLSearchParams({
+            grant_type: 'refresh_token',
+            refresh_token: refresh_token
+          }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to refresh access token');
+      }
+  
+      const data = await response.json();
+      const newAccessToken = data.access_token;
+      console.log('New Access Token:', newAccessToken);
+      const expires_in = data.expires_in;
+
+
+      const currentTime = Date.now(); // Current time in milliseconds since the UNIX epoch
+      const tokenLifetimeMilliseconds = expires_in * 1000; // Convert lifetime to milliseconds
+      const expirationTimestamp = currentTime + tokenLifetimeMilliseconds;
+      const expirationDate = new Date(expirationTimestamp);
+      console.log(expirationDate);
+
+      const userRedditTokensData = JSON.stringify({
+        access_token:newAccessToken,
+        refresh_token,
+        expirationTime:expirationDate.toLocaleString(),
+    });
+   localStorage.setItem("UserRedditTokensData", userRedditTokensData);
+    } catch (error) {
+      console.error('Error refreshing Reddit access token:', error);
+    }
+  }
+
+
+
+export {handleRedditLogin,getReturnedParamsFromRedditAuth,checkAndRefreshRedditAccessToken}

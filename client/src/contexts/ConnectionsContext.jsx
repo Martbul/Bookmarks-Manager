@@ -20,7 +20,7 @@ export const ConnectionsContextProvider = ({ children, user }) => {
   const [userFacebookSaved,setUserFacebookSaved] = useState(null)
 
   const [userRedditAccessToken, setUserRedditAccessToken] = useState(null)
-  const [userRedditSaved, setUserRedditSaved] = useState(null)
+  const [userRedditSavedPosts, setUserRedditSavedPosts] = useState(null)
 
   const [youtubeAccessToken, setYoutubeAccessToken] = useState(null);
   const [userYouTubePlaylists, setUserYouTubePlaylists] = useState(null);
@@ -144,8 +144,8 @@ useEffect(() => {
  
     .then((data) => {
     
-      console.log("Reddit User Saved Collections:", data.items);
-      setUserRedditSaved(data.items)
+      console.log("Reddit User Saved Collections:", data);
+      setUserRedditSavedPosts(data)
     })
     .catch((error) => {
       console.error("Error fetching Reddit Saved Collections:", error);
@@ -185,7 +185,7 @@ useEffect(() => {
         userFacebookSaved,
 
         userRedditAccessToken,
-        userRedditSaved,
+        userRedditSavedPosts,
 
         youtubeAccessToken,
         userYouTubePlaylists

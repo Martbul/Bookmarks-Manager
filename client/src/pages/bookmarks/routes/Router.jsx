@@ -1,4 +1,3 @@
-
 import { Navigate } from "react-router-dom";
 /****Layouts*****/
 import FullLayout from "../layouts/FullLayout/FullLayout.jsx";
@@ -6,14 +5,12 @@ import FullLayout from "../layouts/FullLayout/FullLayout.jsx";
 
 
 /*****Pages******/
-import Dashboard1 from "../views/dashboards/Dashboard1.jsx";
 
-/*****Tables******/
-import BasicTable from "../views/youtube/YouTube.jsx";
+import YouTube from "../views/youtube/YouTube.jsx";
 
 // form elements
 import ExAutoComplete from "../views/FormElements/ExAutoComplete.jsx";
-import ExButton from "../views/FormElements/ExButton.jsx";
+
 import ExCheckbox from "../views/FormElements/ExCheckbox.jsx";
 import ExRadio from "../views/FormElements/ExRadio.jsx";
 import ExSlider from "../views/FormElements/ExSlider.jsx";
@@ -22,8 +19,10 @@ import ExSwitch from "../views/FormElements/ExSwitch.jsx";
 // form layouts
 import FormLayouts from "../views/FormLayouts/FormLayouts.jsx";
 import Connections from "../../connections/Connections.jsx";
-import YouTube from "../views/youtube/YouTube.jsx";
+
 import StorageForComponent from "../views/dashboards/Dashboard1.jsx";
+import Reddit from "../views/reddit/Reddit.jsx";
+
 
 
 /*****Routes******/
@@ -39,7 +38,7 @@ const ThemeRoutes = [
       { path: "youtube", element: <YouTube /> },
       { path: "X", element: <FormLayouts /> },
       { path: "/instagram", element: <ExAutoComplete /> },
-      { path: "/reddit", element: <ExButton /> },
+      { path: "/reddit", element: <Reddit /> },
       { path: "/spotify", element: <ExCheckbox /> },
       { path: "/facebook", element: <ExRadio /> },
       { path: "/google", element: <ExSlider /> },

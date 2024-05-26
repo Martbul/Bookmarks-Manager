@@ -8,6 +8,13 @@ import {
   DailyActivities,
 } from "./dashboard1-components";
 import ExTable from "./dashboard1-components/ExTable";
+import { FabDefaultButton } from "../../components/Forms/Button/FabDefaultButton";
+import { DefaultButtonGroup } from "../../components/Forms/Button/DefaultButtonGroup";
+import { IconColorButtons } from "../../components/Forms/Button/IconColorButtons";
+import { TextColorButtons } from "../../components/Forms/Button/TextColorButtons";
+import { OutlinedColorButtons } from "../../components/Forms/Button/OutlinedColorButtons";
+import { SizeButton } from "../../components/Forms/Button/SizeButton";
+import { ColorButtons } from "../../components/Forms/Button/ColorButtons";
 
 const StorageForComponent = () => {
 //! this is all components(i have seen) from materialUI
@@ -48,6 +55,99 @@ const StorageForComponent = () => {
           </Box>
         </CardContent>
       </Card>
+    </Box>
+
+    <Box>
+      <Grid container spacing={0}>
+        {/* ------------------------- row 2 ------------------------- */}
+        <Grid
+          item
+          xs={12}
+          lg={6}
+          sx={{
+            display: "flex",
+            alignItems: "stretch",
+          }}
+        >
+          <ColorButtons />
+        </Grid>
+
+        {/* ------------------------- row 4 ------------------------- */}
+        <Grid
+          item
+          xs={12}
+          lg={6}
+          sx={{
+            display: "flex",
+            alignItems: "stretch",
+          }}
+        >
+          <SizeButton />
+        </Grid>
+
+        {/* ------------------------- row 2 ------------------------- */}
+        <Grid
+          item
+          xs={12}
+          lg={6}
+          sx={{
+            display: "flex",
+            alignItems: "stretch",
+          }}
+        >
+          <OutlinedColorButtons />
+        </Grid>
+
+        {/* ------------------------- row 2 ------------------------- */}
+        <Grid
+          item
+          xs={12}
+          lg={6}
+          sx={{
+            display: "flex",
+            alignItems: "stretch",
+          }}
+        >
+          <TextColorButtons />
+        </Grid>
+        {/* ------------------------- row 4 ------------------------- */}
+        <Grid
+          item
+          xs={12}
+          lg={6}
+          sx={{
+            display: "flex",
+            alignItems: "stretch",
+          }}
+        >
+          <IconColorButtons />
+        </Grid>
+        {/* ------------------------- row 4 ------------------------- */}
+        <Grid
+          item
+          xs={12}
+          lg={6}
+          sx={{
+            display: "flex",
+            alignItems: "stretch",
+          }}
+        >
+          <FabDefaultButton />
+        </Grid>
+
+        {/* ------------------------- row 4 ------------------------- */}
+        <Grid
+          item
+          xs={12}
+          lg={6}
+          sx={{
+            display: "flex",
+            alignItems: "stretch",
+          }}
+        >
+          <DefaultButtonGroup />
+        </Grid>
+      </Grid>
     </Box>
     </>
    
