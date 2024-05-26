@@ -8,6 +8,7 @@ import {
 import { Outlet } from "react-router-dom";
 import Header from "./Header/Header";
 import Sidebar from "./Sidebar/Sidebar";
+import Sidebar2 from "./Sidebar/Sidebar2";
 import Footer from "../../../../components/footer/Footer";
 import { TopbarHeight } from "../../assets/global/Theme-variable";
 import NavBar from "../../../../components/NavBar";
@@ -56,6 +57,7 @@ const FullLayout = () => {
         isMobileSidebarOpen={isMobileSidebarOpen}
         onSidebarClose={() => setMobileSidebarOpen(false)}
       />
+
 
       <PageWrapper>
         <Container

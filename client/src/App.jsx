@@ -34,7 +34,7 @@ function App() {
     
     <ConnectionsContextProvider user={user}>
      
-      <Container>
+      {/* <Container> */}
         <Routes>
           <Route
             path="/"
@@ -56,7 +56,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       
-      </Container>
+      {/* </Container> */}
 
      
     </ConnectionsContextProvider>

@@ -45,55 +45,60 @@ const Connections = () => {
           TikTok
         </button>
 
-     
-       {youtubeAccessToken && (<>
-      <button
+        {youtubeAccessToken && (
+          <>
+            <button
               className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-[#1DB954] hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
-              onClick={() => window.location ='http://localhost:5173/bookmarks/youtube'}
+              onClick={() =>
+                (window.location = "http://localhost:5173/bookmarks/youtube")
+              }
             >
               YouTube
             </button>
-      
-       
-       </>)}
+          </>
+        )}
 
-       {!youtubeAccessToken && (<>
+        {!youtubeAccessToken && (
+          <>
             <button
               className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
               onClick={handleYoutubeLogin}
             >
               YouTube
             </button>
-          </>)}
-          
-        
+          </>
+        )}
+
         <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200">
           Instagram
         </button>
 
-
-
-        <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
-        onClick={handleTwitterLogin}
+        <button
+          className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
+          onClick={handleTwitterLogin}
         >
-        𝕏
+          𝕏
         </button>
 
+        {userFacebookAccessToken && (
+          <>
+            <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-primary hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200">
+              Facebook
+            </button>
+          </>
+        )}
 
-        {userFacebookAccessToken && (<>
-          <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-primary hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
-       >
-          Facebook
-        </button>
-        </>)}
+        {!userFacebookAccessToken && (
+          <>
+            <button
+              className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
+              onClick={handleFcebookLogin}
+            >
+              Facebook
+            </button>
+          </>
+        )}
 
-        {!userFacebookAccessToken && (<>
-          <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
-        onClick={handleFcebookLogin}>
-          Facebook
-        </button>
-        </>)}
-        
         <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200">
           GitHub
         </button>
@@ -112,28 +117,38 @@ const Connections = () => {
           <>
             <button
               className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-[#1DB954] hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
-              
+              onClick={() =>
+                (window.location = "http://localhost:5173/bookmarks/spotify")
+              }
             >
               Spotify
             </button>
           </>
         )}
 
-        {userRedditAccessToken && (<>
-          <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-[#1DB954] hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
-         
-        >
-          Reddit
-        </button>
-        </>)}
+        {userRedditAccessToken && (
+          <>
+            <button
+              className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-[#1DB954] hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
+              onClick={() =>
+                (window.location = "http://localhost:5173/bookmarks/reddit")
+              }
+            >
+              Reddit
+            </button>
+          </>
+        )}
 
-        {!userRedditAccessToken && (<>
-         <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
-         onClick={handleRedditLogin}>
-          Reddit
-        </button>
-        </>)}
-        
+        {!userRedditAccessToken && (
+          <>
+            <button
+              className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
+              onClick={handleRedditLogin}
+            >
+              Reddit
+            </button>
+          </>
+        )}
       </div>
     </>
   );

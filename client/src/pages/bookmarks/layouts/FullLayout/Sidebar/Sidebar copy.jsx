@@ -18,9 +18,6 @@ import { Button } from "@mui/material";
 import { styled } from "@mui/system";
 
 
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
-import Sidebar2 from './Sidebar2';
-
 
 
 
@@ -57,19 +54,68 @@ const Sidebar = (props) => {
   };
 
   const SidebarContent = (
-    <Box sx={{ p: 2, height: "calc(100vh - 40px)" }}>
+    <Box sx={{ p: 3, height: "calc(100vh - 40px)" }}>
       <Link to="/bookmarks/connections">
-        <Box sx={{ display: "flex", alignItems: "Center", justifyContent: "center" }}>
+        <Box sx={{ display: "flex", alignItems: "Center" }}>
           <LogoIcon />
         </Box>
       </Link>
 
-     
-    
+      <Box sx={{ p: 3, height: "calc(100vh - 900px)" }}>
+        <ModernButton onClick={() => setIsSocialsOpen(!isSocialsOpen)}>
+          Social Media Apps
+        </ModernButton>
+      </Box>
+
+      <Box
+        sx={{ p: 3, height: "calc(100vh - 900px)" }}
+        onClick={() => setIsSocialsOpen(!isSocialsOpen)}
+      >
+        <p> Social Media Apps</p>
+      </Box>
 
       {isSocialsOpen && (
         <>
-        <Sidebar2></Sidebar2>
+          <Box >
+            <List
+              sx={{
+                mt: 4,
+              }}
+            >
+              {Menuitems.map((item, index) => {
+                //{/********SubHeader**********/}
+
+                return (
+                  <List component="li" disablePadding key={item.title}>
+                    <ListItem
+                      onClick={() => handleClick(index)}
+                      button
+                      component={NavLink}
+                      to={item.href}
+                      selected={pathDirect === item.href}
+                      sx={{
+                        mb: 1,
+                        ...(pathDirect === item.href && {
+                          color: "white",
+                          backgroundColor: (theme) =>
+                            `${theme.palette.primary.main}!important`,
+                        }),
+                      }}
+                    >
+                      <ListItemIcon
+                        sx={{
+                          ...(pathDirect === item.href && { color: "white" }),
+                        }}
+                      >
+                        <item.icon width="20" height="20" />
+                      </ListItemIcon>
+                      <ListItemText>{item.title}</ListItemText>
+                    </ListItem>
+                  </List>
+                );
+              })}
+            </List>
+          </Box>
         </>
       )}
 
