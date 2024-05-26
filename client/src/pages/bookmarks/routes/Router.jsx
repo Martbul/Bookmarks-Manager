@@ -11,17 +11,18 @@ import YouTube from "../views/youtube/YouTube.jsx";
 // form elements
 import ExAutoComplete from "../views/FormElements/ExAutoComplete.jsx";
 
-import ExCheckbox from "../views/FormElements/ExCheckbox.jsx";
+import ExCheckbox from "../views/spotify/Spotify.jsx";
 import ExRadio from "../views/FormElements/ExRadio.jsx";
 import ExSlider from "../views/FormElements/ExSlider.jsx";
 import ExSwitch from "../views/FormElements/ExSwitch.jsx";
 
 // form layouts
 import FormLayouts from "../views/FormLayouts/FormLayouts.jsx";
-import Connections from "../../connections/Connections.jsx";
+import Connections from "../views/connections/Connections.jsx";
 
 import StorageForComponent from "../views/dashboards/Dashboard1.jsx";
 import Reddit from "../views/reddit/Reddit.jsx";
+import Spotify from "../views/spotify/Spotify.jsx";
 
 
 
@@ -39,7 +40,7 @@ const ThemeRoutes = [
       { path: "X", element: <FormLayouts /> },
       { path: "/instagram", element: <ExAutoComplete /> },
       { path: "/reddit", element: <Reddit /> },
-      { path: "/spotify", element: <ExCheckbox /> },
+      { path: "/spotify", element: <Spotify /> },
       { path: "/facebook", element: <ExRadio /> },
       { path: "/google", element: <ExSlider /> },
       { path: "/github", element: <ExSwitch /> },

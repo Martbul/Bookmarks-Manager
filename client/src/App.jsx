@@ -11,7 +11,7 @@ import Box from "@mui/material/Box";
 
 
 
-import Connections from "./pages/connections/Connections";
+import Connections from "./pages/bookmarks/views/connections/Connections";
 import Home from "./pages/home/Home";
 
 import Login from "./pages/login/Login";

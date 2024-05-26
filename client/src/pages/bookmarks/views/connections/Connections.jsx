@@ -1,11 +1,11 @@
 import "./Connections.css";
 import { useContext, useEffect } from "react";
-import { ConnectionsContext } from "../../contexts/ConnectionsContext";
-import {getReturnedParamsFromSpotifyAuth,checkAndRefreshToken,handleSpotifyLogin} from '../../externalAPIsConnection/spotifyAPI/spotifyTokensOperations'
-import {handleTwitterLogin,getRequestToken} from '../../externalAPIsConnection/twitterAPI/twitterTokenOperations'
-import {handleFcebookLogin,getParamsFromUrlFromFacebook} from '../../externalAPIsConnection/facebookAPI/facebookTokensOperations'
-import {handleRedditLogin,getReturnedParamsFromRedditAuth} from '../../externalAPIsConnection/redditAPI/redditTokensOperations'
-import {handleYoutubeLogin,getReturnedParamsFromYouTubeAuth} from '../../externalAPIsConnection/youtubeAPI/youtubeTokenOperations'
+import { ConnectionsContext } from "../../../../contexts/ConnectionsContext";
+import {getReturnedParamsFromSpotifyAuth,checkAndRefreshToken,handleSpotifyLogin} from '../../../../externalAPIsConnection/spotifyAPI/spotifyTokensOperations'
+import {handleTwitterLogin,getRequestToken} from '../../../../externalAPIsConnection/twitterAPI/twitterTokenOperations'
+import {handleFcebookLogin,getParamsFromUrlFromFacebook} from '../../../../externalAPIsConnection/facebookAPI/facebookTokensOperations'
+import {handleRedditLogin,getReturnedParamsFromRedditAuth} from '../../../../externalAPIsConnection/redditAPI/redditTokensOperations'
+import {handleYoutubeLogin,getReturnedParamsFromYouTubeAuth} from '../../../../externalAPIsConnection/youtubeAPI/youtubeTokenOperations'
 
 
 
