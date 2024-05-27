@@ -92,7 +92,7 @@ export const AuthContextProvider = ({ children }) => {
       
       localStorage.setItem("User", JSON.stringify(response));
       setUser(response);
-  
+  navigate("/bookmarks/connections");
     },[loginInfo]) 
   
   

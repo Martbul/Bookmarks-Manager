@@ -19,3 +19,17 @@
    min-width: 400px;
 }
 }
+
+.to-login{
+   display: flex;
+   flex-direction:row;
+   justify-content:center;
+   gap: 1em;
+}
+.to-login p{
+color:black
+}
+
+.login-link:hover{
+   text-decoration:underline
+}

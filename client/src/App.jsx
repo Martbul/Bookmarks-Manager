@@ -28,37 +28,28 @@ function App() {
   const { user, setUser } = useContext(AuthContext);
   
   return (
-
-  
-    
-    
     <ConnectionsContextProvider user={user}>
-     
       {/* <Container> */}
-        <Routes>
-          <Route
-            path="/"
-            element={ <Home setUser={setUser} />}
-          />
-          <Route
-            path="/connections"
-            element={user ? <Connections /> : <Login setUser={setUser} />}
-          />
-          <Route
-            path="/register"
-            element={<Register setUser={setUser} />}
-          />
-          <Route
-            path="/login"
-            element={user ? <Home /> : <Login setUser={setUser} />}
-          />
-          <Route path="/bookmarks/*" element={<Bookmarks/>}></Route>
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      
-      {/* </Container> */}
+      <Routes>
+        <Route path="/" element={<Home setUser={setUser} />} />
+        <Route
+          path="/connections"
+          element={user ? <Connections /> : <Login setUser={setUser} />}
+        />
+        <Route
+          path="/register"
+          element={user ? <Home /> : <Register setUser={setUser} />}
+        />
+        <Route
+          path="/login"
+         
+          element={<Login setUser={setUser} />}
+        />
+        <Route path="/bookmarks/*" element={<Bookmarks />}></Route>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
 
-     
+      {/* </Container> */}
     </ConnectionsContextProvider>
   );
 }

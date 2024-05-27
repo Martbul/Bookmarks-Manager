@@ -1,0 +1,13 @@
+.to-register{
+   display: flex;
+   flex-direction:row;
+   justify-content:center;
+   gap: 1em;
+}
+.to-register p{
+color:black
+}
+
+.register-link:hover{
+   text-decoration:underline
+}

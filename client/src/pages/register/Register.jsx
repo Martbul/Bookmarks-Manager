@@ -1,7 +1,7 @@
-import { Alert, Button, Form, Row, Col, Stack } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-import { ConnectionsContext } from "../../contexts/ConnectionsContext";
+
 
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
@@ -13,6 +13,7 @@ import { Input } from "../../components/ui/input";
 import { BackgroundBeams } from "../../components/ui/background-beams";
 
 import './Register.css';
+import { Link } from "react-router-dom";
 const Register = ({ setUser }) => {
   const {
     registerInfo,
@@ -166,9 +167,8 @@ const Register = ({ setUser }) => {
                   </button>
 
                   <GoogleLogin
-                    className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+                    className=" relative group/btn flex space-x-2 items-center justify-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
                     type="button"
-      
                     onSuccess={handleGoogleLogin}
                     onError={() => {
                       console.log("Google Login Failed");
@@ -192,66 +192,21 @@ const Register = ({ setUser }) => {
                   </button>
                 </div>
               </form>
+              <div
+                className="to-login"
+                style={{ position: "relative", zIndex: 9 }}
+              >
+                <p>Already have account?</p>
+                <Link to="/login">
+                  <p className="login-link">Login</p>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
+
         <BackgroundBeams />
       </div>
-
-      <Form onSubmit={registerUser}>
-        <Row
-          style={{
-            height: "100vh",
-            justifyContent: "center",
-            paddingTop: "5%",
-          }}
-        >
-          <Col xs={6}>
-            <Stack gap={3}>
-              <h2>Register</h2>
-
-              <Form.Control
-                type="text"
-                placeholder="Name"
-                onChange={(e) =>
-                  updateRegisterInfo({ ...registerInfo, name: e.target.value })
-                }
-              />
-              <Form.Control
-                type="emali"
-                placeholder="Emali"
-                onChange={(e) =>
-                  updateRegisterInfo({ ...registerInfo, email: e.target.value })
-                }
-              />
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                onChange={(e) =>
-                  updateRegisterInfo({
-                    ...registerInfo,
-                    password: e.target.value,
-                  })
-                }
-              />
-              <Button variant="primary" type="submit">
-                {isRegisterLoading ? "Creating Your Account" : "Register"}
-              </Button>
-              {registerError?.error && (
-                <Alert variant="danger">
-                  <p>{registerError?.message}</p>
-                </Alert>
-              )}
-            </Stack>
-            <GoogleLogin
-              onSuccess={handleGoogleLogin}
-              onError={() => {
-                console.log("Google Login Failed");
-              }}
-            />
-          </Col>
-        </Row>
-      </Form>
     </>
   );
 };
