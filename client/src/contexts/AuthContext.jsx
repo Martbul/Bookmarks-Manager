@@ -1,8 +1,10 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import { postRequest,baseUrl} from "../utils/services";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
+  const navigate = useNavigate()
 
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('User')));	
   
@@ -65,6 +67,7 @@ export const AuthContextProvider = ({ children }) => {
   
       localStorage.setItem("User", JSON.stringify(response));
       setUser(response);
+      navigate('/bookmarks/connections')
     }, [registerInfo]);
   
   

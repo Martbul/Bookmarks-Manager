@@ -25,8 +25,7 @@ router.get(
     failureRedirect: "/auth/fail",
   })
 );
-//router.get('/spotify/redirect', passport.authenticate('google', { successRedirect: "http://localhost:5173", failureRedirect: '/auth/fail' }));
-// router.get("/spotify/redirect", spotifyRedirect);
+
 router.post("/singleUser", getSingleUser);
 
 module.exports = router;

@@ -38,7 +38,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={user ? <Home /> : <Login setUser={setUser} />}
+            element={ <Home setUser={setUser} />}
           />
           <Route
             path="/connections"

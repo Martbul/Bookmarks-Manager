@@ -11,7 +11,8 @@ const userSchema = new mongoose.Schema(
       unique: true,
     },
     password: { type: String, required: false, minlength: 5, maxlength: 1024 },
-    googleId_jti: { type: String, unique: false, sparse: true },
+   googleId_jti: { type: String, unique: false, sparse: true },
+
 
     googleAuthAccessToken: { type: String, required: false },
     googleProfileData: { type: String, required: false },
