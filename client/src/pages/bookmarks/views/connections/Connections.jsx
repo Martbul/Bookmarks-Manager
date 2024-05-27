@@ -1,43 +1,59 @@
 import "./Connections.css";
 import { useContext, useEffect } from "react";
 import { ConnectionsContext } from "../../../../contexts/ConnectionsContext";
-import {getReturnedParamsFromSpotifyAuth,checkAndRefreshToken,handleSpotifyLogin} from '../../../../externalAPIsConnection/spotifyAPI/spotifyTokensOperations'
-import {handleTwitterLogin,getRequestToken} from '../../../../externalAPIsConnection/twitterAPI/twitterTokenOperations'
-import {handleFcebookLogin,getParamsFromUrlFromFacebook} from '../../../../externalAPIsConnection/facebookAPI/facebookTokensOperations'
-import {handleRedditLogin,getReturnedParamsFromRedditAuth} from '../../../../externalAPIsConnection/redditAPI/redditTokensOperations'
-import {handleYoutubeLogin,getReturnedParamsFromYouTubeAuth} from '../../../../externalAPIsConnection/youtubeAPI/youtubeTokenOperations'
-
-
+import {
+  getReturnedParamsFromSpotifyAuth,
+  checkAndRefreshToken,
+  handleSpotifyLogin,
+} from "../../../../externalAPIsConnection/spotifyAPI/spotifyTokensOperations";
+import {
+  handleTwitterLogin,
+  getReturnedParamsFromTwitterAuth,
+} from "../../../../externalAPIsConnection/twitterAPI/twitterTokenOperations";
+import {
+  handleFcebookLogin,
+  getParamsFromUrlFromFacebook,
+} from "../../../../externalAPIsConnection/facebookAPI/facebookTokensOperations";
+import {
+  handleRedditLogin,
+  getReturnedParamsFromRedditAuth,
+} from "../../../../externalAPIsConnection/redditAPI/redditTokensOperations";
+import {
+  handleYoutubeLogin,
+  getReturnedParamsFromYouTubeAuth,
+} from "../../../../externalAPIsConnection/youtubeAPI/youtubeTokenOperations";
 
 setInterval(checkAndRefreshToken, 333333);
 const Connections = () => {
-  const {  userGoogleAccessTokenYouTube, spotifyAccessToken,userFacebookAccessToken,
-    userRedditAccessToken,youtubeAccessToken} =
-    useContext(ConnectionsContext);
-      
-  
-  
+  const {
+    userGoogleAccessTokenYouTube,
+    spotifyAccessToken,
+    userFacebookAccessToken,
+    userRedditAccessToken,
+    youtubeAccessToken,
+  } = useContext(ConnectionsContext);
+
   useEffect(() => {
-   
-    if(window.location.search.includes("state=public_profile")){
-      //console.log('test');
-      getParamsFromUrlFromFacebook(window.location.search)
-    }else if(window.location.search.includes("state=martok") && localStorage.getItem('UserRedditTokensData') === null){
-      // console.log('test');
-      getReturnedParamsFromRedditAuth(window.location.search)
-    }else if(window.location.search.includes("scope=https://www.googleapis.com/auth/youtube.readonly") && localStorage.getItem('UserYouTubeTokensData') === null){
-      //console.log('test');
-      getReturnedParamsFromYouTubeAuth(window.location.search)
-     }else if (window.location.search) {  
-      //console.log('test');
-     getReturnedParamsFromSpotifyAuth(window.location.search);
-   }
- });
+    if (window.location.search.includes("state=public_profile")) {
+      console.log('test');
+      getParamsFromUrlFromFacebook(window.location.search);
+    } else if ( window.location.search.includes("state=martok") && localStorage.getItem("UserRedditTokensData") === null
+    ) {
+      console.log('test');
+      getReturnedParamsFromRedditAuth(window.location.search);
+    } else if (window.location.search.includes("scope=https://www.googleapis.com/auth/youtube.readonly") && localStorage.getItem("UserYouTubeTokensData") === null
+    ) {
+      console.log('test');
+      getReturnedParamsFromYouTubeAuth(window.location.search);
+    } else if (window.location.search.includes("state=twitter-api-state") && localStorage.getItem("UserTwitterTokensData") === null) {
+      getReturnedParamsFromTwitterAuth(window.location.search)
+        console.log("test");
+    } else if (window.location.search) {
+      console.log('test');
+      getReturnedParamsFromSpotifyAuth(window.location.search);
+    }
+  });
 
-
-
-  
-  
   return (
     <>
       <div className="social-media-auth">
