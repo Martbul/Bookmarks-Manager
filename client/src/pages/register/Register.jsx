@@ -13,7 +13,7 @@ import { Input } from "../../components/ui/input";
 import { BackgroundBeams } from "../../components/ui/background-beams";
 
 import './Register.css';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Register = ({ setUser }) => {
   const {
     registerInfo,
@@ -22,7 +22,7 @@ const Register = ({ setUser }) => {
     isRegisterLoading,
     registerUser,
   } = useContext(AuthContext);
-  
+    const navigate = useNavigate();
 
   const handleGoogleLogin = async (credentialResponse) => {
     const token = JSON.stringify(credentialResponse);
@@ -53,6 +53,7 @@ const Register = ({ setUser }) => {
     localStorage.setItem("User", JSON.stringify(userAuthObj));
 
     setUser(userAuthObj);
+     navigate("/bookmarks/connections");
   };
 
   return (

@@ -34,7 +34,10 @@ const items = [
     href: "/bookmarks/connections",
   },
   {
-    key: "sub0",
+    type: "divider",
+  },
+  {
+    key: "socialmedia",
     label: "Social Media",
     icon: <LanguageIcon />,
     children: [
@@ -87,31 +90,25 @@ const items = [
   },
 
   {
-    key: "sub2",
+    key: "notes",
     label: "Notes",
     icon: <NotesTwoToneIcon />,
     children: [
       {
-        key: "5",
-        label: "Option 5",
+        key: "notion",
+        label: "Notion",
       },
       {
-        key: "6",
-        label: "Option 6",
+        key: "googlenotes",
+        label: "Google Notes",
       },
       {
-        key: "sub3",
-        label: "Submenu",
-        children: [
-          {
-            key: "7",
-            label: "Option 7",
-          },
-          {
-            key: "8",
-            label: "Option 8",
-          },
-        ],
+        key: "applenotes",
+        label: "Apple Notes",
+      },
+      {
+        key: "onenote",
+        label: "One Note",
       },
     ],
   },
@@ -119,7 +116,7 @@ const items = [
     type: "divider",
   },
   {
-    key: "sub4",
+    key: "tasks",
     label: "Tasks",
     icon: (
       <svg
@@ -150,6 +147,106 @@ const items = [
       {
         key: "12",
         label: "Option 12",
+      },
+    ],
+  },
+  {
+    type: "divider",
+  },
+
+  {
+    key: "hobby",
+    label: "Hobby",
+    icon: <NotesTwoToneIcon />,
+    children: [
+      {
+        key: "films",
+        label: "Films",
+        children: [
+          {
+            key: "netflix",
+            label: "Netflix",
+          },
+          {
+            key: "disney+",
+            label: "Disney+",
+          },
+
+          {
+            key: "amazonprimevideo+",
+            label: "Amazon Prime Video",
+          },
+        ],
+      },
+
+      {
+        key: "books",
+        label: "Books",
+        children: [
+          {
+            key: "netflix",
+            label: "Netflix",
+          },
+          {
+            key: "disney+",
+            label: "Disney+",
+          },
+
+          {
+            key: "amazonprimevideo+",
+            label: "Amazon Prime Video",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    type: "divider",
+  },
+
+  {
+    key: "work",
+    label: "Work",
+    icon: <NotesTwoToneIcon />,
+    children: [
+      {
+        key: "films",
+        label: "Films",
+        children: [
+          {
+            key: "netflix",
+            label: "Netflix",
+          },
+          {
+            key: "disney+",
+            label: "Disney+",
+          },
+
+          {
+            key: "amazonprimevideo+",
+            label: "Amazon Prime Video",
+          },
+        ],
+      },
+
+      {
+        key: "books",
+        label: "Books",
+        children: [
+          {
+            key: "netflix",
+            label: "Netflix",
+          },
+          {
+            key: "disney+",
+            label: "Disney+",
+          },
+
+          {
+            key: "amazonprimevideo+",
+            label: "Amazon Prime Video",
+          },
+        ],
       },
     ],
   },

@@ -1,3 +1,4 @@
-export const TWITTER_CLIENT_SECRET='EZkmPhbzVSCiVUeQIZrU7ESA2unn8ZEsO97G5YC8HvKDhEi3aB';
+export const TWITTER_CLIENT_SECRET =
+  "izIEEVe4Yiv2NKs94kACsUGm9cfNUAdz8eShR8BAeHWnOgBvvk";
 export const TWITTER_REDIRECT_URL = "http://localhost:5173/bookmarks/connections";
-export const TWITTER_CLIENT_ID ='ZHVNNGpoMGRpYjA3blhuYUZpYk46MTpjaQ'
+export const TWITTER_CLIENT_ID = "RXdwSEt0SV91MlpQb09yVWFKRTI6MTpjaQ";

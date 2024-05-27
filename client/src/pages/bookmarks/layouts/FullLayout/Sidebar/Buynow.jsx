@@ -34,7 +34,7 @@ const Buynow = () => {
               position: "relative",
             }}
           >
-            Built with <br /> Material-UI
+           Don't miss saved <br /> post again
           </Typography>
           <Button
             color="success"

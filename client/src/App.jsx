@@ -42,8 +42,7 @@ function App() {
         />
         <Route
           path="/login"
-         
-          element={<Login setUser={setUser} />}
+          element={user ? <Home /> : <Login setUser={setUser} />}
         />
         <Route path="/bookmarks/*" element={<Bookmarks />}></Route>
         <Route path="*" element={<Navigate to="/" />} />

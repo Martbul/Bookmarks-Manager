@@ -13,12 +13,13 @@ import {
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
 import { BackgroundBeams } from "../../components/ui/background-beams";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import './Login.css'
 const Login = ({setUser}) => {
   const { loginInfo, loginError, loginUser, updateLoginInfo, isLoginLoading } =
     useContext(AuthContext);
+  const navigate = useNavigate();
   
    const handleGoogleLogin = async (credentialResponse) => {
      const token = JSON.stringify(credentialResponse);
@@ -49,6 +50,7 @@ const Login = ({setUser}) => {
      localStorage.setItem("User", JSON.stringify(userAuthObj));
 
      setUser(userAuthObj);
+     navigate("/bookmarks/connections");
    };
   
   
@@ -190,53 +192,6 @@ const Login = ({setUser}) => {
         <BackgroundBeams />
       </div>
 
-      {/* <Form onSubmit={loginUser}>
-        <Row
-          style={{
-            height: "100vh",
-            justifyContent: "center",
-            paddingTop: "5%",
-          }}
-        >
-          <Col xs={6}>
-            <Stack gap={3}>
-              <h2>Login</h2>
-
-              <Form.Control
-                type="emali"
-                placeholder="Emali"
-                onChange={(e) =>
-                  updateLoginInfo({ ...loginInfo, email: e.target.value })
-                }
-              />
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                onChange={(e) =>
-                  updateLoginInfo({ ...loginInfo, password: e.target.value })
-                }
-              />
-              <Button variant="primary" type="submit">
-                {isLoginLoading ? "Getting you in..." : "Login"}
-              </Button>
-
-              {loginError?.error && (
-                <>
-                  <Alert variant="danger">
-                    <p>{loginError?.message}</p>
-                  </Alert>
-                </>
-              )}
-            </Stack>
-            <GoogleLogin
-              onSuccess={handleGoogleLogin}
-              onError={() => {
-                console.log("Google Login Failed");
-              }}
-            />
-          </Col>
-        </Row>
-      </Form> */}
     </>
   );
 };
