@@ -1,0 +1,11 @@
+
+
+.social-media-auth{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 6em;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+

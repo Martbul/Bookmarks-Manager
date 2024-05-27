@@ -3,35 +3,66 @@ import { Container } from "react-bootstrap";
 import { useContext } from "react";
 import { AuthContext } from "./contexts/AuthContext";
 
-import Connections from "./pages/connections/Connections";
+
+
+//dont remove these 2 imports(i dont know how or way but when i remove them the app breaks)
+import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
+
+
+
+import Connections from "./pages/bookmarks/views/connections/Connections";
 import Home from "./pages/home/Home";
-import NavBar from "./componens/NavBar";
+
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import {  ConnectionsContextProvider } from "./contexts/ConnectionsContext";
-//import { BookmarksContextProvider } from "./contexts/BookmarksContext";
+import Bookmarks from "./pages/bookmarks/Bookmarks";
+
+
+
+
 function App() {
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   
   return (
+
+  
+    
+    
     <ConnectionsContextProvider user={user}>
      
-          <NavBar></NavBar>
-      <Container>
+      {/* <Container> */}
         <Routes>
-          <Route path="/" element={user ? <Home /> : <Login />} />
-          <Route path="/connections" element={user ? <Connections /> : <Login />} />
-          <Route path="/register" element={user ? <Home /> : <Register />} />
-          <Route path="/login" element={user ? <Home /> : <Login />} />
+          <Route
+            path="/"
+            element={user ? <Home /> : <Login setUser={setUser} />}
+          />
+          <Route
+            path="/connections"
+            element={user ? <Connections /> : <Login setUser={setUser} />}
+          />
+          <Route
+            path="/register"
+            element={<Register setUser={setUser} />}
+          />
+          <Route
+            path="/login"
+            element={user ? <Home /> : <Login setUser={setUser} />}
+          />
+          <Route path="/bookmarks/*" element={<Bookmarks/>}></Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-      </Container>
+      
+      {/* </Container> */}
+
      
-    
     </ConnectionsContextProvider>
   );
 }
 
 export default App;
+
+

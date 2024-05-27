@@ -1,21 +1,21 @@
+import Footer from '../../components/footer/Footer';
+import FAQ from './FAQ/FAQ';
+import './Home.css'
+import Features from './features/Features';
+import Highlights from './highlights/Highlights';
+import Testimonials from './testimonials/Testimonials';
+import Header from './header/Header' 
 const Home = () => {
   return (
     <>
-      <div className="all-social-medias">
-        <div className="youtube">
-            <div className="content">
+      
+    <Header></Header>
+      <Features></Features>
+      <Highlights></Highlights>
 
-            </div>
-        </div>
-        <div className="tiktok">
-            <div className="content">
-
-            </div>
-        </div>
-        <div className="spotify">
-            <div className="content"></div>
-        </div>
-      </div>
+      <Testimonials></Testimonials>
+      <FAQ></FAQ>
+      <Footer />
     </>
   );
 };
