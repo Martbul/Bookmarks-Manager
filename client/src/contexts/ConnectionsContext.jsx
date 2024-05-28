@@ -10,182 +10,178 @@ import {fetchSpotifyUserPlaylists} from '../externalAPIsConnection/spotifyAPI/sp
 import {getUserFacebookSavedCollections} from '../externalAPIsConnection/facebookAPI/facebookAPIrequests'
 import {getUserRedditSavedPosts} from '../externalAPIsConnection/redditAPI/redditAPIrequests'
 import {getPlaylists} from '../externalAPIsConnection/youtubeAPI/youtubeAPIrequests'
-
+import {getUserMicrosoftSavedNotes} from '../externalAPIsConnection/microsoftAPI/microsoftAPIOperations'
 
 export const ConnectionsContext = createContext();
 export const ConnectionsContextProvider = ({ children, user }) => {
-  
   const [spotifyAccessToken, setSpotifyAccessToken] = useState(null);
-  const [userSpotifyPlaylists, setUserSpotifyPlaylists] = useState(null)
+  const [userSpotifyPlaylists, setUserSpotifyPlaylists] = useState(null);
 
-  const [userFacebookAccessToken, setUserFacebookAccessToken] = useState(null)
-  const [userFacebookSaved,setUserFacebookSaved] = useState(null)
+  const [userFacebookAccessToken, setUserFacebookAccessToken] = useState(null);
+  const [userFacebookSaved, setUserFacebookSaved] = useState(null);
 
-  const [userRedditAccessToken, setUserRedditAccessToken] = useState(null)
-  const [userRedditSavedPosts, setUserRedditSavedPosts] = useState(null)
+  const [userRedditAccessToken, setUserRedditAccessToken] = useState(null);
+  const [userRedditSavedPosts, setUserRedditSavedPosts] = useState(null);
 
   const [youtubeAccessToken, setYoutubeAccessToken] = useState(null);
   const [userYouTubePlaylists, setUserYouTubePlaylists] = useState(null);
- 
 
-  
+  const [microsoftAccessToken, setMicrosoftAccessToken] = useState(null);
+  const [microsoftNoteBooks, setMicrosoftNoteBooks] = useState(null);
 
-  
   //! you also should check if the token is valid
-   let checkForSpotifyAccessToken = localStorage.getItem("UserSpotifyTokensData")
+  let checkForSpotifyAccessToken = localStorage.getItem(
+    "UserSpotifyTokensData"
+  );
   // getting user Spotify accessToken from localStorage and setting it in a useState varable
-   useEffect(() => {
-     const SpotifyTokens = localStorage.getItem("UserSpotifyTokensData");
-     if (SpotifyTokens) {
-       const accessToken = JSON.parse(SpotifyTokens).access_token;
-        setSpotifyAccessToken(accessToken);
-     }else{
-      setSpotifyAccessToken(null)
-     }
-    
-    
-    
-   }, [checkForSpotifyAccessToken]);
-
-
-
-
-    //! you also should check if the token is valid
-   let checkForFacebookAccessToken = localStorage.getItem("UserFacebookTokenData")
-     // getting user Facebook accessToken from localStorage and setting it in a useState varable
-     useEffect(() => {
-      const FacebookTokens = localStorage.getItem("UserFacebookTokenData");
-      if (FacebookTokens) {
-        const facebookAccessToken = JSON.parse(FacebookTokens).access_token;
-        setUserFacebookAccessToken(facebookAccessToken);
-      }else{
-        setUserFacebookAccessToken(null)
-      }
-     
-     
-    }, [checkForFacebookAccessToken]);
-
-
+  useEffect(() => {
+    const SpotifyTokens = localStorage.getItem("UserSpotifyTokensData");
+    if (SpotifyTokens) {
+      const accessToken = JSON.parse(SpotifyTokens).access_token;
+      setSpotifyAccessToken(accessToken);
+    } else {
+      setSpotifyAccessToken(null);
+    }
+  }, [checkForSpotifyAccessToken]);
 
   //! you also should check if the token is valid
-   let checkForRedditAccessToken = localStorage.getItem("UserRedditTokensData")
-   useEffect(() => {
+  let checkForFacebookAccessToken = localStorage.getItem(
+    "UserFacebookTokenData"
+  );
+  // getting user Facebook accessToken from localStorage and setting it in a useState varable
+  useEffect(() => {
+    const FacebookTokens = localStorage.getItem("UserFacebookTokenData");
+    if (FacebookTokens) {
+      const facebookAccessToken = JSON.parse(FacebookTokens).access_token;
+      setUserFacebookAccessToken(facebookAccessToken);
+    } else {
+      setUserFacebookAccessToken(null);
+    }
+  }, [checkForFacebookAccessToken]);
+
+  //! you also should check if the token is valid
+  let checkForRedditAccessToken = localStorage.getItem("UserRedditTokensData");
+  useEffect(() => {
     const RedditTokens = localStorage.getItem("UserRedditTokensData");
     if (RedditTokens) {
       const redditAccessToken = JSON.parse(RedditTokens).access_token;
       setUserRedditAccessToken(redditAccessToken);
-    }else{
-      setUserRedditAccessToken(null)
+    } else {
+      setUserRedditAccessToken(null);
     }
-   
-   
   }, [checkForRedditAccessToken]);
 
-
-
-//! you also should check if the token is valid
-  let checkForYouTubeAccessToken = localStorage.getItem("UserYouTubeTokensData")
-   useEffect(() => {
+  //! you also should check if the token is valid
+  let checkForYouTubeAccessToken = localStorage.getItem(
+    "UserYouTubeTokensData"
+  );
+  useEffect(() => {
     const YouTubeTokens = localStorage.getItem("UserYouTubeTokensData");
     if (YouTubeTokens) {
       const youtubeAccessToken = JSON.parse(YouTubeTokens).access_token;
       setYoutubeAccessToken(youtubeAccessToken);
-    }else{
-      setYoutubeAccessToken(null)
+    } else {
+      setYoutubeAccessToken(null);
     }
-   
   }, [checkForYouTubeAccessToken]);
-  
-  
-  
-  
-  
-  
-  
-  
+
+  let checkForMicrosoftAccessToken = localStorage.getItem(
+    "userMicrosoftTokensData"
+  );
+  useEffect(() => {
+    const MicrosoftTokens = localStorage.getItem("userMicrosoftTokensData");
+    if (MicrosoftTokens) {
+      const microsoftAccessToken = JSON.parse(MicrosoftTokens).access_token;
+      setMicrosoftAccessToken(microsoftAccessToken);
+    } else {
+      setMicrosoftAccessToken(null);
+    }
+  }, [checkForMicrosoftAccessToken]);
+
   //getting user Spotify playlists with his accessToken
   useEffect(() => {
     fetchSpotifyUserPlaylists(spotifyAccessToken)
-  .then((data) => {
-    if (data && data.items && data.items.length > 0) {
-      console.log("Spotify Playlists:", data.items);
-      setUserSpotifyPlaylists(data.items);
-    } else {
-      console.log("No Spotify playlists found.");
-      setUserSpotifyPlaylists(null); 
-    }
-    
-  })
-  .catch((error) => {
-    console.error("Error fetching playlists:", error);
-  });
-    
+      .then((data) => {
+        if (data && data.items && data.items.length > 0) {
+          console.log("Spotify Playlists:", data.items);
+          setUserSpotifyPlaylists(data.items);
+        } else {
+          console.log("No Spotify playlists found.");
+          setUserSpotifyPlaylists(null);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching playlists:", error);
+      });
+
     // fetchUserPlaylists()
-
   }, [spotifyAccessToken]);
-
-
 
   //getting user Facebook saved posts with his accessToken
   useEffect(() => {
-    
     getUserFacebookSavedCollections(userFacebookAccessToken)
-   
       .then((data) => {
-      
         console.log("Facebook User Saved Collections:", data.items);
-        setUserFacebookSaved(data.items)
+        setUserFacebookSaved(data.items);
       })
       .catch((error) => {
         console.error("Error fetching Saved Collections:", error);
       });
-        
-      }, [userFacebookAccessToken]);
+  }, [userFacebookAccessToken]);
+
+  //getting user Reddit saved posts with his accessToken
+  useEffect(() => {
+    getUserRedditSavedPosts(userRedditAccessToken)
+      .then((data) => {
+        console.log("Reddit User Saved Collections:", data);
+        setUserRedditSavedPosts(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching Reddit Saved Collections:", error);
+      });
+  }, [userRedditAccessToken]);
+
+  //getting user YouTube playlists with his accessToken
+  useEffect(() => {
+    getPlaylists(youtubeAccessToken)
+      .then((data) => {
+        if (data && data.items && data.items.length > 0) {
+          console.log("YouTube Playlists:", data.items);
+          setUserYouTubePlaylists(data.items);
+        } else {
+          console.log("No playlists found.");
+          setUserYouTubePlaylists(null);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching YouTube Playlists:", error);
+      });
+  }, [youtubeAccessToken]);
 
 
 
 
-
-//getting user Reddit saved posts with his accessToken
-useEffect(() => {
-  getUserRedditSavedPosts(userRedditAccessToken)
- 
-    .then((data) => {
-    
-      console.log("Reddit User Saved Collections:", data);
-      setUserRedditSavedPosts(data)
-    })
-    .catch((error) => {
-      console.error("Error fetching Reddit Saved Collections:", error);
-    });
-      
-    }, [userRedditAccessToken]);
-  
-
-
-
- //getting user YouTube playlists with his accessToken
- useEffect(() => {
-  getPlaylists(youtubeAccessToken)
-    .then((data) => {
-      if (data && data.items && data.items.length > 0) {
-        console.log("YouTube Playlists:", data.items);
-        setUserYouTubePlaylists(data.items);
-      } else {
-        console.log("No playlists found.");
-        setUserYouTubePlaylists(null); 
-      }
-    })
-    .catch((error) => {
-      console.error("Error fetching YouTube Playlists:", error);
-    });
-}, [youtubeAccessToken]);
-  
+  //!napishli sushtata logica no za microsoft
+  useEffect(() => {
+    getUserMicrosoftSavedNotes(microsoftAccessToken)
+      .then((data) => {
+       
+        if (data && data.value && data.value.length > 0) {
+          console.log("Microsoft OneNote NoteBooks:", data.value);
+          setMicrosoftNoteBooks(data.value);
+        } else {
+          console.log("No playlists found.");
+          setMicrosoftNoteBooks(null);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching YouTube Playlists:", error);
+      });
+  }, [microsoftAccessToken]);
 
   return (
     <ConnectionsContext.Provider
       value={{
-
         spotifyAccessToken,
         userSpotifyPlaylists,
 
@@ -196,7 +192,10 @@ useEffect(() => {
         userRedditSavedPosts,
 
         youtubeAccessToken,
-        userYouTubePlaylists
+        userYouTubePlaylists,
+
+        microsoftAccessToken,
+        microsoftNoteBooks,
       }}
     >
       {children}

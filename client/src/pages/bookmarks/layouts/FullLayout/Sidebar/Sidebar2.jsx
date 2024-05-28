@@ -1,6 +1,10 @@
-import React from 'react';
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
-import { Menu } from 'antd';
+import React from "react";
+import {
+  AppstoreOutlined,
+  MailOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
+import { Menu } from "antd";
 import FacebookSharpIcon from "@mui/icons-material/FacebookSharp";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import RedditIcon from "@mui/icons-material/Reddit";
@@ -11,7 +15,7 @@ import GoogleIcon from "@mui/icons-material/Google";
 import { SiTiktok } from "react-icons/si";
 import { GrSpotify } from "react-icons/gr";
 import DeviceHubIcon from "@mui/icons-material/DeviceHub";
-import { redirect } from 'react-router-dom';
+import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import LanguageIcon from "@mui/icons-material/Language";
 import NotesTwoToneIcon from "@mui/icons-material/NotesTwoTone";
@@ -21,6 +25,8 @@ import WorkIcon from "@mui/icons-material/Work";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
+
+import onenote from "../../../../../assets/img/microsoft-onenote.svg";
 const items = [
   {
     key: "connections",
@@ -115,6 +121,8 @@ const items = [
       {
         key: "onenote",
         label: "One Note",
+        icon: <NotesTwoToneIcon />,
+        href: "/bookmarks/onenote",
       },
     ],
   },
@@ -185,6 +193,26 @@ const items = [
       {
         key: "ebay",
         label: "eBay",
+        icon: 
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="100"
+            height="100"
+            viewBox="0,0,256,256"
+          >
+            <g transform="translate(.32,88.32) scale(0.31,0.31)">
+             
+                <g transform="scale(10.66667,10.66667)">
+                  <path d="M6.02734,6.5625v4.87109c-0.14453,-0.96094 -0.72656,-2.37109 -2.92578,-2.37109c-3,0 -3.11719,2.39844 -3.10156,3.02344c0,0 -0.14844,2.8125 3.02734,2.8125c2.34766,0 2.77344,-1.30469 2.84766,-1.66797h-1.27344c-0.09766,0.23828 -0.46484,0.87891 -1.57422,0.85938c-1.51562,-0.03125 -1.76172,-1.34375 -1.80078,-1.69531h4.80078v2.5h1.17188v-0.75391c0,0 0.60156,0.75391 2.20312,0.75391c1.35938,0 2.46875,-0.75 2.79688,-2.13281c0.05859,-0.24609 0.09766,-0.49219 0.10156,-0.78125c0.03516,-1.90234 -1.36719,-2.91016 -2.875,-2.91797c-1.50781,-0.00781 -2.22656,1.06641 -2.22656,1.06641v-3.56641zM12.19922,12.76172c-0.24609,1.63672 1.18359,2.14063 2.30078,2.13281c1.12109,-0.00781 1.82813,-0.34766 2.30078,-0.96484v0.96484h1.22656v-3.62109c-0.03516,-0.61719 -0.12109,-2.10156 -2.72656,-2.21094c0,0 -2.49219,-0.23828 -2.75,1.66406h1.27344c0,0 0.10547,-0.85547 1.40234,-0.83203c1.22656,0.02734 1.58203,0.91016 1.57422,1.66797c0,0 -1.19922,-0.00391 -1.55078,0c-0.63281,0.00391 -2.72266,-0.07812 -3.05078,1.19922zM17.22656,9.0625l2.77344,5.39063l-1.07422,2.10938h1.34766l3.72656,-7.5h-1.27344l-2.05078,4.16797l-2.05078,-4.16797zM3.07422,9.89453c1.72266,0 1.72656,1.66797 1.72656,1.66797h-3.57422c0,0 0.125,-1.66406 1.84766,-1.66797zM9.15234,9.89453c1.94141,-0.05078 1.875,2.08594 1.875,2.08594c0,0 0.03125,2.05469 -1.875,2.08203c-1.90625,0.02344 -1.875,-2.10937 -1.875,-2.10937c0,0 -0.06641,-2.00391 1.875,-2.05859zM15,12.39453c0.17578,-0.00781 0.30078,0 0.30078,0h1.375c0,0.00391 0.22266,1.75 -1.94922,1.71875c0,0 -1.23047,0.00391 -1.30078,-0.98828c0,-0.55469 1.05078,-0.69922 1.57422,-0.73047z"></path>
+                </g>
+              
+            </g>
+          </svg>
+        ,
+
+        href: "/bookmarks/ebay",
       },
       {
         key: "aliexpress",
@@ -343,45 +371,51 @@ const Sidebar2 = () => {
 
   const onClick = (e) => {
     console.log("click ", e);
-   switch (e.key) {
-     case "youtube":
-       navigate("/bookmarks/youtube");
-       break;
-     case "tiktok":
-       navigate("/bookmarks/tiktok");
-       break;
-     case "instagram":
-       navigate("/bookmarks/instagram");
-       break;
-     case "X":
-       navigate("/bookmarks/X");
-       break;
-     case "reddit":
-       navigate("/bookmarks/reddit");
-       break;
-     case "spotify":
-       navigate("/bookmarks/spotify");
-       break;
-     case "facebook":
-       navigate("/bookmarks/facebook");
-       break;
-     case "connections":
-       navigate("/bookmarks/connections");
-       break;
-     default:
-       // Handle any other cases or do nothing
-       break;
-   }
+    switch (e.key) {
+      case "youtube":
+        navigate("/bookmarks/youtube");
+        break;
+      case "tiktok":
+        navigate("/bookmarks/tiktok");
+        break;
+      case "instagram":
+        navigate("/bookmarks/instagram");
+        break;
+      case "X":
+        navigate("/bookmarks/X");
+        break;
+      case "reddit":
+        navigate("/bookmarks/reddit");
+        break;
+      case "spotify":
+        navigate("/bookmarks/spotify");
+        break;
+      case "facebook":
+        navigate("/bookmarks/facebook");
+        break;
+      case "connections":
+        navigate("/bookmarks/connections");
+        break;
+      case "onenote":
+        navigate("/bookmarks/onenote");
+        break;
+      case "ebay":
+        navigate("/bookmarks/ebay");
+        break;
+      default:
+        // Handle any other cases or do nothing
+        break;
+    }
   };
   return (
     <Menu
       onClick={onClick}
       style={{
         width: 240,
-        marginTop:30,
+        marginTop: 30,
       }}
-      defaultSelectedKeys={['1']}
-      defaultOpenKeys={['sub1']}
+      defaultSelectedKeys={["1"]}
+      defaultOpenKeys={["sub1"]}
       mode="inline"
       items={items}
     />

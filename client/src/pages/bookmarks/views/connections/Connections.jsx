@@ -33,6 +33,7 @@ const Connections = () => {
     userFacebookAccessToken,
     userRedditAccessToken,
     youtubeAccessToken,
+    microsoftAccessToken,
   } = useContext(ConnectionsContext);
 
   useEffect(() => {
@@ -120,13 +121,25 @@ const Connections = () => {
         <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200">
           GitHub
         </button>
+        {!microsoftAccessToken && (
+          <>
+            <button
+              className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
+              onClick={handleMicrosoftLogin}
+            >
+              Microsoft
+            </button>
+          </>
+        )}
 
-        <button
-          className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
-          onClick={handleMicrosoftLogin}
-        >
-          MicroSoft
-        </button>
+        {microsoftAccessToken && (
+          <>
+            <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-[#1DB954] hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200">
+              Microsoft
+            </button>
+          </>
+        )}
+
         {!spotifyAccessToken && (
           <>
             <button

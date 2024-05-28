@@ -23,6 +23,7 @@ import Connections from "../views/connections/Connections.jsx";
 import StorageForComponent from "../views/dashboards/Dashboard1.jsx";
 import Reddit from "../views/reddit/Reddit.jsx";
 import Spotify from "../views/spotify/Spotify.jsx";
+import Onenote from "../views/onenote/Onenote.jsx";
 
 
 
@@ -31,16 +32,17 @@ import Spotify from "../views/spotify/Spotify.jsx";
 const ThemeRoutes = [
   {
     path: "/",
-    element:<FullLayout/>,
+    element: <FullLayout />,
     children: [
       { path: "/", element: <Navigate to="tiktok" /> },
-      { path: "connections", exact: true, element: <Connections/> },
+      { path: "connections", exact: true, element: <Connections /> },
       { path: "tiktok", exact: true, element: <StorageForComponent /> },
       { path: "youtube", element: <YouTube /> },
       { path: "X", element: <FormLayouts /> },
       { path: "/instagram", element: <ExAutoComplete /> },
       { path: "/reddit", element: <Reddit /> },
       { path: "/spotify", element: <Spotify /> },
+      { path: "/onenote", element: <Onenote /> },
       { path: "/facebook", element: <ExRadio /> },
       { path: "/google", element: <ExSlider /> },
       { path: "/github", element: <ExSwitch /> },
