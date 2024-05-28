@@ -1,25 +1,15 @@
 
 import {EBAY_CLIENT_SECRET,EBAY_CLIENT_ID,EBAY_REDIRECT_URL} from '../../constants/ebayConstants'
 
-// const handleYoutubeLogin = () => {
-//   const scope = "https://www.googleapis.com/auth/youtube.readonly";
-//   const params = new URLSearchParams({
-//     client_id: YOUTUBE_CLIENT_ID,
-//     redirect_uri: YOUTUBE_REDIRECT_URL,
-//     response_type: "code",
-//     scope,
-//     access_type: "offline",
-//   });
-
 
 
 const handleEbayLogin = () => {
    
  const scope = "https://api.ebay.com/oauth/api_scope/buy.item.feed";
- const state = "ebay_state_recognition";
+ const state = "ebay_recognition";
 
 
-  const auth_url = `https://auth.ebay.com/oauth2/authorize?client_id=${EBAY_CLIENT_SECRET}&response_type=code&redirect_uri=${EBAY_REDIRECT_URL}&scope=${scope}&state=${state}`;
+  const auth_url = `https://auth.ebay.com/oauth2/authorize?client_id=${EBAY_CLIENT_ID}&response_type=code&redirect_uri=${EBAY_REDIRECT_URL}&scope=${scope}&state=${state}`;
 
   window.location = auth_url;
 };
