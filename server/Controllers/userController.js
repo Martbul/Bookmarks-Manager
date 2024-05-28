@@ -1,12 +1,12 @@
 const userModel = require("../Models/userModel");
-
+const axios = require("axios");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
-const axios = require("axios");
-require("dotenv").config();
-const session = require("express-session");
 
+require("dotenv").config();
+
+const fetch = require("node-fetch");
 
 
 
@@ -169,6 +169,86 @@ const googleRegisterLoggin = async (req, res) => {
 };
 
 
+const twitterAuth = async (req, res) => {
+  
+  const code = req.body.code
+ 
+  const url = "https://api.twitter.com/2/oauth2/token";
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded",
+  };
+  
+  const TWITTER_CLIENT_ID =
+    "izIEEVe4Yiv2NKs94kACsUGm9cfNUAdz8eShR8BAeHWnOgBvvk";
+  const TWITTER_REDIRECT_URL = "http://localhost:5173/bookmarks/connections";
+
+  try {
+    const params = new URLSearchParams({
+      code: code,
+      grant_type: "authorization_code",
+      client_id: TWITTER_CLIENT_ID,
+      redirect_uri: TWITTER_REDIRECT_URL,
+      code_verifier: "challenge",
+    });
+
+
+    const response = await axios.post(url, params.toString(), { headers });
+
+    if (response.status !== 200) {
+      throw new Error('Failed to get Twitter access token');
+    }
+
+    const data = response.data;
+    console.log('Token Response:', data);
+    res.json(data); // Send the token data back to the client
+  } catch (error) {
+    console.error('Error fetching Twitter token:', error);
+    res.status(500).send('Error fetching Twitter token');
+  }
+
+
+    
+    // fetch(url, {
+    //   method: "POST",
+    //   headers: headers,
+    //   body:  params ,
+    // })
+    //   .then((response) => {
+    //     if (!response.ok) {
+    //    //   console.log(response);
+    //       throw new Error("Failed to get Twitter access token", response.error);
+    //     }
+    //     console.log(response.error);
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+    //     console.log("Token Response:", data);
+    // const access_token = data.access_token;
+    // const refresh_token = data.refresh_token;
+    // const expires_in = data.expires_in;
+    // const currentTime = Date.now(); // Current time in milliseconds since the UNIX epoch
+    // const tokenLifetimeMilliseconds = expires_in * 1000; // Convert lifetime to milliseconds
+    // const expirationTimestamp = currentTime + tokenLifetimeMilliseconds;
+    // const expirationDate = new Date(expirationTimestamp);
+    // console.log(expirationDate);
+    // const userTwitterTokensData = JSON.stringify({
+    //   access_token,
+    //   refresh_token,
+    //   expirationTime: expirationDate.toLocaleString(),
+    // });
+    // localStorage.setItem("UserTwitterTokensData", userTwitterTokensData);
+    // })
+    //       .catch((error) => {
+    //         console.log(error);
+    //         console.error("Error fetching twitter token:", error);
+    //         // Handle fetch error
+    //       });
+    // } catch (error) {
+    //   console.log(error);
+    //   throw error;
+    // }
+  }
+
 module.exports = {
   registerUser,
   loginUser,
@@ -176,5 +256,5 @@ module.exports = {
   getUsers,
   getSingleUser,
   googleRegisterLoggin,
-  
+  twitterAuth,
 };

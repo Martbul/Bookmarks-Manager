@@ -7,17 +7,18 @@ const passport = require("passport");
 require("dotenv").config()
 require('./strategies/google')
 const session = require("express-session");
-
+const bodyParser = require("body-parser");
 const userRoute = require('./Routes/userRoute');
-const spotifyPlaylistsRoute = require('./Routes/spotifyPlaylistRoute')
+
 // const chatRoute = require('./Routes/chatRoute');
 // const messageRoute = require('./Routes/messageRoute');
 
 const app = express()
 
 const port = process.env.PORT || 5000; //this env port is set automatically by your hosting service;
- const uri = process.env.ATLAS_URI;
-
+const uri = process.env.ATLAS_URI;
+ 
+app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
 

@@ -7,7 +7,7 @@ const {
   getUsers,
   getSingleUser,
   googleRegisterLoggin,
-  spotifyRedirect,
+  twitterAuth,
 } = require("../Controllers/userController");
 
 const router = express.Router();
@@ -27,5 +27,6 @@ router.get(
 );
 
 router.post("/singleUser", getSingleUser);
+router.post("/twitterAuth", twitterAuth);
 
 module.exports = router;
