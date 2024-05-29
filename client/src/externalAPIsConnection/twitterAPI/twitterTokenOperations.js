@@ -24,7 +24,8 @@ const headers = {
  const code = search.substring(30);
   console.log(code);
 const body = {code}
-  //! making a request to my server then my server will make request to twitter api, couse CORS
+ 
+  
     const response = await postRequest(
       `${baseUrl}/users/twitterAuth`,
       JSON.stringify(body)

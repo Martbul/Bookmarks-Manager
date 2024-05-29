@@ -12,7 +12,18 @@ console.log(instagramAccessToken);
       const response = await fetch(nextPageUrl);
       console.log(response);
      const data = await response.json();
-console.log(data);
+     console.log(data);
+      data.data.forEach((post) => {
+        console.log(`ID: ${post.id}`);
+        console.log(`Caption: ${post.caption}`);
+        console.log(`Media Type: ${post.media_type}`);
+        console.log(`Media URL: ${post.media_url}`);
+        console.log(`Thumbnail URL: ${post.thumbnail_url}`);
+        console.log(`Permalink: ${post.permalink}`);
+        console.log("---------------------------");
+      });
+
+
      // Add the retrieved posts to the array
      allSavedPosts.push(...data.data);
 
