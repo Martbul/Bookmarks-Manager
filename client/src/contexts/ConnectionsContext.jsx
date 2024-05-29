@@ -11,7 +11,7 @@ import {getUserFacebookSavedCollections} from '../externalAPIsConnection/faceboo
 import {getUserRedditSavedPosts} from '../externalAPIsConnection/redditAPI/redditAPIrequests'
 import {getPlaylists} from '../externalAPIsConnection/youtubeAPI/youtubeAPIrequests'
 import {getUserMicrosoftSavedNotes} from '../externalAPIsConnection/microsoftAPI/microsoftAPIOperations'
-
+import {fetchInstagramSavedPosts} from '../externalAPIsConnection/instagramAPI/instagramAPIrequests'
 export const ConnectionsContext = createContext();
 export const ConnectionsContextProvider = ({ children, user }) => {
   const [spotifyAccessToken, setSpotifyAccessToken] = useState(null);
@@ -28,6 +28,9 @@ export const ConnectionsContextProvider = ({ children, user }) => {
 
   const [microsoftAccessToken, setMicrosoftAccessToken] = useState(null);
   const [microsoftNoteBooks, setMicrosoftNoteBooks] = useState(null);
+
+  const [userInstagramtAccessToken, setUserInstagramAccessToken] = useState(null);
+  const [userInstagramSavedPosts, setUserInstagramSavedPosts] = useState(null);
 
   //! you also should check if the token is valid
   let checkForSpotifyAccessToken = localStorage.getItem(
@@ -97,6 +100,31 @@ export const ConnectionsContextProvider = ({ children, user }) => {
       setMicrosoftAccessToken(null);
     }
   }, [checkForMicrosoftAccessToken]);
+
+
+
+
+  let checkForInstagramAccessToken = localStorage.getItem(
+    "UserInstagramTokensData"
+  );
+  useEffect(() => {
+    const InstagramTokens = localStorage.getItem("UserInstagramTokensData");
+    if (InstagramTokens) {
+      const instagramAccessToken = JSON.parse(InstagramTokens).access_token;
+      setUserInstagramAccessToken(instagramAccessToken);
+    } else {
+      setUserInstagramAccessToken(null);
+    }
+  }, [checkForInstagramAccessToken]);
+
+
+
+
+
+
+
+
+
 
   //getting user Spotify playlists with his accessToken
   useEffect(() => {
@@ -178,6 +206,26 @@ export const ConnectionsContextProvider = ({ children, user }) => {
         console.error("Error fetching YouTube Playlists:", error);
       });
   }, [microsoftAccessToken]);
+ 
+ 
+ 
+ 
+  //!napishli sushtata logica no za microsoft
+  useEffect(() => {
+    fetchInstagramSavedPosts(userInstagramtAccessToken)
+      .then((data) => {
+        if (data && data.value && data.value.length > 0) {
+          console.log("Instagram saved posts:", data);
+          setUserInstagramSavedPosts(data);
+        } else {
+          console.log("No saved posts found.");
+          setUserInstagramSavedPosts(null);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching Instagram Saved Posts :", error);
+      });
+  }, [userInstagramtAccessToken]);
 
   return (
     <ConnectionsContext.Provider
@@ -196,6 +244,9 @@ export const ConnectionsContextProvider = ({ children, user }) => {
 
         microsoftAccessToken,
         microsoftNoteBooks,
+
+        userInstagramtAccessToken,
+        userInstagramSavedPosts,
       }}
     >
       {children}

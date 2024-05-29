@@ -18,7 +18,7 @@ export const AuthContextProvider = ({ children }) => {
     });
   
   
-  console.log(user);
+  //console.log(user);
   
     const [loginError, setLoginError] = useState(null);
     const [isLoginLoading, setIsLoginLoading] = useState(false);
@@ -31,9 +31,9 @@ export const AuthContextProvider = ({ children }) => {
   
   
     useEffect(() => {
-      console.log(registerInfo)
+     
       const user = localStorage.getItem("User");
-      console.log(user);
+    
       setUser(JSON.parse(user));
     }, [localStorage.getItem("User")]);
     

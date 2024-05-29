@@ -25,6 +25,8 @@ import { acquireToken } from './microsotTokenOperations'
 
 const getUserMicrosoftSavedNotes = async (accessToken) => {
   try {
+
+    //! refreshing the token doesnt work
      await acquireToken();
   
     const endpoint = "https://graph.microsoft.com/v1.0/me/onenote/notebooks";

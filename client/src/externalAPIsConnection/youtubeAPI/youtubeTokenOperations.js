@@ -45,7 +45,7 @@ const params = new URLSearchParams({
         })
 
         .then((data) => {
-            console.log("Token Response:", data);
+           // console.log("Token Response:", data);
             const access_token = data.access_token;
             const refresh_token = data.refresh_token;
             const expires_in = data.expires_in;
@@ -55,7 +55,7 @@ const params = new URLSearchParams({
             const tokenLifetimeMilliseconds = expires_in * 1000; // Convert lifetime to milliseconds
             const expirationTimestamp = currentTime + tokenLifetimeMilliseconds;
             const expirationDate = new Date(expirationTimestamp);
-            console.log(expirationDate);
+           // console.log(expirationDate);
             
 
 
@@ -91,7 +91,7 @@ const checkAndRefreshYouTubeAccessToken = async () => {
     
 
     if (timeDifference < 0) {
-        console.log('here');
+    
         await refreshAccessToken(refresh_token);
     }
 };
@@ -120,7 +120,7 @@ const refreshAccessToken = async(refresh_token)=> {
   
       const data = await response.json();
       const newAccessToken = data.access_token;
-      console.log('New Access Token:', newAccessToken);
+    
       const expires_in = data.expires_in;
 
 
@@ -128,7 +128,7 @@ const refreshAccessToken = async(refresh_token)=> {
       const tokenLifetimeMilliseconds = expires_in * 1000; // Convert lifetime to milliseconds
       const expirationTimestamp = currentTime + tokenLifetimeMilliseconds;
       const expirationDate = new Date(expirationTimestamp);
-      console.log(expirationDate);
+     
 
       const userYouTubeTokensData = JSON.stringify({
         access_token:newAccessToken,

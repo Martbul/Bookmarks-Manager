@@ -24,9 +24,14 @@ import {
 } from "../../../../externalAPIsConnection/youtubeAPI/youtubeTokenOperations";
 
 import {handleEbayLogin} from '../../../../externalAPIsConnection/ebayAPI/ebayTokenOperations'
+import {
+  handleInstagramLogin,
+  getReturnedParamsFromInstagramAuth,
+} from "../../../../externalAPIsConnection/instagramAPI/instagramTokenOperations";
 
-
-import { handleMicrosoftLogin } from "../../../../externalAPIsConnection/microsoftAPI/microsotTokenOperations";
+import {
+  handleMicrosoftLogin,
+} from "../../../../externalAPIsConnection/microsoftAPI/microsotTokenOperations";
 setInterval(checkAndRefreshToken, 333333);
 const Connections = () => {
   const {
@@ -36,25 +41,32 @@ const Connections = () => {
     userRedditAccessToken,
     youtubeAccessToken,
     microsoftAccessToken,
+    userInstagramtAccessToken,
   } = useContext(ConnectionsContext);
 
   useEffect(() => {
     if (window.location.search.includes("state=public_profile")) {
-      console.log('test');
+   //   console.log('test');
       getParamsFromUrlFromFacebook(window.location.search);
     } else if ( window.location.search.includes("state=martok") && localStorage.getItem("UserRedditTokensData") === null
     ) {
-      console.log('test');
+      //console.log('test');
       getReturnedParamsFromRedditAuth(window.location.search);
     } else if (window.location.search.includes("scope=https://www.googleapis.com/auth/youtube.readonly") && localStorage.getItem("UserYouTubeTokensData") === null
     ) {
-      console.log('test');
+     // console.log('test');
       getReturnedParamsFromYouTubeAuth(window.location.search);
     } else if (window.location.search.includes("state=twitter-api-state") && localStorage.getItem("UserTwitterTokensData") === null) {
       getReturnedParamsFromTwitterAuth(window.location.search)
-        console.log("test");
+        //console.log("test");
+    }
+    else if (
+      window.location.search.includes("state=instagram_recognition")
+    ) {
+      getReturnedParamsFromInstagramAuth(window.location.search);
+      console.log("test");
     } else if (window.location.search) {
-      console.log('test');
+      console.log("test");
       getReturnedParamsFromSpotifyAuth(window.location.search);
     }
   });
@@ -90,9 +102,24 @@ const Connections = () => {
           </>
         )}
 
-        <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200">
-          Instagram
-        </button>
+        {!userInstagramtAccessToken && (
+          <button
+            className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
+            onClick={handleInstagramLogin}
+          >
+            Instagram
+          </button>
+        )}
+        {userInstagramtAccessToken && (
+          <button
+            className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-[#1DB954] hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
+            onClick={() =>
+              (window.location = "http://localhost:5173/bookmarks/instagram")
+            }
+          >
+            Instagram
+          </button>
+        )}
 
         <button
           className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
@@ -136,7 +163,12 @@ const Connections = () => {
 
         {microsoftAccessToken && (
           <>
-            <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-[#1DB954] hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200">
+            <button
+              className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-[#1DB954] hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
+              onClick={() =>
+                (window.location = "http://localhost:5173/bookmarks/onenote")
+              }
+            >
               Microsoft
             </button>
           </>

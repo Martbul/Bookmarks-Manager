@@ -5,6 +5,7 @@ const validator = require("validator");
 const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
+const FormData = require("form-data");
 
 const fetch = require("node-fetch");
 
@@ -249,6 +250,42 @@ const twitterAuth = async (req, res) => {
     // }
   }
 
+
+const instagramAuth = async (req, res) => {
+  const code = req.body.code
+  console.log(code);
+  const form = new FormData();
+  form.append("client_id", "765326902130468");
+  form.append("client_secret", "cb453561ded521e3e8af8711ce14e3c4");
+  form.append("grant_type", "authorization_code");
+  form.append(
+    "redirect_uri",
+    "https://redirectmeto.com/http://localhost:5173/bookmarks/connections"
+  );
+  form.append("code",code);
+  
+   try {
+   const response = await axios.post(
+     "https://api.instagram.com/oauth/access_token",
+     form,
+     {
+       headers: {
+         ...form.getHeaders(),
+       },
+     }
+   );
+    
+console.log(response.data);
+    
+
+     // Handle the access token as needed
+     res.send(response.data);
+   } catch (error) {
+     console.error("Error exchanging code for token:", error);
+     res.status(500).send("Error exchanging code for token");
+   }
+
+}
 module.exports = {
   registerUser,
   loginUser,
@@ -257,4 +294,5 @@ module.exports = {
   getSingleUser,
   googleRegisterLoggin,
   twitterAuth,
+  instagramAuth,
 };

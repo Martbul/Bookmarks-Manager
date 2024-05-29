@@ -57,7 +57,7 @@ const getReturnedParamsFromSpotifyAuth = async (search) => {
             return response.json();
         })
         .then((data) => {
-            console.log("Token Response:", data);
+           // console.log("Token Response:", data);
             const access_token = data.access_token;
             const refresh_token = data.refresh_token;
             const expires_in = data.expires_in;
@@ -67,8 +67,7 @@ const getReturnedParamsFromSpotifyAuth = async (search) => {
             const tokenLifetimeMilliseconds = expires_in * 1000; // Convert lifetime to milliseconds
             const expirationTimestamp = currentTime + tokenLifetimeMilliseconds;
             const expirationDate = new Date(expirationTimestamp);
-            console.log(expirationDate);
-            
+         
 
 
 
@@ -93,21 +92,20 @@ const getReturnedParamsFromSpotifyAuth = async (search) => {
 const checkAndRefreshToken = async () => {
     const userSpotifyTokensData = localStorage.getItem("UserSpotifyTokensData");
     if(userSpotifyTokensData === null) return 
-    //console.log(userYouTubeTokensData);
+
     const expirationTime = JSON.parse(userSpotifyTokensData).expirationTime;
     const refresh_token = JSON.parse(userSpotifyTokensData).refresh_token;
-   // console.log(expirationTime);
-
+  
     const targetDate = new Date(expirationTime);
     const currentTime = new Date();
     
     const timeDifference = targetDate.getTime() - currentTime.getTime();
-    //console.log(timeDifference);
+  
 
     
 
     if (timeDifference < 0) {
-        console.log('here');
+      
         await refreshAccessToken(refresh_token);
     }
 };
@@ -116,10 +114,10 @@ const checkAndRefreshToken = async () => {
 
 
 const refreshAccessToken = async (refresh_token) => {
-    console.log('here');
+    
     const client_id = SPOTIFY_CLIENT_ID;
     const client_secret = SPOTIFY_SECRET_ID;
-    console.log(refresh_token);
+  
 
 
 
@@ -150,15 +148,13 @@ const refreshAccessToken = async (refresh_token) => {
         }
 
         const data = await response.json();
-        console.log("New Token Response:", data);
-
+       
         
       const currentTime = Date.now(); // Current time in milliseconds since the UNIX epoch
       const tokenLifetimeMilliseconds = data.expires_in * 1000; // Convert lifetime to milliseconds
       const expirationTimestamp = currentTime + tokenLifetimeMilliseconds;
       const expirationDate = new Date(expirationTimestamp);
-      console.log(expirationDate);
-
+      
         const userSpotifyTokens = JSON.stringify({
             access_token: data.access_token,
             refresh_token: refresh_token,

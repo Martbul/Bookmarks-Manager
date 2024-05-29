@@ -12,17 +12,17 @@ function getPlaylists(youTubeAccessToken) {
         })
         .then(response => {
             if (!response.ok) {
-                console.log(response);
+               // console.log(response);
                 throw new Error('Failed to fetch playlists');
             }
             return response.json();
         })
         .then(data => {
-            console.log(data);
+            //console.log(data);
             return data; 
         })
         .catch(error => {
-            console.error('Error fetching YouTube playlists:', error);
+           // console.error('Error fetching YouTube playlists:', error);
             throw error; 
         });
 }
