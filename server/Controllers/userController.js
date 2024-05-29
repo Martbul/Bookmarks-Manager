@@ -9,7 +9,8 @@ const FormData = require("form-data");
 
 const fetch = require("node-fetch");
 
-const qs = require("qs"); // Install qs if you haven't: npm install qs
+const qs = require("qs"); 
+
 const Buffer = require("buffer").Buffer;
 
 
@@ -254,6 +255,92 @@ console.log(response.data);
    }
 
 }
+
+
+
+
+
+
+const githubAuth = async(req, res) => {
+  console.log(req.body.code);
+  const code = req.body.code;
+
+  const clientId = 'Ov23li8Ft6B8vyBNke7i'
+  const clientSecret = '55f93dae3f84b6b5b3b2368939904386a67f6bfb'
+  const redirect_uri = "http://localhost:5173/bookmarks/connections";
+
+  
+    try {
+      const response = await axios.post(
+        "https://github.com/login/oauth/access_token",
+        {
+          client_id: clientId,
+          client_secret: clientSecret,
+          code: code,
+          redirect_uri: redirect_uri,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+console.log(response);
+      res.json(response.data);
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  // const params = new URLSearchParams({
+  //   code: code,
+  //   client_id: GITHUB_CLIENT_ID,
+  //   client_secret: GITHUB_CLIENT_SECRET,
+  //   redirect_uri: GITHUB_REDIRECT_URL,
+  //   state: "github_recognition",
+  // });
+
+  // fetch("https://github.com/login/oauth/access_token", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Accept: "application/json",
+  //   },
+  //   body: params.toString(),
+  // })
+  //   .then((response) => {
+  //     if (!response.ok) {
+  //       console.log(response);
+  //       throw new Error("Failed to get YouTube access token", response);
+  //     }
+  //     console.log(response);
+  //     return response.json();
+  //   })
+
+  //   .then((data) => {
+  //     // console.log("Token Response:", data);
+  //     const access_token = data.access_token;
+  //     const refresh_token = data.refresh_token;
+  //     const expires_in = data.expires_in;
+
+  //     const currentTime = Date.now(); // Current time in milliseconds since the UNIX epoch
+  //     const tokenLifetimeMilliseconds = expires_in * 1000; // Convert lifetime to milliseconds
+  //     const expirationTimestamp = currentTime + tokenLifetimeMilliseconds;
+  //     const expirationDate = new Date(expirationTimestamp);
+  //     // console.log(expirationDate);
+
+  //     const userYouTubeTokensData = JSON.stringify({
+  //       access_token,
+  //       refresh_token,
+  //       expirationTime: expirationDate.toLocaleString(),
+  //     });
+  //     localStorage.setItem("UserYouTubeTokensData", userYouTubeTokensData);
+  //   })
+  //   .catch((error) => {
+  //     console.error("Error fetching github token:", error);
+  //     // Handle fetch error
+  //   });
+}
 module.exports = {
   registerUser,
   loginUser,
@@ -263,4 +350,5 @@ module.exports = {
   googleRegisterLoggin,
   twitterAuth,
   instagramAuth,
+  githubAuth,
 };

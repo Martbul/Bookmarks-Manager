@@ -9,6 +9,7 @@ const {
   googleRegisterLoggin,
   twitterAuth,
   instagramAuth,
+  githubAuth,
 } = require("../Controllers/userController");
 
 const router = express.Router();
@@ -30,5 +31,6 @@ router.get(
 router.post("/singleUser", getSingleUser);
 router.post("/twitterAuth", twitterAuth);
 router.post("/instagramAuth", instagramAuth);
+router.post("/githubAuth", githubAuth);
 
 module.exports = router;

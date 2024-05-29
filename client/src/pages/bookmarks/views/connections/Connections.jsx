@@ -32,6 +32,11 @@ import {
 import {
   handleMicrosoftLogin,
 } from "../../../../externalAPIsConnection/microsoftAPI/microsotTokenOperations";
+
+import {
+  handleGitHubLogin,
+  getReturnedParamsFromGitHubAuth,
+} from "../../../../externalAPIsConnection/githubAPI/githubTokenOperations";
 setInterval(checkAndRefreshToken, 333333);
 const Connections = () => {
   const {
@@ -60,10 +65,11 @@ const Connections = () => {
       getReturnedParamsFromTwitterAuth(window.location.search)
         //console.log("test");
     }
-    else if (
-      window.location.search.includes("state=instagram_recognition")
-    ) {
+    else if (window.location.search.includes("state=instagram_recognition")) {
       getReturnedParamsFromInstagramAuth(window.location.search);
+      console.log("test");
+    } else if (window.location.search.includes("state=github_recognition")) {
+      getReturnedParamsFromGitHubAuth(window.location.search);
       console.log("test");
     } else if (window.location.search) {
       console.log("test");
@@ -147,7 +153,10 @@ const Connections = () => {
           </>
         )}
 
-        <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200">
+        <button
+          className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
+          onClick={handleGitHubLogin}
+        >
           GitHub
         </button>
         {!microsoftAccessToken && (
@@ -221,8 +230,6 @@ const Connections = () => {
             </button>
           </>
         )}
-
-      
       </div>
     </>
   );
