@@ -1,73 +1,87 @@
 import React, { useContext } from "react";
+import {
+  Box,
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+} from "@mui/material";
 
-import { Card, CardContent, Box, Typography, Grid } from "@mui/material";
 
-import ExTable from "../dashboards/dashboard1-components/ExTable";
 import { ConnectionsContext } from "../../../../contexts/ConnectionsContext";
-import { BlogCard } from "../dashboards/dashboard1-components";
-import { Button } from "react-bootstrap";
+
 
 const Onenote = () => {
   const { microsoftNoteBooks } = useContext(ConnectionsContext);
   console.log(microsoftNoteBooks);
-  
- let noteBooks = microsoftNoteBooks || []; // If userYouTubePlaylists is null, default to an empty array
+
+  let noteBooks = microsoftNoteBooks || []; // If userYouTubePlaylists is null, default to an empty array
 
   return (
     <>
-      <p style={{ color: "black" }}>Microsoft Notebooks</p>
-
-      <Box>
-        <Grid container spacing={0}>
-          <Grid container>
-            {noteBooks.map((notebook, index) => (
-              <Grid
-                key={index}
-                item
-                xs={12}
-                lg={4}
+      <Box sx={{ p: 3 }}>
+        <Grid container spacing={3}>
+          {noteBooks.map((notebook, index) => (
+            <Grid
+              key={index}
+              item
+              xs={12}
+              lg={4}
+              sx={{
+                display: "flex",
+                alignItems: "stretch",
+              }}
+            >
+              <Card
+                variant="outlined"
                 sx={{
-                  display: "flex",
-                  alignItems: "stretch",
+                  width: "100%",
+                  borderRadius: 2,
+                  boxShadow: 3,
+                  transition: "transform 0.3s, box-shadow 0.3s",
+                  "&:hover": {
+                    transform: "translateY(-10px)",
+                    boxShadow: 6,
+                  },
                 }}
               >
-                <Card
-                  variant="outlined"
+                <CardContent
                   sx={{
-                    p: 0,
-                    width: "100%",
+                    padding: "24px",
                   }}
                 >
-                  <CardContent
+                  <Typography
                     sx={{
-                      paddingLeft: "30px",
-                      paddingRight: "30px",
+                      fontSize: "1.25rem",
+                      fontWeight: 600,
+                      mb: 1,
                     }}
                   >
-                    <Typography
-                      sx={{
-                        fontSize: "h4.fontSize",
-                        fontWeight: "500",
-                      }}
-                    >
-                      NoteBook:{notebook.displayName}
-                    </Typography>
+                    {notebook.displayName}
+                  </Typography>
 
-                 
-                    <Button
-                      variant="contained"
-                      sx={{
-                        mt: "15px",
-                      }}
-                      color={"black"}
-                    >
-                      Learn More
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      mt: "15px",
+                      backgroundColor: "#1976d2",
+                      color: "white",
+                      textTransform: "none",
+                      "&:hover": {
+                        backgroundColor: "#115293",
+                      },
+                    }}
+                    href={notebook.links.oneNoteWebUrl.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Go to NoteBook
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
       </Box>
     </>

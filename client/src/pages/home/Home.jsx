@@ -1,6 +1,6 @@
 import Footer from '../../components/footer/Footer';
 import FAQ from './FAQ/FAQ';
-import './Home.css'
+
 import Features from './features/Features';
 import Highlights from './highlights/Highlights';
 import Testimonials from './testimonials/Testimonials';

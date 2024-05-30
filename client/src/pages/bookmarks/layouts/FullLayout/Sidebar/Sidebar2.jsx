@@ -25,7 +25,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-
+import MicrosoftIcon from "@mui/icons-material/Microsoft";
 import onenote from "../../../../../assets/img/microsoft-onenote.svg";
 import GitHub from "@mui/icons-material/GitHub";
 const items = [
@@ -65,33 +65,7 @@ const items = [
   {
     type: "divider",
   },
-  {
-    key: "tiktok",
-    label: "TikTok",
-    icon: <SiTiktok />,
-    href: "/bookmarks/tiktok",
-  },
-  {
-    type: "divider",
-  },
-  {
-    key: "instagram",
-    label: "Instagram",
-    icon: <InstagramIcon />,
-    href: "/bookmarks/instagram",
-  },
-  {
-    type: "divider",
-  },
-  {
-    key: "x",
-    label: "X",
-    icon: <XIcon />,
-    href: "/bookmarks/X",
-  },
-  {
-    type: "divider",
-  },
+
   {
     key: "spotify",
     label: "Spotify",
@@ -122,7 +96,7 @@ const items = [
   {
     key: "onenote",
     label: "One Note",
-    icon: <NotesTwoToneIcon />,
+    icon: <MicrosoftIcon />,
     href: "/bookmarks/onenote",
   },
   {

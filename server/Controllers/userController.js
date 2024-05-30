@@ -241,12 +241,12 @@ const twitterAuth = async (req, res) => {
     );
 
     if (response.status === 200) {
-      console.log("Access token:", response.data.access_token);
+    //  console.log("Access token:", response.data.access_token);
     } else {
-      console.error("Failed to get access token:", response.statusText);
+     // console.error("Failed to get access token:", response.statusText);
     }
   } catch (error) {
-    console.error("Error getting access token:", error.message);
+    //console.error("Error getting access token:", error.message);
   }
 }
 
@@ -287,6 +287,43 @@ const instagramAuth = async (req, res) => {
 
 }
 
+
+const getUserSavedInstagramPosts = async (req, res) => {
+  const access_token = req.body.gitHubeAccessToken;
+
+
+  
+    const response = await axios.get(
+      `https://graph.instagram.com/me?fields=id&access_token=${access_token}`
+    );
+   // console.log(response.data);
+    const userId =  response.data.id;
+ 
+  
+
+ try {
+   const url = `https://graph.instagram.com/${userId}/saved?fields=id,media_type,media_url,thumbnail_url,permalink,caption&access_token=${access_token}`;
+
+   let savedPosts = [];
+   let nextPage = url;
+
+   while (nextPage) {
+     const response = await axios.get(nextPage);
+     const data = response.data;
+
+     savedPosts = savedPosts.concat(data.data);
+
+     nextPage = data.paging && data.paging.next ? data.paging.next : null;
+   }
+console.log('savedPosts',savedPosts);
+   return savedPosts;
+ } catch (error) {
+   console.error("Error fetching saved posts:", error.message);
+   return [];
+ }
+
+
+}
 
 
 
@@ -357,4 +394,5 @@ module.exports = {
   instagramAuth,
   githubAuth,
   getUserStarredReppos,
+  getUserSavedInstagramPosts,
 };

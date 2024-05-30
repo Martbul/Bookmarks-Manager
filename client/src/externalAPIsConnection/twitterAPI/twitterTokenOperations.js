@@ -17,22 +17,22 @@ window.location.href = authUrl;
 
 
 const getReturnedParamsFromTwitterAuth = async(search) => {
-const url = "https://api.twitter.com/2/oauth2/token";
-const headers = {
-  "Content-Type": "application/x-www-form-urlencoded",
-};
- const code = search.substring(30);
-  console.log(code);
-const body = {code}
+// const url = "https://api.twitter.com/2/oauth2/token";
+// const headers = {
+//   "Content-Type": "application/x-www-form-urlencoded",
+// };
+//  const code = search.substring(30);
+//   console.log(code);
+// const body = {code}
  
   
-    const response = await postRequest(
-      `${baseUrl}/users/twitterAuth`,
-      JSON.stringify(body)
-    );
-  console.log(response);
-  const data = response.json()
-  console.log(data);
+//     const response = await postRequest(
+//       `${baseUrl}/users/twitterAuth`,
+//       JSON.stringify(body)
+//     );
+//   console.log(response);
+//   const data = response.json()
+//   console.log(data);
 
 
 

@@ -1,16 +1,7 @@
 import React, { useContext } from "react";
-import {
-  Grid,
-  Box,
-  Checkbox,
-  FormGroup,
-  FormControlLabel,
-  FormControl,
-  Typography,
-  CardContent,
-} from "@mui/material";
+import { Box, Grid, Card, CardContent, Typography } from "@mui/material";
 import { ConnectionsContext } from "../../../../contexts/ConnectionsContext";
-import { Button, Card } from "react-bootstrap";
+
 
 
 
@@ -18,82 +9,76 @@ import { Button, Card } from "react-bootstrap";
 const Spotify = () => {
   const { userSpotifyPlaylists } = useContext(ConnectionsContext);
   console.log(userSpotifyPlaylists);
-  
+
   let playlists = userSpotifyPlaylists || []; // If userYouTubePlaylists is null, default to an empty array
 
-  
   return (
- <> 
- <p style={{color:"black"}}>Spotify Playlists</p>
-
- <Box>
-      <Grid container spacing={0}>
-      <Grid container>
-      {playlists.map((playlist, index) => (
-        <Grid
-          key={index}
-          item
-          xs={12}
-          lg={4}
-          sx={{
-            display: "flex",
-            alignItems: "stretch",
-          }}
-        >
-          <Card
-            variant="outlined"
+    <Box sx={{ p: 3 }}>
+      <Grid container spacing={3}>
+        {playlists.map((playlist, index) => (
+          <Grid
+            key={index}
+            item
+            xs={12}
+            lg={4}
             sx={{
-              p: 0,
-              width: "100%",
+              display: "flex",
+              alignItems: "stretch",
             }}
           >
-          {/* <img src={playlist.player.embedHtml} alt="img" width="100%" /> */}
-          
-            <img src={playlist.images[0].url} alt="img" width="100%" />
-            <CardContent
+            <Card
+              variant="outlined"
               sx={{
-                paddingLeft: "30px",
-                paddingRight: "30px",
+                width: "100%",
+                borderRadius: 2,
+                boxShadow: 3,
+                transition: "transform 0.3s, box-shadow 0.3s",
+                "&:hover": {
+                  transform: "translateY(-10px)",
+                  boxShadow: 6,
+                },
               }}
             >
-              <Typography
+              <img
+                src={playlist.images[0].url}
+                alt="img"
+                width="100%"
+                style={{
+                  borderTopLeftRadius: "8px",
+                  borderTopRightRadius: "8px",
+                }}
+              />
+              <CardContent
                 sx={{
-                  fontSize: "h4.fontSize",
-                  fontWeight: "500",
+                  padding: "24px",
                 }}
               >
-                {playlist.name}
-              </Typography>
-              
-              <Typography
-                color="textSecondary"
-                sx={{
-                  fontSize: "14px",
-                  fontWeight: "400",
-                  mt: 1,
-                }}
-              >
-                Songs: {playlist.tracks.total}
-              </Typography>
-              <Button
-                variant="contained"
-                sx={{
-                  mt: "15px",
-                }}
-                color={'black'}
-              >
-                Learn More
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid>
-      ))}
-    </Grid>
+                <Typography
+                  sx={{
+                    fontSize: "1.25rem",
+                    fontWeight: 500,
+                    mb: 1,
+                  }}
+                >
+                  {playlist.name}
+                </Typography>
+                <Typography
+                  color="textSecondary"
+                  sx={{
+                    fontSize: "0.875rem",
+                    fontWeight: 400,
+                  }}
+                >
+                  Songs: {playlist.tracks.total}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
       </Grid>
     </Box>
- </>  
   );
-}
+};
 
 
 export default Spotify;

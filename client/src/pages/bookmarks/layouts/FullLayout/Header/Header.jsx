@@ -59,28 +59,7 @@ const Header = (props) => {
   return (
     <AppBar sx={props.sx} elevation={0} className={props.customClass}>
       <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="menu"
-          onClick={props.toggleMobileSidebar}
-          sx={{
-            display: {
-              lg: "none",
-              xs: "inline",
-            },
-          }}
-        >
-          <MenuOutlinedIcon width="20" height="20" />
-        </IconButton>
-        <IconButton
-          aria-label="menu"
-          color="inherit"
-          aria-controls="dd-menu"
-          aria-haspopup="true"
-          onClick={handleClick5}
-        >
-          <AddToPhotosOutlinedIcon />
-        </IconButton>
+      
         <Menu
           id="dd-menu"
           anchorEl={anchorEl5}
@@ -146,9 +125,7 @@ const Header = (props) => {
         </Menu>
         <Box flexGrow={1} />
 
-        {/* ------------------------------------------- */}
-        {/* Notifications Dropdown */}
-        {/* ------------------------------------------- */}
+    
         <IconButton
           aria-label="menu"
           color="inherit"
@@ -178,12 +155,7 @@ const Header = (props) => {
           <MenuItem onClick={handleClose}>Action Else</MenuItem>
           <MenuItem onClick={handleClose}>Another Action</MenuItem>
         </Menu>
-        {/* ------------------------------------------- */}
-        {/* End Notifications Dropdown */}
-        {/* ------------------------------------------- */}
-        {/* ------------------------------------------- */}
-        {/* Profile Dropdown */}
-        {/* ------------------------------------------- */}
+       
         <Box
           sx={{
             width: "1px",

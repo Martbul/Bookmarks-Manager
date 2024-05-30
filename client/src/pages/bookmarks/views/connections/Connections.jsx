@@ -80,10 +80,13 @@ const Connections = () => {
 
   return (
     <>
+      <div className="text">
+        <h1 style={{color:"black"}}>Login with your favorite apps</h1>
+      </div>
       <div className="social-media-auth">
-        <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200">
+        {/* <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200">
           TikTok
-        </button>
+        </button> */}
 
         {youtubeAccessToken && (
           <>
@@ -109,7 +112,7 @@ const Connections = () => {
           </>
         )}
 
-        {!userInstagramtAccessToken && (
+        {/* {!userInstagramtAccessToken && (
           <button
             className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
             onClick={handleInstagramLogin}
@@ -126,14 +129,14 @@ const Connections = () => {
           >
             Instagram
           </button>
-        )}
+        )} */}
 
-        <button
+        {/* <button
           className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
           onClick={handleTwitterLogin}
         >
           𝕏
-        </button>
+        </button> */}
 
         {userFacebookAccessToken && (
           <>
