@@ -1,4 +1,4 @@
-export const baseUrl = "https://bookmarks-manager-server.onrender.com";
+export const baseUrl = "https://bookmarks-manager-server.onrender.com/api";
 
 export const postRequest = async (url, body) => {
     const response = await fetch(url, {
