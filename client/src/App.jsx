@@ -34,17 +34,21 @@ function App() {
         <Route path="/" element={<Home setUser={setUser} />} />
         <Route
           path="/connections"
-          element={user ? <Connections /> : <Register setUser={setUser} />}
+          element={user ? <Connections /> : <Login setUser={setUser} />}
         />
         <Route
           path="/register"
-          element={user ? <Home /> : <Register setUser={setUser} />}
+          element={user ? <Home /> : <Login setUser={setUser} />}
         />
         <Route
           path="/login"
           element={user ? <Home /> : <Login setUser={setUser} />}
         />
-        <Route path="/bookmarks/*" element={<Bookmarks />}></Route>
+        <Route
+          
+          path="/bookmarks/*"
+          element={user ? <Home /> : <Login setUser={setUser} />}
+        ></Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
 
