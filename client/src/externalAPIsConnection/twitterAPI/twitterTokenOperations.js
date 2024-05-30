@@ -5,7 +5,7 @@ import { postRequest, baseUrl } from "../../utils/services"
 
 const handleTwitterLogin = async() => {
   const responseType = 'code';
-  const scope = 'tweet.read tweet.write'; 
+  const scope = "tweet.read tweet.write offline.access"; 
   const state = 'twitter-api-state';
     
  

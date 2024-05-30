@@ -174,51 +174,81 @@ const googleRegisterLoggin = async (req, res) => {
 
 
 const twitterAuth = async (req, res) => {
-  
-  const code = req.body.code
+  //   const code = req.body.code
 
- 
-  const url = "https://api.twitter.com/2/oauth2/token";
-  const headers = {
-    "Content-Type": "application/x-www-form-urlencoded",
-  };
-  
-  const TWITTER_CLIENT_ID = "RXdwSEt0SV91MlpQb09yVWFKRTI6MTpjaQ";
-  const TWITTER_REDIRECT_URL = "http://localhost:5173/bookmarks/connections";
- const TWITTER_CLIENT_SECRET =
-  "GSB0zyrn9NJI541_Cq_YQHqkDbrFnVGy6EidCknL9_7Zd4tvXZ";
+  //   const url = "https://api.twitter.com/2/oauth2/token";
+  //   const headers = {
+  //     "Content-Type": "application/x-www-form-urlencoded",
+  //   };
 
-    const basicAuth = Buffer.from(
-      `${TWITTER_CLIENT_ID}:${TWITTER_CLIENT_SECRET}`
-    ).toString("base64");
-    headers["Authorization"] = `Basic ${basicAuth}`;
+  //   const TWITTER_CLIENT_ID = "RXdwSEt0SV91MlpQb09yVWFKRTI6MTpjaQ";
+  //   const TWITTER_REDIRECT_URL = "http://localhost:5173/bookmarks/connections";
+  //  const TWITTER_CLIENT_SECRET =
+  //   "GSB0zyrn9NJI541_Cq_YQHqkDbrFnVGy6EidCknL9_7Zd4tvXZ";
+
+  //     const basicAuth = Buffer.from(
+  //       `${TWITTER_CLIENT_ID}:${TWITTER_CLIENT_SECRET}`
+  //     ).toString("base64");
+  //     headers["Authorization"] = `Basic ${basicAuth}`;
+  //   try {
+  //     const params = qs.stringify({
+  //       code: code,
+  //       grant_type: "authorization_code",
+  //       client_id: TWITTER_CLIENT_ID,
+  //       redirect_uri: TWITTER_REDIRECT_URL,
+  //       code_verifier: "challenge",
+  //     });
+
+  //     const response = await axios.post(url, params, { headers });
+
+  //     if (response.status !== 200) {
+  //       throw new Error('Failed to get Twitter access token');
+  //     }
+
+  //     const data = response.data;
+
+  //     res.json(data); // Send the token data back to the client
+  //   } catch (error) {
+  //    // console.error('Error fetching Twitter token:', error);
+  //     res.status(500).send('Error fetching Twitter token');
+  //   }
+
+    const TWITTER_CLIENT_ID = "RXdwSEt0SV91MlpQb09yVWFKRTI6MTpjaQ";
+    const TWITTER_REDIRECT_URL = "http://localhost:5173/bookmarks/connections";
+   const TWITTER_CLIENT_SECRET =
+    "GSB0zyrn9NJI541_Cq_YQHqkDbrFnVGy6EidCknL9_7Zd4tvXZ";
+  const code = req.body.code;
+  console.log(code);
+
+  const credentials = `${TWITTER_CLIENT_ID}:${TWITTER_CLIENT_SECRET}`;
+  const encodedCredentials = Buffer.from(credentials).toString("base64");
   try {
-    const params = qs.stringify({
-      code: code,
-      grant_type: "authorization_code",
-      client_id: TWITTER_CLIENT_ID,
-      redirect_uri: TWITTER_REDIRECT_URL,
-      code_verifier: "challenge",
-    });
+    const response = await axios.post(
+      "https://api.twitter.com/oauth2/token",
+      
+      {
+        params: {
+          grant_type: "authorization_code",
+          client_id: TWITTER_CLIENT_ID,
+          client_secret: TWITTER_CLIENT_SECRET,
+          redirect_uri: TWITTER_REDIRECT_URL,
+          code: code,
+        },
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+      }
+    );
 
-
-    const response = await axios.post(url, params, { headers });
- 
-    if (response.status !== 200) {
-      throw new Error('Failed to get Twitter access token');
+    if (response.status === 200) {
+      console.log("Access token:", response.data.access_token);
+    } else {
+      console.error("Failed to get access token:", response.statusText);
     }
-
-    const data = response.data;
-  
-    res.json(data); // Send the token data back to the client
   } catch (error) {
-   // console.error('Error fetching Twitter token:', error);
-    res.status(500).send('Error fetching Twitter token');
+    console.error("Error getting access token:", error.message);
   }
-
-
-    
-  }
+}
 
 
 const instagramAuth = async (req, res) => {
@@ -285,7 +315,7 @@ const githubAuth = async (req, res) => {
      
     return response.json()
     }).then((data) => {
-    console.log(data);
+    //console.log(data);
       res.json(data)
     })
 
