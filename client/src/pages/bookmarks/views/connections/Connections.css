@@ -9,3 +9,10 @@
     gap: 1em;
 }
 
+.text{
+    margin-top:6em;
+}
+.text h1{
+    font-size:30px;
+    font-weight:bold
+}

@@ -1,21 +1,27 @@
 import React, { useContext } from "react";
-import { Box, Grid, Card, CardContent, Typography } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+} from "@mui/material";
 import { ConnectionsContext } from "../../../../contexts/ConnectionsContext";
 
 
 
 
 
-const Spotify = () => {
-  const { userSpotifyPlaylists } = useContext(ConnectionsContext);
-  console.log(userSpotifyPlaylists);
+const Github = () => {
+  const { userGitHubStaredReppo } = useContext(ConnectionsContext);
+  console.log(userGitHubStaredReppo);
 
-  let playlists = userSpotifyPlaylists || []; // If userYouTubePlaylists is null, default to an empty array
-
+  let starredReppos = userGitHubStaredReppo || []; // If userYouTubePlaylists is null, default to an empty array
   return (
     <Box sx={{ p: 3 }}>
       <Grid container spacing={3}>
-        {playlists.map((playlist, index) => (
+        {starredReppos.map((repo, index) => (
           <Grid
             key={index}
             item
@@ -39,15 +45,6 @@ const Spotify = () => {
                 },
               }}
             >
-              <img
-                src={playlist.images[0].url}
-                alt="img"
-                width="100%"
-                style={{
-                  borderTopLeftRadius: "8px",
-                  borderTopRightRadius: "8px",
-                }}
-              />
               <CardContent
                 sx={{
                   padding: "24px",
@@ -56,29 +53,47 @@ const Spotify = () => {
                 <Typography
                   sx={{
                     fontSize: "1.25rem",
-                    fontWeight: 500,
+                    fontWeight: 600,
                     mb: 1,
                   }}
                 >
-                  {playlist.name}
+                  {repo.name}
                 </Typography>
                 <Typography
                   color="textSecondary"
                   sx={{
-                    fontSize: "0.875rem",
+                    fontSize: "1rem",
                     fontWeight: 400,
+                    mb: 2,
                   }}
                 >
-                  Songs: {playlist.tracks.total}
+                  Description: {repo.description}
                 </Typography>
+                <Button
+                  variant="contained"
+                  sx={{
+                    mt: "15px",
+                    backgroundColor: "#1976d2",
+                    color: "white",
+                    textTransform: "none",
+                    "&:hover": {
+                      backgroundColor: "#115293",
+                    },
+                  }}
+                  href={repo.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Link to Repository
+                </Button>
               </CardContent>
             </Card>
           </Grid>
         ))}
       </Grid>
     </Box>
-  );
+  )
 };
 
 
-export default Spotify;
+export default Github;

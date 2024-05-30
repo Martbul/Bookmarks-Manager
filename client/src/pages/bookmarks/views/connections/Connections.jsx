@@ -32,6 +32,11 @@ import {
 import {
   handleMicrosoftLogin,
 } from "../../../../externalAPIsConnection/microsoftAPI/microsotTokenOperations";
+
+import {
+  handleGitHubLogin,
+  getReturnedParamsFromGitHubAuth,
+} from "../../../../externalAPIsConnection/githubAPI/githubTokenOperations";
 setInterval(checkAndRefreshToken, 333333);
 const Connections = () => {
   const {
@@ -42,41 +47,46 @@ const Connections = () => {
     youtubeAccessToken,
     microsoftAccessToken,
     userInstagramtAccessToken,
+    userGitHubAccessToken,
   } = useContext(ConnectionsContext);
 
   useEffect(() => {
     if (window.location.search.includes("state=public_profile")) {
-   //   console.log('test');
+ 
       getParamsFromUrlFromFacebook(window.location.search);
     } else if ( window.location.search.includes("state=martok") && localStorage.getItem("UserRedditTokensData") === null
     ) {
-      //console.log('test');
+    
       getReturnedParamsFromRedditAuth(window.location.search);
     } else if (window.location.search.includes("scope=https://www.googleapis.com/auth/youtube.readonly") && localStorage.getItem("UserYouTubeTokensData") === null
     ) {
-     // console.log('test');
+  
       getReturnedParamsFromYouTubeAuth(window.location.search);
     } else if (window.location.search.includes("state=twitter-api-state") && localStorage.getItem("UserTwitterTokensData") === null) {
       getReturnedParamsFromTwitterAuth(window.location.search)
-        //console.log("test");
+     
     }
-    else if (
-      window.location.search.includes("state=instagram_recognition")
-    ) {
+    else if (window.location.search.includes("state=instagram_recognition")) {
       getReturnedParamsFromInstagramAuth(window.location.search);
-      console.log("test");
+     
+    } else if (window.location.search.includes("state=github_recognition")) {
+      getReturnedParamsFromGitHubAuth(window.location.search);
+ 
     } else if (window.location.search) {
-      console.log("test");
+     
       getReturnedParamsFromSpotifyAuth(window.location.search);
     }
   });
 
   return (
     <>
+      <div className="text">
+        <h1 style={{color:"black"}}>Login with your favorite apps</h1>
+      </div>
       <div className="social-media-auth">
-        <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200">
+        {/* <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200">
           TikTok
-        </button>
+        </button> */}
 
         {youtubeAccessToken && (
           <>
@@ -102,7 +112,7 @@ const Connections = () => {
           </>
         )}
 
-        {!userInstagramtAccessToken && (
+        {/* {!userInstagramtAccessToken && (
           <button
             className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
             onClick={handleInstagramLogin}
@@ -119,14 +129,14 @@ const Connections = () => {
           >
             Instagram
           </button>
-        )}
+        )} */}
 
-        <button
+        {/* <button
           className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
           onClick={handleTwitterLogin}
         >
           𝕏
-        </button>
+        </button> */}
 
         {userFacebookAccessToken && (
           <>
@@ -147,9 +157,29 @@ const Connections = () => {
           </>
         )}
 
-        <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200">
-          GitHub
-        </button>
+        {!userGitHubAccessToken && (
+          <>
+            <button
+              className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
+              onClick={handleGitHubLogin}
+            >
+              GitHub
+            </button>
+          </>
+        )}
+        {userGitHubAccessToken && (
+          <>
+            <button
+              className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-[#1DB954] hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
+              onClick={() =>
+                (window.location = "http://localhost:5173/bookmarks/github")
+              }
+            >
+              GitHub
+            </button>
+          </>
+        )}
+
         {!microsoftAccessToken && (
           <>
             <button
@@ -221,8 +251,6 @@ const Connections = () => {
             </button>
           </>
         )}
-
-      
       </div>
     </>
   );

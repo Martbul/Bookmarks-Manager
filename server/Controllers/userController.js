@@ -7,12 +7,14 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const FormData = require("form-data");
 
-const fetch = require("node-fetch");
 
-const qs = require("qs"); // Install qs if you haven't: npm install qs
+
+const qs = require("qs"); 
+
 const Buffer = require("buffer").Buffer;
 
-
+const fetch = (...args) =>
+  import('node-fetch').then(({default:fetch}) =>fetch(...args))
 
 
 
@@ -62,7 +64,7 @@ const registerUser = async (req, res) => {
 
     res.status(200).json({ _id: user._id, name, email, token });
   } catch (error) {
-    console.log(error);
+    
     res.status(500).json(error);
   }
 };
@@ -90,7 +92,7 @@ const loginUser = async (req, res) => {
 
     res.status(200).json({ _id: user._id, name: user.name, email, token });
   } catch (error) {
-    console.log(error);
+  
     res.status(500).json(error);
   }
 };
@@ -102,7 +104,7 @@ const findUser = async (req, res) => {
 
     res.status(200).json(user);
   } catch (error) {
-    console.log(error);
+  
     res.status(500).json(error);
   }
 };
@@ -113,27 +115,27 @@ const getUsers = async (req, res) => {
 
     res.status(200).json(users);
   } catch (error) {
-    console.log(error);
+   
     res.status(500).json(error);
   }
 };
 
 const getSingleUser = async (req, res) => {
-  //console.log(req.body);
+  
   const id = req.body.id;
-  // console.log(id);
+
   try {
     const user = await userModel.findById(id);
-    //console.log(user);
+  
     res.status(200).json(user);
   } catch (error) {
-    console.log(error);
+ 
     res.status(500).json(error);
   }
 };
 
 const googleRegisterLoggin = async (req, res) => {
-  console.log(req.body);
+
   try {
     const { name, email, jti } = req.body;
 
@@ -147,7 +149,7 @@ const googleRegisterLoggin = async (req, res) => {
 
     //login
     if (user) {
-      console.log('here1');
+   
 
       if (user.googleId_jti === null) {
         user.googleId_jti = jti;
@@ -159,69 +161,99 @@ const googleRegisterLoggin = async (req, res) => {
       
     } //register
     else {
-      console.log('here2');
+    
       user = new userModel({ name, email, googleId_jti: jti });
       await user.save();
       res.status(200).json({ name, email, jti });
     }
   } catch (error) {
-    console.log(error);
+ 
     res.status(500).json(error);
   }
 };
 
 
 const twitterAuth = async (req, res) => {
-  
-  const code = req.body.code
+  //   const code = req.body.code
+
+  //   const url = "https://api.twitter.com/2/oauth2/token";
+  //   const headers = {
+  //     "Content-Type": "application/x-www-form-urlencoded",
+  //   };
+
+  //   const TWITTER_CLIENT_ID = "RXdwSEt0SV91MlpQb09yVWFKRTI6MTpjaQ";
+  //   const TWITTER_REDIRECT_URL = "http://localhost:5173/bookmarks/connections";
+  //  const TWITTER_CLIENT_SECRET =
+  //   "GSB0zyrn9NJI541_Cq_YQHqkDbrFnVGy6EidCknL9_7Zd4tvXZ";
+
+  //     const basicAuth = Buffer.from(
+  //       `${TWITTER_CLIENT_ID}:${TWITTER_CLIENT_SECRET}`
+  //     ).toString("base64");
+  //     headers["Authorization"] = `Basic ${basicAuth}`;
+  //   try {
+  //     const params = qs.stringify({
+  //       code: code,
+  //       grant_type: "authorization_code",
+  //       client_id: TWITTER_CLIENT_ID,
+  //       redirect_uri: TWITTER_REDIRECT_URL,
+  //       code_verifier: "challenge",
+  //     });
+
+  //     const response = await axios.post(url, params, { headers });
+
+  //     if (response.status !== 200) {
+  //       throw new Error('Failed to get Twitter access token');
+  //     }
+
+  //     const data = response.data;
+
+  //     res.json(data); // Send the token data back to the client
+  //   } catch (error) {
+  //    // console.error('Error fetching Twitter token:', error);
+  //     res.status(500).send('Error fetching Twitter token');
+  //   }
+
+    const TWITTER_CLIENT_ID = "RXdwSEt0SV91MlpQb09yVWFKRTI6MTpjaQ";
+    const TWITTER_REDIRECT_URL = "http://localhost:5173/bookmarks/connections";
+   const TWITTER_CLIENT_SECRET =
+    "GSB0zyrn9NJI541_Cq_YQHqkDbrFnVGy6EidCknL9_7Zd4tvXZ";
+  const code = req.body.code;
   console.log(code);
- 
-  const url = "https://api.twitter.com/2/oauth2/token";
-  const headers = {
-    "Content-Type": "application/x-www-form-urlencoded",
-  };
-  
-  const TWITTER_CLIENT_ID = "RXdwSEt0SV91MlpQb09yVWFKRTI6MTpjaQ";
-  const TWITTER_REDIRECT_URL = "http://localhost:5173/bookmarks/connections";
- const TWITTER_CLIENT_SECRET =
-  "GSB0zyrn9NJI541_Cq_YQHqkDbrFnVGy6EidCknL9_7Zd4tvXZ";
 
-    const basicAuth = Buffer.from(
-      `${TWITTER_CLIENT_ID}:${TWITTER_CLIENT_SECRET}`
-    ).toString("base64");
-    headers["Authorization"] = `Basic ${basicAuth}`;
+  const credentials = `${TWITTER_CLIENT_ID}:${TWITTER_CLIENT_SECRET}`;
+  const encodedCredentials = Buffer.from(credentials).toString("base64");
   try {
-    const params = qs.stringify({
-      code: code,
-      grant_type: "authorization_code",
-      client_id: TWITTER_CLIENT_ID,
-      redirect_uri: TWITTER_REDIRECT_URL,
-      code_verifier: "challenge",
-    });
+    const response = await axios.post(
+      "https://api.twitter.com/oauth2/token",
+      
+      {
+        params: {
+          grant_type: "authorization_code",
+          client_id: TWITTER_CLIENT_ID,
+          client_secret: TWITTER_CLIENT_SECRET,
+          redirect_uri: TWITTER_REDIRECT_URL,
+          code: code,
+        },
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+      }
+    );
 
-
-    const response = await axios.post(url, params, { headers });
-    console.log(response);
-    if (response.status !== 200) {
-      throw new Error('Failed to get Twitter access token');
+    if (response.status === 200) {
+    //  console.log("Access token:", response.data.access_token);
+    } else {
+     // console.error("Failed to get access token:", response.statusText);
     }
-
-    const data = response.data;
-    console.log('Token Response:', data);
-    res.json(data); // Send the token data back to the client
   } catch (error) {
-    console.error('Error fetching Twitter token:', error);
-    res.status(500).send('Error fetching Twitter token');
+    //console.error("Error getting access token:", error.message);
   }
-
-
-    
-  }
+}
 
 
 const instagramAuth = async (req, res) => {
   const code = req.body.code
-  console.log(code);
+
   const form = new FormData();
   form.append("client_id", "765326902130468");
   form.append("client_secret", "cb453561ded521e3e8af8711ce14e3c4");
@@ -243,17 +275,114 @@ const instagramAuth = async (req, res) => {
      }
    );
     
-console.log(response.data);
+
     
 
      // Handle the access token as needed
      res.send(response.data);
    } catch (error) {
-     console.error("Error exchanging code for token:", error);
+    
      res.status(500).send("Error exchanging code for token");
    }
 
 }
+
+
+const getUserSavedInstagramPosts = async (req, res) => {
+  const access_token = req.body.gitHubeAccessToken;
+
+
+  
+    const response = await axios.get(
+      `https://graph.instagram.com/me?fields=id&access_token=${access_token}`
+    );
+   // console.log(response.data);
+    const userId =  response.data.id;
+ 
+  
+
+ try {
+   const url = `https://graph.instagram.com/${userId}/saved?fields=id,media_type,media_url,thumbnail_url,permalink,caption&access_token=${access_token}`;
+
+   let savedPosts = [];
+   let nextPage = url;
+
+   while (nextPage) {
+     const response = await axios.get(nextPage);
+     const data = response.data;
+
+     savedPosts = savedPosts.concat(data.data);
+
+     nextPage = data.paging && data.paging.next ? data.paging.next : null;
+   }
+console.log('savedPosts',savedPosts);
+   return savedPosts;
+ } catch (error) {
+   console.error("Error fetching saved posts:", error.message);
+   return [];
+ }
+
+
+}
+
+
+
+
+
+const githubAuth = async (req, res) => {
+  
+  const code = req.query.code;
+
+  const clientId = 'Ov23li8Ft6B8vyBNke7i'
+  const clientSecret = '55f93dae3f84b6b5b3b2368939904386a67f6bfb'
+  const redirect_uri = "http://localhost:5173/bookmarks/connections";
+
+  const params = `?client_id=${clientId}&client_secret=${clientSecret}&code=${code}`;
+
+  await fetch(
+    "https://github.com/login/oauth/access_token" + params,
+    {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+      },
+    }
+  )
+    .then((response) => {
+     
+    return response.json()
+    }).then((data) => {
+    //console.log(data);
+      res.json(data)
+    })
+
+
+}
+
+const getUserStarredReppos = async (req, res) => {
+  
+  const access_token = req.body.gitHubeAccessToken;
+  console.log("access_token", access_token);
+  await fetch("https://api.github.com/user/starred", {
+    headers: {
+      Accept: "application/vnd.github+json",
+      Authorization: `Bearer ${access_token}`,
+      "X-GitHub-Api-Version": "2022-11-28",
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      //  console.log(data);
+      res.json(data);
+    });
+
+ 
+
+ 
+}
+
 module.exports = {
   registerUser,
   loginUser,
@@ -263,4 +392,7 @@ module.exports = {
   googleRegisterLoggin,
   twitterAuth,
   instagramAuth,
+  githubAuth,
+  getUserStarredReppos,
+  getUserSavedInstagramPosts,
 };

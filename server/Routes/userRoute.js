@@ -9,6 +9,9 @@ const {
   googleRegisterLoggin,
   twitterAuth,
   instagramAuth,
+  githubAuth,
+  getUserStarredReppos,
+  getUserSavedInstagramPosts,
 } = require("../Controllers/userController");
 
 const router = express.Router();
@@ -30,5 +33,8 @@ router.get(
 router.post("/singleUser", getSingleUser);
 router.post("/twitterAuth", twitterAuth);
 router.post("/instagramAuth", instagramAuth);
+router.get("/githubAuth", githubAuth);
+router.post("/getUserStarredReppos", getUserStarredReppos);
+router.post("/getUserSavedInstagramPosts", getUserSavedInstagramPosts);
 
 module.exports = router;

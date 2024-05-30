@@ -14,76 +14,70 @@ const YouTube = () => {
   let playlists = userYouTubePlaylists || []; // If userYouTubePlaylists is null, default to an empty array
 
   return (
-      <>
-      <p style={{color:'black'}}>USER PLAYLISTS</p>
-          
-
-<Box>
-      <Grid container spacing={0}>
-      <Grid container>
-      {playlists.map((playlist, index) => (
-        <Grid
-          key={index}
-          item
-          xs={12}
-          lg={4}
-          sx={{
-            display: "flex",
-            alignItems: "stretch",
-          }}
-        >
-          <Card
-            variant="outlined"
-            sx={{
-              p: 0,
-              width: "100%",
-            }}
-          >
-          {/* <img src={playlist.player.embedHtml} alt="img" width="100%" /> */}
-          
-            <img src={playlist.snippet.thumbnails.standard.url} alt="img" width="100%" />
-            <CardContent
+    <>
+      <Box sx={{ p: 3 }}>
+        <Grid container spacing={3}>
+          {playlists.map((playlist, index) => (
+            <Grid
+              key={index}
+              item
+              xs={12}
+              lg={4}
               sx={{
-                paddingLeft: "30px",
-                paddingRight: "30px",
+                display: "flex",
+                alignItems: "stretch",
               }}
             >
-              <Typography
+              <Card
+                variant="outlined"
                 sx={{
-                  fontSize: "h4.fontSize",
-                  fontWeight: "500",
+                  width: "100%",
+                  borderRadius: 2,
+                  boxShadow: 3,
+                  transition: "transform 0.3s, box-shadow 0.3s",
+                  "&:hover": {
+                    transform: "translateY(-10px)",
+                    boxShadow: 6,
+                  },
                 }}
               >
-                {playlist.snippet.title}
-              </Typography>
-              
-              <Typography
-                color="textSecondary"
-                sx={{
-                  fontSize: "14px",
-                  fontWeight: "400",
-                  mt: 1,
-                }}
-              >
-                Videos: {playlist.contentDetails.itemCount}
-              </Typography>
-              <Button
-                variant="contained"
-                sx={{
-                  mt: "15px",
-                }}
-                color={'black'}
-              >
-                Learn More
-              </Button>
-            </CardContent>
-          </Card>
+                <img
+                  src={playlist.snippet.thumbnails.standard.url}
+                  alt="img"
+                  width="100%"
+                />
+                <CardContent
+                  sx={{
+                    padding: "24px",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: "1.25rem",
+                      fontWeight: 500,
+                      mb: 1,
+                    }}
+                  >
+                    {playlist.snippet.title}
+                  </Typography>
+                  <Typography
+                    color="textSecondary"
+                    sx={{
+                      fontSize: "14px",
+                      fontWeight: "400",
+                      mt: 1,
+                    }}
+                  >
+                    Videos: {playlist.contentDetails.itemCount}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
-      ))}
-    </Grid>
-      </Grid>
-    </Box>
-      </>
+      </Box>
+    
+    </>
   );
 };
 

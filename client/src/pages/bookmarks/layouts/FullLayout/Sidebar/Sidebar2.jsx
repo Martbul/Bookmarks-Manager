@@ -10,7 +10,7 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import RedditIcon from "@mui/icons-material/Reddit";
 import XIcon from "@mui/icons-material/X";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import GitHubIcon from "@mui/icons-material/GitHub";
+
 import GoogleIcon from "@mui/icons-material/Google";
 import { SiTiktok } from "react-icons/si";
 import { GrSpotify } from "react-icons/gr";
@@ -21,12 +21,13 @@ import LanguageIcon from "@mui/icons-material/Language";
 import NotesTwoToneIcon from "@mui/icons-material/NotesTwoTone";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import WorkIcon from "@mui/icons-material/Work";
-
+import GitHubIcon from "@mui/icons-material/GitHub";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-
+import MicrosoftIcon from "@mui/icons-material/Microsoft";
 import onenote from "../../../../../assets/img/microsoft-onenote.svg";
+import GitHub from "@mui/icons-material/GitHub";
 const items = [
   {
     key: "connections",
@@ -47,7 +48,6 @@ const items = [
   },
   {
     type: "divider",
-    
   },
   {
     type: "divider",
@@ -55,7 +55,7 @@ const items = [
   {
     type: "divider",
   },
- 
+
   {
     key: "youtube",
     label: "YouTube",
@@ -65,33 +65,7 @@ const items = [
   {
     type: "divider",
   },
-  {
-    key: "tiktok",
-    label: "TikTok",
-    icon: <SiTiktok />,
-    href: "/bookmarks/tiktok",
-  },
-  {
-    type: "divider",
-  },
-  {
-    key: "instagram",
-    label: "Instagram",
-    icon: <InstagramIcon />,
-    href: "/bookmarks/instagram",
-  },
-  {
-    type: "divider",
-  },
-  {
-    key: "x",
-    label: "X",
-    icon: <XIcon />,
-    href: "/bookmarks/X",
-  },
-  {
-    type: "divider",
-  },
+
   {
     key: "spotify",
     label: "Spotify",
@@ -122,13 +96,21 @@ const items = [
   {
     key: "onenote",
     label: "One Note",
-    icon: <NotesTwoToneIcon />,
+    icon: <MicrosoftIcon />,
     href: "/bookmarks/onenote",
   },
   {
     type: "divider",
   },
-
+  {
+    key: "github",
+    label: "GitHub",
+    icon: <GitHubIcon />,
+    href: "/bookmarks/github",
+  },
+  {
+    type: "divider",
+  },
   // {
   //   key: "socialmedia",
   //   label: "Social Media",
@@ -482,6 +464,9 @@ const Sidebar2 = () => {
         break;
       case "ebay":
         navigate("/bookmarks/ebay");
+        break;
+      case "github":
+        navigate("/bookmarks/github");
         break;
       default:
         // Handle any other cases or do nothing

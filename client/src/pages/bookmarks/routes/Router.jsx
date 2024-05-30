@@ -24,6 +24,7 @@ import StorageForComponent from "../views/dashboards/Dashboard1.jsx";
 import Reddit from "../views/reddit/Reddit.jsx";
 import Spotify from "../views/spotify/Spotify.jsx";
 import Onenote from "../views/onenote/Onenote.jsx";
+import Github from "../views/github/Github.jsx";
 
 
 
@@ -45,7 +46,7 @@ const ThemeRoutes = [
       { path: "/onenote", element: <Onenote /> },
       { path: "/facebook", element: <ExRadio /> },
       { path: "/google", element: <ExSlider /> },
-      { path: "/github", element: <ExSwitch /> },
+      { path: "/github", element: <Github /> },
     ],
   },
 ];

@@ -11,7 +11,9 @@ import {getUserFacebookSavedCollections} from '../externalAPIsConnection/faceboo
 import {getUserRedditSavedPosts} from '../externalAPIsConnection/redditAPI/redditAPIrequests'
 import {getPlaylists} from '../externalAPIsConnection/youtubeAPI/youtubeAPIrequests'
 import {getUserMicrosoftSavedNotes} from '../externalAPIsConnection/microsoftAPI/microsoftAPIOperations'
-import {fetchInstagramSavedPosts} from '../externalAPIsConnection/instagramAPI/instagramAPIrequests'
+import { fetchInstagramSavedPosts } from '../externalAPIsConnection/instagramAPI/instagramAPIrequests'
+import { getGitHubStaredReppos } from "../externalAPIsConnection/githubAPI/githubAPIrequests";
+
 export const ConnectionsContext = createContext();
 export const ConnectionsContextProvider = ({ children, user }) => {
   const [spotifyAccessToken, setSpotifyAccessToken] = useState(null);
@@ -31,6 +33,9 @@ export const ConnectionsContextProvider = ({ children, user }) => {
 
   const [userInstagramtAccessToken, setUserInstagramAccessToken] = useState(null);
   const [userInstagramSavedPosts, setUserInstagramSavedPosts] = useState(null);
+
+    const [userGitHubAccessToken, setUserGitHubAccessToken] = useState(null);
+  const [userGitHubStaredReppo, setUserGitHubStaredReppo] = useState(null);
 
   //! you also should check if the token is valid
   let checkForSpotifyAccessToken = localStorage.getItem(
@@ -116,6 +121,27 @@ export const ConnectionsContextProvider = ({ children, user }) => {
       setUserInstagramAccessToken(null);
     }
   }, [checkForInstagramAccessToken]);
+ 
+ 
+
+
+  
+  let checkForGitHubAccessToken = localStorage.getItem("UserGitHubTokensData");
+  useEffect(() => {
+    const GitHubTokens = localStorage.getItem("UserGitHubTokensData");
+    if (GitHubTokens) {
+      const githubAccessToken = JSON.parse(GitHubTokens).access_token;
+      setUserGitHubAccessToken(githubAccessToken);
+    } else {
+      setUserGitHubAccessToken(null);
+    }
+  }, [checkForGitHubAccessToken]);
+
+
+
+
+
+
 
 
 
@@ -226,6 +252,27 @@ export const ConnectionsContextProvider = ({ children, user }) => {
         console.error("Error fetching Instagram Saved Posts :", error);
       });
   }, [userInstagramtAccessToken]);
+  
+  
+  
+  
+  
+  //!napishli sushtata logica no za microsoft
+  useEffect(() => {
+    getGitHubStaredReppos(userGitHubAccessToken)
+      .then((data) => {
+        if (data ) {
+          console.log("GitHub stared reppos:", data);
+          setUserGitHubStaredReppo(data);
+        } else {
+          console.log("No saved posts found.");
+          setUserGitHubStaredReppo(null);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching GitHub stared reppos :", error);
+      });
+  }, [userGitHubAccessToken]);
 
   return (
     <ConnectionsContext.Provider
@@ -247,6 +294,9 @@ export const ConnectionsContextProvider = ({ children, user }) => {
 
         userInstagramtAccessToken,
         userInstagramSavedPosts,
+
+        userGitHubAccessToken,
+        userGitHubStaredReppo,
       }}
     >
       {children}
