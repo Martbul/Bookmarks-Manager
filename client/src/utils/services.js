@@ -1,4 +1,4 @@
-export const baseUrl = "bookmarks-manager-server.netlify.app";
+export const baseUrl = "https://bookmarks-manager-server.onrender.com";
 
 export const postRequest = async (url, body) => {
     const response = await fetch(url, {
