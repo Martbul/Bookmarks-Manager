@@ -17,11 +17,16 @@ const app = express()
 
 const port = process.env.PORT || 5000; //this env port is set automatically by your hosting service;
 const uri = process.env.ATLAS_URI;
+
+const corsOptions = {
+  origin: "https://bookmarks-manager-pkwm.onrender.com", // Replace with your frontend URL
+  optionsSuccessStatus: 200, // For legacy browser support
+};
  
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(
   session({
