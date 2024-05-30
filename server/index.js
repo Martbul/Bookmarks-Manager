@@ -36,6 +36,7 @@ app.use(
   app.use(passport.initialize());
 app.use(passport.session());
 
+app.options('*', cors(corsOptions)); // Enable preflight for all routes
 
 
 
