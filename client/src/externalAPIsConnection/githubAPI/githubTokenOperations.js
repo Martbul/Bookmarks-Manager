@@ -18,64 +18,28 @@ const getReturnedParamsFromGitHubAuth = async (search) => {
   code = code.slice(0, -25);
    console.log(code);
    
-const body = {code}
-   const response = await postRequest(
-     `${baseUrl}/users/githubAuth`,
-     JSON.stringify(body)
-   );
-   console.log(response);
-   const data = response.json();
-   console.log(data);
 
 
-//   const params = new URLSearchParams({
-//     code: code,
-//     client_id: GITHUB_CLIENT_ID,
-//     client_secret: GITHUB_CLIENT_SECRET,
-//     redirect_uri: GITHUB_REDIRECT_URL,
-//     state: "github_recognition",
-//   });
+  await fetch("http://localhost:5000/api/users/githubAuth?code="+code)
+    .then((response) => {
+     return response.json();
+     
+    }).then((data) => {
+      if (data.access_token !== undefined) {
+        const access_token = data.access_token;
+        console.log(access_token);
+            const userGitHubTokensData = JSON.stringify({
+              access_token,
+            
+            });
+            localStorage.setItem(
+              "UserGitHubTokensData",
+              userGitHubTokensData
+            );
+      }
+     
+   })
 
-//   fetch("https://github.com/login/oauth/access_token", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Accept: "application/json",
-//     },
-//     body: params.toString(),
-//   })
-//     .then((response) => {
-//        if (!response.ok) {
-//          console.log(response);
-//         throw new Error("Failed to get YouTube access token", response);
-//        }
-//         console.log(response);
-//       return response.json();
-//     })
-
-//     .then((data) => {
-//       // console.log("Token Response:", data);
-//       const access_token = data.access_token;
-//       const refresh_token = data.refresh_token;
-//       const expires_in = data.expires_in;
-
-//       const currentTime = Date.now(); // Current time in milliseconds since the UNIX epoch
-//       const tokenLifetimeMilliseconds = expires_in * 1000; // Convert lifetime to milliseconds
-//       const expirationTimestamp = currentTime + tokenLifetimeMilliseconds;
-//       const expirationDate = new Date(expirationTimestamp);
-//       // console.log(expirationDate);
-
-//       const userYouTubeTokensData = JSON.stringify({
-//         access_token,
-//         refresh_token,
-//         expirationTime: expirationDate.toLocaleString(),
-//       });
-//       localStorage.setItem("UserYouTubeTokensData", userYouTubeTokensData);
-//     })
-//     .catch((error) => {
-//       console.error("Error fetching github token:", error);
-//       // Handle fetch error
-//     });
 };
 
 // const checkAndRefreshYouTubeAccessToken = async () => {

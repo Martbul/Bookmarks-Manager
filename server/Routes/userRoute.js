@@ -10,6 +10,7 @@ const {
   twitterAuth,
   instagramAuth,
   githubAuth,
+  getUserStarredReppos,
 } = require("../Controllers/userController");
 
 const router = express.Router();
@@ -31,6 +32,7 @@ router.get(
 router.post("/singleUser", getSingleUser);
 router.post("/twitterAuth", twitterAuth);
 router.post("/instagramAuth", instagramAuth);
-router.post("/githubAuth", githubAuth);
+router.get("/githubAuth", githubAuth);
+router.post("/getUserStarredReppos", getUserStarredReppos);
 
 module.exports = router;

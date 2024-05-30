@@ -7,13 +7,14 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const FormData = require("form-data");
 
-const fetch = require("node-fetch");
+
 
 const qs = require("qs"); 
 
 const Buffer = require("buffer").Buffer;
 
-
+const fetch = (...args) =>
+  import('node-fetch').then(({default:fetch}) =>fetch(...args))
 
 
 
@@ -63,7 +64,7 @@ const registerUser = async (req, res) => {
 
     res.status(200).json({ _id: user._id, name, email, token });
   } catch (error) {
-    console.log(error);
+    
     res.status(500).json(error);
   }
 };
@@ -91,7 +92,7 @@ const loginUser = async (req, res) => {
 
     res.status(200).json({ _id: user._id, name: user.name, email, token });
   } catch (error) {
-    console.log(error);
+  
     res.status(500).json(error);
   }
 };
@@ -103,7 +104,7 @@ const findUser = async (req, res) => {
 
     res.status(200).json(user);
   } catch (error) {
-    console.log(error);
+  
     res.status(500).json(error);
   }
 };
@@ -114,27 +115,27 @@ const getUsers = async (req, res) => {
 
     res.status(200).json(users);
   } catch (error) {
-    console.log(error);
+   
     res.status(500).json(error);
   }
 };
 
 const getSingleUser = async (req, res) => {
-  //console.log(req.body);
+  
   const id = req.body.id;
-  // console.log(id);
+
   try {
     const user = await userModel.findById(id);
-    //console.log(user);
+  
     res.status(200).json(user);
   } catch (error) {
-    console.log(error);
+ 
     res.status(500).json(error);
   }
 };
 
 const googleRegisterLoggin = async (req, res) => {
-  console.log(req.body);
+
   try {
     const { name, email, jti } = req.body;
 
@@ -148,7 +149,7 @@ const googleRegisterLoggin = async (req, res) => {
 
     //login
     if (user) {
-      console.log('here1');
+   
 
       if (user.googleId_jti === null) {
         user.googleId_jti = jti;
@@ -160,13 +161,13 @@ const googleRegisterLoggin = async (req, res) => {
       
     } //register
     else {
-      console.log('here2');
+    
       user = new userModel({ name, email, googleId_jti: jti });
       await user.save();
       res.status(200).json({ name, email, jti });
     }
   } catch (error) {
-    console.log(error);
+ 
     res.status(500).json(error);
   }
 };
@@ -175,7 +176,7 @@ const googleRegisterLoggin = async (req, res) => {
 const twitterAuth = async (req, res) => {
   
   const code = req.body.code
-  console.log(code);
+
  
   const url = "https://api.twitter.com/2/oauth2/token";
   const headers = {
@@ -202,16 +203,16 @@ const twitterAuth = async (req, res) => {
 
 
     const response = await axios.post(url, params, { headers });
-    console.log(response);
+ 
     if (response.status !== 200) {
       throw new Error('Failed to get Twitter access token');
     }
 
     const data = response.data;
-    console.log('Token Response:', data);
+  
     res.json(data); // Send the token data back to the client
   } catch (error) {
-    console.error('Error fetching Twitter token:', error);
+   // console.error('Error fetching Twitter token:', error);
     res.status(500).send('Error fetching Twitter token');
   }
 
@@ -222,7 +223,7 @@ const twitterAuth = async (req, res) => {
 
 const instagramAuth = async (req, res) => {
   const code = req.body.code
-  console.log(code);
+
   const form = new FormData();
   form.append("client_id", "765326902130468");
   form.append("client_secret", "cb453561ded521e3e8af8711ce14e3c4");
@@ -244,13 +245,13 @@ const instagramAuth = async (req, res) => {
      }
    );
     
-console.log(response.data);
+
     
 
      // Handle the access token as needed
      res.send(response.data);
    } catch (error) {
-     console.error("Error exchanging code for token:", error);
+    
      res.status(500).send("Error exchanging code for token");
    }
 
@@ -261,86 +262,60 @@ console.log(response.data);
 
 
 
-const githubAuth = async(req, res) => {
-  console.log(req.body.code);
-  const code = req.body.code;
+const githubAuth = async (req, res) => {
+  
+  const code = req.query.code;
 
   const clientId = 'Ov23li8Ft6B8vyBNke7i'
   const clientSecret = '55f93dae3f84b6b5b3b2368939904386a67f6bfb'
   const redirect_uri = "http://localhost:5173/bookmarks/connections";
 
-  
-    try {
-      const response = await axios.post(
-        "https://github.com/login/oauth/access_token",
-        {
-          client_id: clientId,
-          client_secret: clientSecret,
-          code: code,
-          redirect_uri: redirect_uri,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      );
-console.log(response);
-      res.json(response.data);
-    } catch (error) {
-      console.error("Error:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+  const params = `?client_id=${clientId}&client_secret=${clientSecret}&code=${code}`;
+
+  await fetch(
+    "https://github.com/login/oauth/access_token" + params,
+    {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+      },
     }
-  // const params = new URLSearchParams({
-  //   code: code,
-  //   client_id: GITHUB_CLIENT_ID,
-  //   client_secret: GITHUB_CLIENT_SECRET,
-  //   redirect_uri: GITHUB_REDIRECT_URL,
-  //   state: "github_recognition",
-  // });
+  )
+    .then((response) => {
+     
+    return response.json()
+    }).then((data) => {
+    console.log(data);
+      res.json(data)
+    })
 
-  // fetch("https://github.com/login/oauth/access_token", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Accept: "application/json",
-  //   },
-  //   body: params.toString(),
-  // })
-  //   .then((response) => {
-  //     if (!response.ok) {
-  //       console.log(response);
-  //       throw new Error("Failed to get YouTube access token", response);
-  //     }
-  //     console.log(response);
-  //     return response.json();
-  //   })
 
-  //   .then((data) => {
-  //     // console.log("Token Response:", data);
-  //     const access_token = data.access_token;
-  //     const refresh_token = data.refresh_token;
-  //     const expires_in = data.expires_in;
-
-  //     const currentTime = Date.now(); // Current time in milliseconds since the UNIX epoch
-  //     const tokenLifetimeMilliseconds = expires_in * 1000; // Convert lifetime to milliseconds
-  //     const expirationTimestamp = currentTime + tokenLifetimeMilliseconds;
-  //     const expirationDate = new Date(expirationTimestamp);
-  //     // console.log(expirationDate);
-
-  //     const userYouTubeTokensData = JSON.stringify({
-  //       access_token,
-  //       refresh_token,
-  //       expirationTime: expirationDate.toLocaleString(),
-  //     });
-  //     localStorage.setItem("UserYouTubeTokensData", userYouTubeTokensData);
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error fetching github token:", error);
-  //     // Handle fetch error
-  //   });
 }
+
+const getUserStarredReppos = async (req, res) => {
+  
+  const access_token = req.body.gitHubeAccessToken;
+  console.log("access_token", access_token);
+  await fetch("https://api.github.com/user/starred", {
+    headers: {
+      Accept: "application/vnd.github+json",
+      Authorization: `Bearer ${access_token}`,
+      "X-GitHub-Api-Version": "2022-11-28",
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      //  console.log(data);
+      res.json(data);
+    });
+
+ 
+
+ 
+}
+
 module.exports = {
   registerUser,
   loginUser,
@@ -351,4 +326,5 @@ module.exports = {
   twitterAuth,
   instagramAuth,
   githubAuth,
+  getUserStarredReppos,
 };
