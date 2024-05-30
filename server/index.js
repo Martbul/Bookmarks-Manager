@@ -4,25 +4,28 @@ const cors = require("cors");
 const { google } = require("googleapis");
 const mongoose = require("mongoose");
 const passport = require("passport");
-require("dotenv").config()
-require('./strategies/google')
+require("dotenv").config();
+require("./strategies/google");
 const session = require("express-session");
 const bodyParser = require("body-parser");
-const userRoute = require('./Routes/userRoute');
+const userRoute = require("./Routes/userRoute");
 
 // const chatRoute = require('./Routes/chatRoute');
 // const messageRoute = require('./Routes/messageRoute');
 
-const app = express()
+const app = express();
 
 const port = process.env.PORT || 5000; //this env port is set automatically by your hosting service;
 const uri = process.env.ATLAS_URI;
 
+// CORS configuration
 const corsOptions = {
-  origin: "https://bookmarks-manager-pkwm.onrender.com", // Replace with your frontend URL
-  optionsSuccessStatus: 200, // For legacy browser support
+  origin: "https://bookmarks-manager-pkwm.onrender.com", // frontend origin
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // to support cookies
+  optionsSuccessStatus: 204,
 };
- 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -37,35 +40,25 @@ app.use(
   })
 );
 
-
-  app.use(passport.initialize());
+app.use(passport.initialize());
 app.use(passport.session());
 
-app.options('*', cors(corsOptions)); // Enable preflight for all routes
-
-
+// Enable preflight for all routes
+app.options("*", cors(corsOptions));
 
 app.use("/api/users", userRoute);
 //app.use("/api/playlists", spotifyPlaylistsRoute);
 // app.use("/api/chats", chatRoute);
 // app.use("/api/messages", messageRoute);
 
-
-
-
-
-
-
-
-
-
-app.listen(port,(req,res) =>{
-    console.log(`Server is runing on port: ${port}`)
+app.listen(port, (req, res) => {
+  console.log(`Server is running on port: ${port}`);
 });
 
-mongoose.connect(uri,{
-    useNewUrlParser:true,
-    useUnifiedTopology:true,
-})
-.then(()=>console.log('Connected to MongoDB!'))
-.catch((error) =>console.log("MongoDB connection FAILED:", error.message));
+mongoose
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to MongoDB!"))
+  .catch((error) => console.log("MongoDB connection FAILED:", error.message));
