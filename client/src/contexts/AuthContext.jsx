@@ -99,6 +99,7 @@ export const AuthContextProvider = ({ children }) => {
   
     const logoutUser = useCallback(async()=>{
       localStorage.removeItem("User");
+        localStorage.clear()
       setUser(null);
     },[])
   

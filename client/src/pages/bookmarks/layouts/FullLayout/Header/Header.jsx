@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from 'react-router-dom';
 
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
@@ -22,8 +22,10 @@ import {
 } from "@mui/material";
 
 import userimg from "../../../assets/images/users/user.jpg";
+import { AuthContext } from "../../../../../contexts/AuthContext";
 
 const Header = (props) => {
+  const { user, logoutUser } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -43,6 +45,11 @@ const Header = (props) => {
 
   const handleClose4 = () => {
     setAnchorEl4(null);
+  };
+  const handleClose44 = () => {
+    logoutUser()
+    setAnchorEl4(null);
+
   };
 
   // 5
@@ -231,7 +238,7 @@ const Header = (props) => {
             </ListItemIcon>
             Settings
           </MenuItem>
-          <MenuItem onClick={handleClose4}>
+          <MenuItem onClick={handleClose44}>
             <ListItemIcon>
               <LogoutOutlinedIcon fontSize="small" />
             </ListItemIcon>
