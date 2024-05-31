@@ -2,7 +2,8 @@ const msalConfig = {
   auth: {
     clientId: "109e64ef-c1ca-4077-b8c5-c4f28cf2b0ba", // Replace with your app's client ID
     authority: "https://login.microsoftonline.com/common", // Use your tenant ID if needed
-    redirectUri: "http://localhost:5173/bookmarks/connections", // Replace with your app's redirect URI
+    redirectUri:
+      "https://bookmarks-manager-pkwm.onrender.com/bookmarks/connections", // Replace with your app's redirect URI
   },
   cache: {
     cacheLocation: "localStorage", // This configures where your cache will be stored
