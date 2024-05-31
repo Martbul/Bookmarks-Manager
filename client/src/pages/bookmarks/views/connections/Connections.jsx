@@ -81,7 +81,7 @@ const Connections = () => {
   return (
     <>
       <div className="text">
-        <h1 style={{color:"black"}}>Login with your favorite apps</h1>
+        <h1 style={{ color: "black" }}>Login with your favorite apps</h1>
       </div>
       <div className="social-media-auth">
         {/* <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200">
@@ -93,7 +93,8 @@ const Connections = () => {
             <button
               className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-[#1DB954] hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
               onClick={() =>
-                (window.location = "http://localhost:5173/bookmarks/youtube")
+                (window.location =
+                  "https://bookmarks-manager-pkwm.onrender.com/bookmarks/youtube")
               }
             >
               YouTube
@@ -172,7 +173,8 @@ const Connections = () => {
             <button
               className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-[#1DB954] hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
               onClick={() =>
-                (window.location = "http://localhost:5173/bookmarks/github")
+                (window.location =
+                  "https://bookmarks-manager-pkwm.onrender.com/bookmarks/github")
               }
             >
               GitHub
@@ -196,7 +198,8 @@ const Connections = () => {
             <button
               className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-[#1DB954] hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
               onClick={() =>
-                (window.location = "http://localhost:5173/bookmarks/onenote")
+                (window.location =
+                  "https://bookmarks-manager-pkwm.onrender.com/bookmarks/onenote")
               }
             >
               Microsoft
@@ -220,7 +223,8 @@ const Connections = () => {
             <button
               className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-[#1DB954] hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
               onClick={() =>
-                (window.location = "http://localhost:5173/bookmarks/spotify")
+                (window.location =
+                  "https://bookmarks-manager-pkwm.onrender.com/bookmarks/spotify")
               }
             >
               Spotify
@@ -233,7 +237,8 @@ const Connections = () => {
             <button
               className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-[#1DB954] hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200"
               onClick={() =>
-                (window.location = "http://localhost:5173/bookmarks/reddit")
+                (window.location =
+                  "https://bookmarks-manager-pkwm.onrender.com/bookmarks/reddit")
               }
             >
               Reddit

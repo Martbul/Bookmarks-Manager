@@ -35,7 +35,7 @@ const ThemeRoutes = [
     path: "/",
     element: <FullLayout />,
     children: [
-      { path: "/", element: <Navigate to="tiktok" /> },
+      { path: "/", element: <Navigate to="connections" /> },
       { path: "connections", exact: true, element: <Connections /> },
       { path: "tiktok", exact: true, element: <StorageForComponent /> },
       { path: "youtube", element: <YouTube /> },
