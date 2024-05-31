@@ -1,8 +1,9 @@
 const facebookAuthUrl = 'https://www.facebook.com/v20.0/dialog/oauth'
-const facebook_app_id = '986441046403045'
-const facebook_app_secret = '9bade6cc64061bc585a6134ae44af458'
+const facebook_app_id = "1157651955376196";
+const facebook_app_secret = "9ade9b7aeee54c0ec99e4f61d5eb35d4";
 const state = "public_profile,email,user_likes,user_posts,";
-const facebook_redirect_url = 'http://localhost:5173/connections'
+const facebook_redirect_url =
+  "https://bookmarks-manager-pkwm.onrender.com/bookmarks/connections";
 
 const handleFcebookLogin = () => {
     const auth_url = `${facebookAuthUrl}?client_id=${facebook_app_id}&redirect_uri=${facebook_redirect_url}&state=${state}`;

@@ -20,25 +20,23 @@ const getReturnedParamsFromGitHubAuth = async (search) => {
    
 
 
-  await fetch("http://localhost:5000/api/users/githubAuth?code="+code)
+  await fetch(
+    "https://bookmarks-manager-server.onrender.com/api/users/githubAuth?code=" +
+      code
+  )
     .then((response) => {
-     return response.json();
-     
-    }).then((data) => {
+      return response.json();
+    })
+    .then((data) => {
       if (data.access_token !== undefined) {
         const access_token = data.access_token;
         console.log(access_token);
-            const userGitHubTokensData = JSON.stringify({
-              access_token,
-            
-            });
-            localStorage.setItem(
-              "UserGitHubTokensData",
-              userGitHubTokensData
-            );
+        const userGitHubTokensData = JSON.stringify({
+          access_token,
+        });
+        localStorage.setItem("UserGitHubTokensData", userGitHubTokensData);
       }
-     
-   })
+    });
 
 };
 
